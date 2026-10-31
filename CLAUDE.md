@@ -28,12 +28,15 @@ npm run dev        # dev server on http://localhost:3000
 npm run build      # production build
 npm run lint       # ESLint
 npm run typecheck  # generate route types + tsc --noEmit
+npm run db:push    # apply pending migrations to the linked Supabase project
+npm run db:types   # regenerate src/lib/db/types.ts from the database
 ```
 
 Run `lint`, `typecheck` and `build` before every commit.
 
 `GET /api/health` reports whether Supabase is configured and reachable
-(`ok`, `not_configured` or `error`).
+(`supabase`: `ok`, `not_configured` or `error`) and whether the migrations
+are applied (`database`: `ok`, `missing_schema`, `error` or `skipped`).
 
 ## Folder structure
 
@@ -49,7 +52,7 @@ src/
   config/
     forms/                    form configuration: fields per insurance type, as data
   lib/
-    db/                       Supabase server client, queries, DB types
+    db/                       Supabase server client, queries, generated DB types
     env/server.ts             zod-validated server env vars (server-only)
     schemas/                  zod schemas generated from the form config
     integrations/
@@ -59,7 +62,8 @@ src/
     tracking/                 analytics and conversion tracking
     utils.ts                  cn() helper for shadcn
 supabase/
-  migrations/                 SQL migrations
+  config.toml                 Supabase CLI config
+  migrations/                 SQL migrations (see its README for the rules)
 ```
 
 Folders that a later module fills contain a `README.md` describing what
@@ -89,8 +93,13 @@ belongs there.
 ## Infrastructure status
 
 - **GitHub:** `Majestic100/hero-insurance`, default branch `main`.
-- **Supabase:** project in Central EU (Frankfurt, `eu-central-1`). No tables
-  yet (module 1). Uses the new key format (`sb_secret_...`).
+- **Supabase:** project `obxdwfiwvaaqvcgetiwm` in Central EU (Frankfurt,
+  `eu-central-1`). Uses the new key format (`sb_secret_...`). Tables
+  `leads`, `lead_insurances` and `consents` (module 1), managed with the
+  Supabase CLI. Production and Preview share this one database.
+- **Open before module 5:** create a separate Supabase project for local
+  development and Vercel Preview, so test leads never reach the production
+  database and migrations can be tried before they hit production.
 - **Vercel:** project connected to the repo, functions in `fra1`.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set for Production and
   Preview. The Supabase Vercel integration is deliberately not installed
@@ -105,7 +114,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | #  | Module                        | Status |
 | -- | ----------------------------- | ------ |
 | 0  | Setup                         | done   |
-| 1  | Database                      |        |
+| 1  | Database                      | done   |
 | 2  | Frontend skeleton             |        |
 | 3  | Steps per insurance type      |        |
 | 4  | Contact and consent           |        |
@@ -142,7 +151,8 @@ Update the status column when a module is finished.
      (anon) key is the only key allowed in frontend code, and only if a browser
      client is deliberately introduced together with strict RLS policies.
    - Enable RLS on every table with no policies for `anon`/`authenticated`,
-     so the publishable key can read or write nothing.
+     and revoke all their privileges, so the publishable key can read or
+     write nothing.
    - External integrations (address, BBR, license plate) are called from the
      server, never directly from the browser.
 5. **Mobile first.** Design and test at ~375px width first, then scale up
