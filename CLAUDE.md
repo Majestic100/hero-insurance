@@ -65,6 +65,39 @@ supabase/
 Folders that a later module fills contain a `README.md` describing what
 belongs there.
 
+## Workflow
+
+- **Plan first.** At the start of each module, show the plan (files,
+  decisions, open questions) and wait for the owner's approval before
+  writing any code.
+- **Branch and PR.** Work on a feature branch and open a pull request into
+  `main`. `main` is the production branch: Vercel deploys it automatically.
+- **Finish properly.** A module is done when `lint`, `typecheck` and `build`
+  pass, the result is verified in the running app, the module status below
+  is updated, and the PR is merged.
+- **End with a summary:** what was built, and what the owner must do
+  themselves (keys, dashboards, manual steps).
+
+## Working with the owner
+
+- Be critical. Push back on bad ideas and point out risks and trade-offs
+  instead of agreeing by default. Give a recommendation, not a menu.
+- Don't use em-dashes in replies or docs.
+- Reply in the language the owner writes in (Danish or English). Code,
+  comments and docs stay in English.
+
+## Infrastructure status
+
+- **GitHub:** `Majestic100/hero-insurance`, default branch `main`.
+- **Supabase:** project in Central EU (Frankfurt, `eu-central-1`). No tables
+  yet (module 1). Uses the new key format (`sb_secret_...`).
+- **Vercel:** project connected to the repo, functions in `fra1`.
+  `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set for Production and
+  Preview. The Supabase Vercel integration is deliberately not installed
+  (it uses different variable names).
+- `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
+  of module 0.
+
 ## Modules
 
 We build one module at a time. Do not start work belonging to a later module.
