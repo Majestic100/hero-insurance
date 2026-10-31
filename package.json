@@ -8,8 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
-    "db:push": "supabase db push --linked",
-    "db:types": "supabase gen types typescript --linked --schema public > src/lib/db/types.ts"
+    "db:push": "supabase db push --project-ref dshqzvqmncmpukiboeot",
+    "db:push:prod": "supabase db push --project-ref obxdwfiwvaaqvcgetiwm",
+    "db:types": "supabase gen types typescript --project-id dshqzvqmncmpukiboeot --schema public > src/lib/db/types.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.0",
