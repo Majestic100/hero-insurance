@@ -28,8 +28,9 @@ npm run dev        # dev server on http://localhost:3000
 npm run build      # production build
 npm run lint       # ESLint
 npm run typecheck  # generate route types + tsc --noEmit
-npm run db:push    # apply pending migrations to the linked Supabase project
-npm run db:types   # regenerate src/lib/db/types.ts from the database
+npm run db:push       # apply pending migrations to the DEV Supabase project
+npm run db:push:prod  # apply pending migrations to PRODUCTION (after dev)
+npm run db:types      # regenerate src/lib/db/types.ts from the dev database
 ```
 
 Run `lint`, `typecheck` and `build` before every commit.
@@ -93,17 +94,20 @@ belongs there.
 ## Infrastructure status
 
 - **GitHub:** `Majestic100/hero-insurance`, default branch `main`.
-- **Supabase:** project `obxdwfiwvaaqvcgetiwm` in Central EU (Frankfurt,
-  `eu-central-1`). Uses the new key format (`sb_secret_...`). Tables
-  `leads`, `lead_insurances` and `consents` (module 1), managed with the
-  Supabase CLI. Production and Preview share this one database.
-- **Open before module 5:** create a separate Supabase project for local
-  development and Vercel Preview, so test leads never reach the production
-  database and migrations can be tried before they hit production.
+- **Supabase:** two projects in Central EU (Frankfurt, `eu-central-1`),
+  both on the new key format (`sb_secret_...`) and managed with the
+  Supabase CLI:
+  - **Production** `obxdwfiwvaaqvcgetiwm` ("Hero Insurance"): used only by
+    Vercel Production.
+  - **Dev** `dshqzvqmncmpukiboeot` ("Hero Insurance Dev"): used by local
+    development (`.env.local`) and Vercel Preview. Test leads go here.
+  - Tables `leads`, `lead_insurances` and `consents` (module 1) exist in
+    both. Apply new migrations to dev first, then to production.
 - **Vercel:** project connected to the repo, functions in `fra1`.
-  `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set for Production and
-  Preview. The Supabase Vercel integration is deliberately not installed
-  (it uses different variable names).
+  `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
+  Production (production project) and Preview (dev project). The Supabase
+  Vercel integration is deliberately not installed (it uses different
+  variable names).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
 

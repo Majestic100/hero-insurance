@@ -8,7 +8,7 @@ Danish insurance comparison site (car, home contents, house). See
 ```bash
 nvm use            # Node 22
 npm install
-cp .env.example .env.local   # then fill in the Supabase keys
+cp .env.example .env.local   # then fill in the DEV Supabase project's URL and secret key
 npm run dev
 ```
 
