@@ -54,10 +54,12 @@ rigtige leads.
 
 ## Konti og adgang
 
-- [ ] **[Blokerer lancering] Beskyttelse mod spam og misbrug af formularen:**
-  der er endnu ingen bot-beskyttelse eller begrænsning af antal
-  indsendelser. Vi bør bruge fx Cloudflare Turnstile (gratis), som kræver en
-  konto og to nøgler. Kode: `src/app/api/leads/route.ts`.
+- [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
+  Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
+- [ ] **Slå "BotID Deep Analysis" til**, når Vercel er på Pro: Vercel >
+  projektet > Firewall > Rules. Basisversionen af BotID kører allerede og
+  stopper almindelige bots; Deep Analysis stopper også de avancerede
+  ($1 pr. 1.000 tjek).
 - [ ] **Adresse- og BBR-opslag (modul 6):** adgang til Datafordeler eller en
   anden kilde, så adresse, boligareal og byggeår kan slås op automatisk.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
@@ -66,6 +68,11 @@ rigtige leads.
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
+
+- 2026-11-02: Spam-beskyttelse med Vercel BotID (usynlig, ingen ny
+  leverandør eller nøgler). Turnstile er alternativet, hvis vi forlader
+  Vercel. Ingen rate limiting pr. IP-adresse (det kræver, at vi gemmer
+  IP-adresser).
 
 - 2026-11-01: 12 forsikringstyper. Pension, lønsikring og A-kasse er fravalgt
   (kun forsikringer).
