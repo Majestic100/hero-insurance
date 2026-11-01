@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { formConfig } from "@/config/forms";
+import { INSURANCE_TYPES } from "@/config/forms/insurance-types";
 import { getActiveSteps, getSelectedTypes } from "./step-sequence";
 
 describe("getSelectedTypes", () => {
@@ -12,7 +13,7 @@ describe("getSelectedTypes", () => {
   });
 
   it("ignores unknown values and missing selections", () => {
-    expect(getSelectedTypes({ insuranceTypes: ["boat", "car"] })).toEqual([
+    expect(getSelectedTypes({ insuranceTypes: ["spaceship", "car"] })).toEqual([
       "car",
     ]);
     expect(getSelectedTypes({})).toEqual([]);
@@ -35,12 +36,18 @@ describe("getActiveSteps", () => {
       "hus",
       "afslut",
     ]);
-    expect(ids(["car", "home_contents", "house"])).toEqual([
+    expect(ids(["boat", "car", "pet"])).toEqual([
       "forsikringer",
       "bil",
-      "indbo",
-      "hus",
+      "baad",
+      "dyr",
       "afslut",
     ]);
+  });
+
+  it("has one step per insurance type, with unique ids", () => {
+    const all = getActiveSteps(formConfig, INSURANCE_TYPES);
+    expect(all).toHaveLength(INSURANCE_TYPES.length + 2);
+    expect(new Set(all.map((step) => step.id)).size).toBe(all.length);
   });
 });

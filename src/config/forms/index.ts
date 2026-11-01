@@ -11,8 +11,8 @@ export const INSURANCE_SELECTION_FIELD = "insuranceTypes";
 const insuranceOptions = INSURANCE_TYPES.map(
   (type): ChoiceOption => ({
     value: type,
-    label: INSURANCE_TYPE_INFO[type].label,
-    description: INSURANCE_TYPE_INFO[type].description,
+    label: INSURANCE_TYPE_INFO[type].shortLabel,
+    icon: type,
   }),
 ) as [ChoiceOption, ...ChoiceOption[]];
 
@@ -20,9 +20,9 @@ const insuranceOptions = INSURANCE_TYPES.map(
  * One step per insurance type. The fields are added in module 3; until then
  * the steps only carry a title, so the flow can be built and tested.
  */
-function insuranceStep(type: InsuranceType, id: string): StepConfig {
+function insuranceStep(type: InsuranceType): StepConfig {
   return {
-    id,
+    id: INSURANCE_TYPE_INFO[type].slug,
     title: INSURANCE_TYPE_INFO[type].label,
     description: "Her kommer spørgsmålene om din forsikring.",
     insuranceType: type,
@@ -31,7 +31,7 @@ function insuranceStep(type: InsuranceType, id: string): StepConfig {
 }
 
 export const formConfig = {
-  version: "2026-11-01.1",
+  version: "2026-11-01.2",
   steps: [
     {
       id: "forsikringer",
@@ -43,14 +43,13 @@ export const formConfig = {
           name: INSURANCE_SELECTION_FIELD,
           label: "Forsikringer",
           options: insuranceOptions,
+          layout: "grid",
           minSelected: 1,
           minSelectedMessage: "Vælg mindst én forsikring.",
         },
       ],
     },
-    insuranceStep("car", "bil"),
-    insuranceStep("home_contents", "indbo"),
-    insuranceStep("house", "hus"),
+    ...INSURANCE_TYPES.map(insuranceStep),
     {
       id: "afslut",
       title: "Næsten færdig",

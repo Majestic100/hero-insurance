@@ -5,8 +5,11 @@
 ## Purpose
 
 A Danish insurance comparison website. Users choose which insurances they
-want quotes on (v1: car, home contents, house), fill out a multi-step form,
-and the lead is saved and passed on to insurance partners.
+want quotes on (12 types, listed in `src/config/forms/insurance-types.ts`:
+car, home contents, house, accident and health, travel, holiday home,
+MC/ATV/moped, boat, caravan, pet, life, change of ownership), fill out a
+multi-step form, and the lead is saved and passed on to insurance partners.
+Only insurance: no pension, salary insurance or unemployment funds.
 
 The product is the lead: complete, valid, consented data delivered reliably.
 Every module should be judged by whether it improves lead quality,

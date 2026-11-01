@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { formConfig } from "@/config/forms";
+import { INSURANCE_TYPES } from "@/config/forms/insurance-types";
 import type { FormConfig } from "@/config/forms/types";
 import {
   buildDefaultValues,
@@ -23,7 +24,7 @@ describe("buildStepSchema", () => {
 
   it("rejects values that are not options", () => {
     const result = buildStepSchema(selectionStep).safeParse({
-      insuranceTypes: ["boat"],
+      insuranceTypes: ["spaceship"],
     });
     expect(result.success).toBe(false);
   });
@@ -80,9 +81,7 @@ describe("buildDefaultValues", () => {
   it("creates empty values and a namespace per insurance type", () => {
     expect(buildDefaultValues(formConfig)).toEqual({
       insuranceTypes: [],
-      car: {},
-      home_contents: {},
-      house: {},
+      ...Object.fromEntries(INSURANCE_TYPES.map((type) => [type, {}])),
     });
   });
 
