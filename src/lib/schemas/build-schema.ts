@@ -80,9 +80,10 @@ function requiredSchema(field: FieldConfig): z.ZodType {
     }
 
     case "consent":
-      // A required consent must be given; an optional one is true or false.
+      // A required consent must be given; an optional one may be left out,
+      // which counts as not given.
       return field.optional
-        ? z.boolean()
+        ? z.boolean().optional()
         : z.literal(true, {
             error:
               field.requiredMessage ??
