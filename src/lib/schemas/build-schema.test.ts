@@ -276,6 +276,7 @@ describe("consent", () => {
 
   it("may be declined when optional", () => {
     expect(errorFor({ ...consent, optional: true }, false)).toBeUndefined();
+    expect(errorFor({ ...consent, optional: true }, undefined)).toBeUndefined();
     expect(errorFor({ ...consent, optional: true }, "yes")).toBeDefined();
   });
 });

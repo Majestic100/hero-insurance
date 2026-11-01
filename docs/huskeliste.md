@@ -54,11 +54,13 @@ rigtige leads.
 
 ## Konti og adgang
 
+- [ ] **[Blokerer lancering] Beskyttelse mod spam og misbrug af formularen:**
+  der er endnu ingen bot-beskyttelse eller begrænsning af antal
+  indsendelser. Vi bør bruge fx Cloudflare Turnstile (gratis), som kræver en
+  konto og to nøgler. Kode: `src/app/api/leads/route.ts`.
 - [ ] **Adresse- og BBR-opslag (modul 6):** adgang til Datafordeler eller en
   anden kilde, så adresse, boligareal og byggeår kan slås op automatisk.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
-- [ ] **Bot-beskyttelse** af formularen (fx Cloudflare Turnstile): konto og
-  nøgler.
 - [ ] **Tracking (modul 7):** konti til fx GA4 og Meta, og en cookie-løsning.
 
 ## Besluttet
