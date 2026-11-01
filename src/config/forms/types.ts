@@ -7,13 +7,30 @@ import type { InsuranceType } from "./insurance-types";
  * generator then handle the new type.
  */
 
+/**
+ * Shows a field only when another field in the same step has one of the
+ * given values (or, for a multi-choice field, includes one of them).
+ * Hidden fields are not validated and are dropped from the parsed values.
+ */
+export type FieldCondition = {
+  field: string;
+  equals: string | readonly string[];
+};
+
 type BaseField = {
   /** Key in the form values. Unique within its step's namespace. */
   name: string;
   /** Danish label shown to the user. */
   label: string;
+  /** Hides the label visually (still read by screen readers). */
+  hideLabel?: boolean;
   /** Optional Danish help text shown under the label. */
   description?: string;
+  /** Fields are required unless set to true. Shown as "(valgfri)". */
+  optional?: boolean;
+  /** Danish error shown when a required field is empty. */
+  requiredMessage?: string;
+  showIf?: FieldCondition;
 };
 
 export type ChoiceOption = {
@@ -24,10 +41,12 @@ export type ChoiceOption = {
   icon?: string;
 };
 
+type ChoiceOptions = readonly [ChoiceOption, ...ChoiceOption[]];
+
 /** Several options as large tappable cards; the value is an array. */
 export type MultiChoiceField = BaseField & {
   type: "multi-choice";
-  options: readonly [ChoiceOption, ...ChoiceOption[]];
+  options: ChoiceOptions;
   /** "list": full-width rows (default). "grid": compact tiles for many options. */
   layout?: "list" | "grid";
   /** Minimum number of options the user must pick. Defaults to 0. */
@@ -36,7 +55,62 @@ export type MultiChoiceField = BaseField & {
   minSelectedMessage?: string;
 };
 
-export type FieldConfig = MultiChoiceField;
+/** One option as large tappable cards; the value is the option value. */
+export type SingleChoiceField = BaseField & {
+  type: "single-choice";
+  options: ChoiceOptions;
+  /** "list": full-width rows (default). "grid": 2 per row, for short labels. */
+  layout?: "list" | "grid";
+};
+
+/** A dropdown, for long lists of options. */
+export type SelectField = BaseField & {
+  type: "select";
+  options: ChoiceOptions;
+  /** Text shown before anything is picked. */
+  placeholder?: string;
+};
+
+export type TextField = BaseField & {
+  type: "text";
+  placeholder?: string;
+  /** Defaults to 100. */
+  maxLength?: number;
+  /** Uppercases and removes spaces before validating (license plates). */
+  normalize?: "uppercase-no-spaces";
+  /** Regex (as a string) the normalized value must match. */
+  pattern?: string;
+  /** Danish error shown when the value does not match `pattern`. */
+  patternMessage?: string;
+  autoComplete?: string;
+};
+
+/** A whole number, typed with the numeric keyboard on mobile. */
+export type NumberField = BaseField & {
+  type: "number";
+  min: number;
+  max: number;
+  /** Shown after the input, e.g. "m²", "kr.", "fod", "hk". */
+  unit?: string;
+  placeholder?: string;
+};
+
+/** A year, between `minYear` and the current year minus `maxYearsAgo`. */
+export type YearField = BaseField & {
+  type: "year";
+  minYear: number;
+  /** E.g. 17 for a driver's birth year. Defaults to 0 (this year). */
+  maxYearsAgo?: number;
+  placeholder?: string;
+};
+
+export type FieldConfig =
+  | MultiChoiceField
+  | SingleChoiceField
+  | SelectField
+  | TextField
+  | NumberField
+  | YearField;
 
 export type FieldType = FieldConfig["type"];
 

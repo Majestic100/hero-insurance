@@ -3,7 +3,15 @@ import {
   INSURANCE_TYPES,
   type InsuranceType,
 } from "./insurance-types";
-import type { ChoiceOption, FormConfig, StepConfig } from "./types";
+import { carFields } from "./steps/car";
+import { homeContentsFields } from "./steps/home-contents";
+import { houseFields } from "./steps/house";
+import type {
+  ChoiceOption,
+  FieldConfig,
+  FormConfig,
+  StepConfig,
+} from "./types";
 
 /** Name of the field that holds the selected insurance types. */
 export const INSURANCE_SELECTION_FIELD = "insuranceTypes";
@@ -17,21 +25,31 @@ const insuranceOptions = INSURANCE_TYPES.map(
 ) as [ChoiceOption, ...ChoiceOption[]];
 
 /**
- * One step per insurance type. The fields are added in module 3; until then
- * the steps only carry a title, so the flow can be built and tested.
+ * The questions per insurance type, one file each in ./steps. Types not
+ * listed yet get a placeholder step (module 3b adds them).
  */
+const INSURANCE_FIELDS: Partial<Record<InsuranceType, readonly FieldConfig[]>> =
+  {
+    car: carFields,
+    home_contents: homeContentsFields,
+    house: houseFields,
+  };
+
 function insuranceStep(type: InsuranceType): StepConfig {
+  const fields = INSURANCE_FIELDS[type];
   return {
     id: INSURANCE_TYPE_INFO[type].slug,
     title: INSURANCE_TYPE_INFO[type].label,
-    description: "Her kommer spørgsmålene om din forsikring.",
+    description: fields
+      ? undefined
+      : "Her kommer spørgsmålene om din forsikring.",
     insuranceType: type,
-    fields: [],
+    fields: fields ?? [],
   };
 }
 
 export const formConfig = {
-  version: "2026-11-01.2",
+  version: "2026-11-01.3",
   steps: [
     {
       id: "forsikringer",
@@ -42,6 +60,7 @@ export const formConfig = {
           type: "multi-choice",
           name: INSURANCE_SELECTION_FIELD,
           label: "Forsikringer",
+          hideLabel: true,
           options: insuranceOptions,
           layout: "grid",
           minSelected: 1,

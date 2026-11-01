@@ -2,8 +2,18 @@ import { z } from "zod";
 
 import type { InsuranceType } from "@/config/forms/insurance-types";
 import { INSURANCE_TYPES } from "@/config/forms/insurance-types";
-import type { FieldConfig, FormConfig, StepConfig } from "@/config/forms/types";
-import { getActiveSteps, type FormValues } from "@/lib/form/step-sequence";
+import type {
+  FieldConfig,
+  FormConfig,
+  StepConfig,
+  TextField,
+} from "@/config/forms/types";
+import {
+  getActiveSteps,
+  getSelectedTypes,
+  type FormValues,
+} from "@/lib/form/step-sequence";
+import { getVisibleFields } from "@/lib/form/visibility";
 
 /**
  * Generates zod schemas from the form configuration. This is the only place
@@ -12,27 +22,112 @@ import { getActiveSteps, type FormValues } from "@/lib/form/step-sequence";
  *
  * Values of steps tied to an insurance type are nested under that type:
  * { insuranceTypes: [...], car: { ... }, house: { ... } }
+ *
+ * Schemas depend on the values, because fields with `showIf` are only
+ * validated while shown. Parsing drops hidden fields from the output.
  */
 
 type Shape = Record<string, z.ZodType>;
 
-export function buildFieldSchema(field: FieldConfig): z.ZodType {
+const DEFAULT_REQUIRED = "Udfyld feltet.";
+const DEFAULT_CHOOSE = "Vælg en mulighed.";
+const DEFAULT_TEXT_MAX_LENGTH = 100;
+
+function formatNumber(value: number): string {
+  return value.toLocaleString("da-DK");
+}
+
+function optionValues(field: { options: readonly { value: string }[] }) {
+  return field.options.map((option) => option.value) as [string, ...string[]];
+}
+
+function requiredSchema(field: FieldConfig): z.ZodType {
   switch (field.type) {
     case "multi-choice": {
-      const values = field.options.map((option) => option.value) as [
-        string,
-        ...string[],
-      ];
-      const schema = z.array(z.enum(values));
+      const schema = z.array(z.enum(optionValues(field)));
       const min = field.minSelected ?? 0;
       return min > 0
         ? schema.min(min, field.minSelectedMessage ?? `Vælg mindst ${min}.`)
         : schema;
     }
+
+    case "single-choice":
+    case "select":
+      return z.enum(optionValues(field), {
+        error: field.requiredMessage ?? DEFAULT_CHOOSE,
+      });
+
+    case "text":
+      return buildTextSchema(field);
+
+    case "number": {
+      const unit = field.unit ? ` ${field.unit}` : "";
+      return z
+        .number({ error: field.requiredMessage ?? DEFAULT_REQUIRED })
+        .int("Skriv et helt tal.")
+        .min(field.min, `Skal være mindst ${formatNumber(field.min)}${unit}.`)
+        .max(field.max, `Må højst være ${formatNumber(field.max)}${unit}.`);
+    }
+
+    case "year": {
+      const maxYear = new Date().getFullYear() - (field.maxYearsAgo ?? 0);
+      return z
+        .number({ error: field.requiredMessage ?? DEFAULT_REQUIRED })
+        .int("Skriv et årstal med fire cifre.")
+        .min(field.minYear, `Årstallet skal være ${field.minYear} eller senere.`)
+        .max(maxYear, `Årstallet må højst være ${maxYear}.`);
+    }
   }
 }
 
-function buildSchemaForSteps(steps: readonly StepConfig[]) {
+/**
+ * Text is normalized first (trimmed, or uppercased without spaces), then
+ * checked. An empty optional field becomes undefined. One pipeline, no
+ * union, so every error message stays the Danish one from the config.
+ */
+function buildTextSchema(field: TextField): z.ZodType {
+  const required = field.requiredMessage ?? DEFAULT_REQUIRED;
+  const maxLength = field.maxLength ?? DEFAULT_TEXT_MAX_LENGTH;
+  const normalize = (text: string) =>
+    field.normalize === "uppercase-no-spaces"
+      ? text.toUpperCase().replace(/\s+/g, "")
+      : text.trim();
+
+  let check = z.string();
+  if (!field.optional) {
+    check = check.min(1, required);
+  }
+  check = check.max(maxLength, `Højst ${maxLength} tegn.`);
+  if (field.pattern) {
+    check = check.regex(
+      new RegExp(field.pattern),
+      field.patternMessage ?? "Tjek, at feltet er udfyldt korrekt.",
+    );
+  }
+
+  if (!field.optional) {
+    return z.string({ error: required }).transform(normalize).pipe(check);
+  }
+  return z
+    .string()
+    .optional()
+    .transform((text) => normalize(text ?? "") || undefined)
+    .pipe(check.optional());
+}
+
+export function buildFieldSchema(field: FieldConfig): z.ZodType {
+  const schema = requiredSchema(field);
+  // Text handles "optional" itself; multi-choice uses minSelected instead.
+  if (!field.optional || field.type === "text" || field.type === "multi-choice") {
+    return schema;
+  }
+  return schema.optional();
+}
+
+function buildSchemaForSteps(
+  steps: readonly StepConfig[],
+  values: FormValues,
+) {
   const root: Shape = {};
   const nested: Partial<Record<InsuranceType, Shape>> = {};
 
@@ -40,7 +135,7 @@ function buildSchemaForSteps(steps: readonly StepConfig[]) {
     const target = step.insuranceType
       ? (nested[step.insuranceType] ??= {})
       : root;
-    for (const field of step.fields) {
+    for (const field of getVisibleFields(step, values)) {
       target[field.name] = buildFieldSchema(field);
     }
   }
@@ -53,16 +148,20 @@ function buildSchemaForSteps(steps: readonly StepConfig[]) {
 }
 
 /** Schema for a single step: used to validate before moving on. */
-export function buildStepSchema(step: StepConfig) {
-  return buildSchemaForSteps([step]);
+export function buildStepSchema(step: StepConfig, values: FormValues) {
+  return buildSchemaForSteps([step], values);
 }
 
-/** Schema for the whole form, given the selected insurance types. */
-export function buildFormSchema(
-  config: FormConfig,
-  selected: readonly InsuranceType[],
-) {
-  return buildSchemaForSteps(getActiveSteps(config, selected));
+/**
+ * Schema for the whole form. The server builds it from the submitted
+ * values: the selection decides which steps apply, and conditions decide
+ * which fields are validated.
+ */
+export function buildFormSchema(config: FormConfig, values: FormValues) {
+  return buildSchemaForSteps(
+    getActiveSteps(config, getSelectedTypes(values)),
+    values,
+  );
 }
 
 /** Index of the first step whose values are invalid, or -1 if all are valid. */
@@ -71,7 +170,7 @@ export function findFirstInvalidStep(
   values: FormValues,
 ): number {
   return steps.findIndex(
-    (step) => !buildStepSchema(step).safeParse(values).success,
+    (step) => !buildStepSchema(step, values).safeParse(values).success,
   );
 }
 
@@ -79,6 +178,13 @@ function defaultFieldValue(field: FieldConfig): unknown {
   switch (field.type) {
     case "multi-choice":
       return [];
+    case "text":
+      return "";
+    case "single-choice":
+    case "select":
+    case "number":
+    case "year":
+      return undefined;
   }
 }
 

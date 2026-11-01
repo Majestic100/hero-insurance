@@ -1,14 +1,22 @@
 "use client";
 
-import { useId, type Ref } from "react";
+import type { Ref } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import type { MultiChoiceField } from "@/config/forms/types";
 import { cn } from "@/lib/utils";
 import { getOptionIcon } from "../option-icons";
+import {
+  describedBy,
+  FieldDescription,
+  FieldError,
+  FieldLegend,
+  type FieldIds,
+} from "./field-parts";
 
 type ChoiceCardsProps = {
   field: MultiChoiceField;
+  ids: FieldIds;
   value: string[];
   onChange: (value: string[]) => void;
   onBlur: () => void;
@@ -24,14 +32,13 @@ type ChoiceCardsProps = {
  */
 export function ChoiceCards({
   field,
+  ids,
   value,
   onChange,
   onBlur,
   inputRef,
   error,
 }: ChoiceCardsProps) {
-  const id = useId();
-  const errorId = `${id}-error`;
   const isGrid = field.layout === "grid";
 
   function toggle(optionValue: string, checked: boolean) {
@@ -47,13 +54,14 @@ export function ChoiceCards({
   }
 
   return (
-    <fieldset aria-describedby={error ? errorId : undefined}>
-      <legend className="sr-only">{field.label}</legend>
+    <fieldset className="space-y-2" {...describedBy(field, ids, error)}>
+      <FieldLegend field={field} />
+      <FieldDescription field={field} ids={ids} />
       <div
         className={cn("grid gap-3", isGrid && "grid-cols-2 sm:grid-cols-3")}
       >
         {field.options.map((option, index) => {
-          const optionId = `${id}-${option.value}`;
+          const optionId = `${ids.input}-${option.value}`;
           const checked = value.includes(option.value);
           const Icon = getOptionIcon(option.icon);
           return (
@@ -94,11 +102,7 @@ export function ChoiceCards({
           );
         })}
       </div>
-      {error && (
-        <p id={errorId} role="alert" className="mt-3 text-sm text-destructive">
-          {error}
-        </p>
-      )}
+      <FieldError ids={ids} error={error} />
     </fieldset>
   );
 }

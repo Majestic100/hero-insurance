@@ -19,6 +19,7 @@ import {
 } from "@/config/forms/insurance-types";
 import type { FormConfig, StepConfig } from "@/config/forms/types";
 import { loadDraft, saveDraft } from "@/lib/form/draft";
+import { getVisibleFields } from "@/lib/form/visibility";
 import {
   getActiveSteps,
   getSelectedTypes,
@@ -96,7 +97,9 @@ function WizardForm({ config }: { config: FormConfig }) {
   const resolver = useCallback<Resolver<FormValues>>(
     (values, context, options) =>
       (
-        zodResolver(buildStepSchema(stepRef.current)) as unknown as Resolver<FormValues>
+        zodResolver(
+          buildStepSchema(stepRef.current, values),
+        ) as unknown as Resolver<FormValues>
       )(values, context, options),
     [],
   );
@@ -196,7 +199,7 @@ function WizardForm({ config }: { config: FormConfig }) {
         </div>
 
         <div className="mt-6 space-y-6">
-          {step.fields.map((field) => (
+          {getVisibleFields(step, values).map((field) => (
             <FieldRenderer
               key={fieldPath(step, field)}
               step={step}
