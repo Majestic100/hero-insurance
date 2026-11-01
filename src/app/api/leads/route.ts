@@ -1,3 +1,4 @@
+import { checkBotId } from "botid/server";
 import { z } from "zod";
 
 import { submitLead } from "@/lib/leads/submit-lead";
@@ -25,8 +26,18 @@ function json(body: unknown, status: number) {
  * with the generated schema, then saved with the `create_lead` database
  * function. Errors returned to the client are in Danish and contain no
  * details beyond which fields are invalid.
+ *
+ * Bots are stopped first with Vercel BotID (set up in
+ * src/instrumentation-client.ts). It only works on Vercel; locally it always
+ * reports "not a bot". Calling this endpoint with curl in production is
+ * therefore blocked with 403: test it from a page in the app instead.
  */
 export async function POST(request: Request) {
+  const verification = await checkBotId();
+  if (verification.isBot) {
+    return json({ error: "Forespørgslen blev afvist." }, 403);
+  }
+
   const text = await request.text();
   if (text.length > MAX_BODY_BYTES) {
     return json({ error: "Forespørgslen er for stor." }, 413);

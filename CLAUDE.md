@@ -47,6 +47,7 @@ are applied (`database`: `ok`, `missing_schema`, `error` or `skipped`).
 
 ```
 src/
+  instrumentation-client.ts   Vercel BotID: routes protected against bots
   app/                        routes (App Router)
     page.tsx                  homepage
     tilbud/page.tsx           the quote form (/tilbud?trin=<step id>)
@@ -203,6 +204,10 @@ Update the status column when a module is finished.
   `npx shadcn@latest add <name>`. They use the `cn` package (shadcn's
   replacement for clsx + tailwind-merge) via `@/lib/utils`. Prefer composing
   them over editing them. If you do edit one, keep the change small.
+- **Bot protection (Vercel BotID).** `src/instrumentation-client.ts` lists the
+  protected routes and the route calls `checkBotId()` first. Keep the two in
+  sync. BotID only works on Vercel: locally it always passes, and `curl`
+  against production is blocked (403), so test from a page in the app.
 - **Env vars** are validated lazily, so the app builds and runs without keys.
   Code that needs Supabase should call `getSupabaseServerClient()`, which
   throws a clear error if keys are missing or invalid.
