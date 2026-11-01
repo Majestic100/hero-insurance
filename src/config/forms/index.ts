@@ -3,7 +3,9 @@ import {
   INSURANCE_TYPES,
   type InsuranceType,
 } from "./insurance-types";
+import { consentFields } from "./consents";
 import { accidentHealthFields } from "./steps/accident-health";
+import { contactFields } from "./steps/contact";
 import { boatFields } from "./steps/boat";
 import { carFields } from "./steps/car";
 import { caravanFields } from "./steps/caravan";
@@ -62,7 +64,7 @@ function insuranceStep(type: InsuranceType): StepConfig {
 }
 
 export const formConfig = {
-  version: "2026-11-01.4",
+  version: "2026-11-01.5",
   steps: [
     {
       id: "forsikringer",
@@ -83,10 +85,16 @@ export const formConfig = {
     },
     ...INSURANCE_TYPES.map(insuranceStep),
     {
+      id: "kontakt",
+      title: "Dine oplysninger",
+      description: "Så forsikringsselskaberne kan sende dig deres tilbud.",
+      fields: contactFields,
+    },
+    {
       id: "afslut",
-      title: "Næsten færdig",
-      description: "Indsendelse er ikke åbnet endnu.",
-      fields: [],
+      title: "Send din forespørgsel",
+      description: "Tjek dine valg, og giv samtykke til at modtage tilbud.",
+      fields: consentFields,
     },
   ],
 } satisfies FormConfig;

@@ -6,6 +6,7 @@ import { Controller, get, useFormState, type Control } from "react-hook-form";
 import type { FieldConfig, StepConfig } from "@/config/forms/types";
 import type { FormValues } from "@/lib/form/step-sequence";
 import { ChoiceCards } from "./fields/choice-cards";
+import { ConsentCheckbox } from "./fields/consent-checkbox";
 import { fieldIds } from "./fields/field-parts";
 import { NumberInput } from "./fields/number-input";
 import { SelectInput } from "./fields/select-input";
@@ -76,6 +77,15 @@ export function FieldRenderer({ step, field, control }: FieldRendererProps) {
                 {...shared}
                 field={field}
                 value={input.value as string | undefined}
+                onChange={input.onChange}
+              />
+            );
+          case "consent":
+            return (
+              <ConsentCheckbox
+                {...shared}
+                field={field}
+                value={input.value as boolean | undefined}
                 onChange={input.onChange}
               />
             );

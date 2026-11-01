@@ -7,6 +7,7 @@ import type {
   FormConfig,
   StepConfig,
   TextField,
+  TextFormat,
 } from "@/config/forms/types";
 import {
   getActiveSteps,
@@ -77,27 +78,65 @@ function requiredSchema(field: FieldConfig): z.ZodType {
         .min(field.minYear, `Årstallet skal være ${field.minYear} eller senere.`)
         .max(maxYear, `Årstallet må højst være ${maxYear}.`);
     }
+
+    case "consent":
+      // A required consent must be given; an optional one is true or false.
+      return field.optional
+        ? z.boolean()
+        : z.literal(true, {
+            error:
+              field.requiredMessage ??
+              "Du skal give samtykke for at kunne få tilbud.",
+          });
   }
 }
 
+/** Normalization and check for each built-in text format. */
+const TEXT_FORMATS: Record<
+  TextFormat,
+  { normalize: (text: string) => string; pattern: RegExp; message: string }
+> = {
+  email: {
+    normalize: (text) => text.trim().toLowerCase(),
+    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    message: "Skriv en gyldig e-mailadresse.",
+  },
+  "phone-dk": {
+    normalize: (text) => text.replace(/[\s-]/g, "").replace(/^(\+45|0045)/, ""),
+    pattern: /^\d{8}$/,
+    message: "Skriv et dansk telefonnummer med 8 cifre.",
+  },
+  "postal-code-dk": {
+    normalize: (text) => text.replace(/\s/g, ""),
+    pattern: /^\d{4}$/,
+    message: "Skriv et postnummer med 4 cifre.",
+  },
+};
+
 /**
- * Text is normalized first (trimmed, or uppercased without spaces), then
- * checked. An empty optional field becomes undefined. One pipeline, no
- * union, so every error message stays the Danish one from the config.
+ * Text is normalized first (trimmed, uppercased without spaces, or by its
+ * format), then checked. An empty optional field becomes undefined. One
+ * pipeline, no union, so every error message stays the Danish one.
  */
 function buildTextSchema(field: TextField): z.ZodType {
   const required = field.requiredMessage ?? DEFAULT_REQUIRED;
   const maxLength = field.maxLength ?? DEFAULT_TEXT_MAX_LENGTH;
+  const format = field.format ? TEXT_FORMATS[field.format] : undefined;
   const normalize = (text: string) =>
-    field.normalize === "uppercase-no-spaces"
-      ? text.toUpperCase().replace(/\s+/g, "")
-      : text.trim();
+    format
+      ? format.normalize(text)
+      : field.normalize === "uppercase-no-spaces"
+        ? text.toUpperCase().replace(/\s+/g, "")
+        : text.trim();
 
   let check = z.string();
   if (!field.optional) {
     check = check.min(1, required);
   }
   check = check.max(maxLength, `Højst ${maxLength} tegn.`);
+  if (format) {
+    check = check.regex(format.pattern, format.message);
+  }
   if (field.pattern) {
     check = check.regex(
       new RegExp(field.pattern),
@@ -117,8 +156,14 @@ function buildTextSchema(field: TextField): z.ZodType {
 
 export function buildFieldSchema(field: FieldConfig): z.ZodType {
   const schema = requiredSchema(field);
-  // Text handles "optional" itself; multi-choice uses minSelected instead.
-  if (!field.optional || field.type === "text" || field.type === "multi-choice") {
+  // Text and consent handle "optional" themselves; multi-choice uses
+  // minSelected instead.
+  if (
+    !field.optional ||
+    field.type === "text" ||
+    field.type === "consent" ||
+    field.type === "multi-choice"
+  ) {
     return schema;
   }
   return schema.optional();
@@ -180,6 +225,8 @@ function defaultFieldValue(field: FieldConfig): unknown {
       return [];
     case "text":
       return "";
+    case "consent":
+      return false;
     case "single-choice":
     case "select":
     case "number":

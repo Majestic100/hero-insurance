@@ -225,3 +225,57 @@ describe("buildDefaultValues", () => {
     expect(findFirstInvalidStep(formConfig.steps, values)).toBe(0);
   });
 });
+
+describe("text formats", () => {
+  const base = { type: "text", name: "x", label: "X" } as const;
+
+  it("lowercases and checks e-mail addresses", () => {
+    const email: FieldConfig = { ...base, format: "email" };
+    const result = buildFieldSchema(email).safeParse("  Sinan@Example.DK ");
+    expect(result.success && result.data).toBe("sinan@example.dk");
+    expect(errorFor(email, "sinan@example")).toBe(
+      "Skriv en gyldig e-mailadresse.",
+    );
+  });
+
+  it("normalizes Danish phone numbers to 8 digits", () => {
+    const phone: FieldConfig = { ...base, format: "phone-dk" };
+    for (const input of ["12 34 56 78", "+45 12345678", "0045 1234-5678"]) {
+      const result = buildFieldSchema(phone).safeParse(input);
+      expect(result.success && result.data, input).toBe("12345678");
+    }
+    expect(errorFor(phone, "1234567")).toBe(
+      "Skriv et dansk telefonnummer med 8 cifre.",
+    );
+  });
+
+  it("checks postal codes", () => {
+    const postal: FieldConfig = { ...base, format: "postal-code-dk" };
+    expect(errorFor(postal, "2100")).toBeUndefined();
+    expect(errorFor(postal, "210")).toBe("Skriv et postnummer med 4 cifre.");
+  });
+});
+
+describe("consent", () => {
+  const consent: FieldConfig = {
+    type: "consent",
+    name: "consentPartnerContact",
+    label: "Samtykke",
+    consentType: "partner_contact",
+    version: "1",
+    text: "Jeg giver samtykke.",
+  };
+
+  it("must be given when required", () => {
+    expect(errorFor(consent, false)).toBe(
+      "Du skal give samtykke for at kunne få tilbud.",
+    );
+    expect(errorFor(consent, undefined)).toBeDefined();
+    expect(errorFor(consent, true)).toBeUndefined();
+  });
+
+  it("may be declined when optional", () => {
+    expect(errorFor({ ...consent, optional: true }, false)).toBeUndefined();
+    expect(errorFor({ ...consent, optional: true }, "yes")).toBeDefined();
+  });
+});

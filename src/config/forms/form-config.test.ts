@@ -194,3 +194,35 @@ describe("insurance steps accept a realistic answer", () => {
     expect(cat.data?.pet).not.toHaveProperty("liability");
   });
 });
+
+describe("contact and consent steps", () => {
+  it("accept realistic answers", () => {
+    const contact = stepById("kontakt");
+    const values = {
+      firstName: "Sinan",
+      lastName: "Akdag",
+      email: "Sinan@Example.dk",
+      phone: "+45 12 34 56 78",
+      streetAddress: "Testvej 1, 2. tv.",
+      postalCode: "2100",
+      city: "København Ø",
+      birthYear: 1985,
+    };
+    const result = buildStepSchema(contact, values).safeParse(values);
+    expect(result.success).toBe(true);
+    expect(result.data).toMatchObject({
+      email: "sinan@example.dk",
+      phone: "12345678",
+    });
+  });
+
+  it("requires the partner consent but not marketing", () => {
+    const consent = stepById("afslut");
+    const declined = { consentPartnerContact: false, consentMarketing: false };
+    expect(buildStepSchema(consent, declined).safeParse(declined).success).toBe(
+      false,
+    );
+    const given = { consentPartnerContact: true, consentMarketing: false };
+    expect(buildStepSchema(consent, given).safeParse(given).success).toBe(true);
+  });
+});
