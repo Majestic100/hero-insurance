@@ -5,7 +5,16 @@ import { initBotId } from "botid/client/core";
  * result to requests to the protected routes. The server verifies it with
  * checkBotId() (see src/app/api/leads/route.ts). Every route listed here
  * must call checkBotId(), and every route that calls it must be listed.
+ *
+ * Loaded on Vercel and in `next dev` (where BotID lets everything through).
+ * Not loaded in a production build outside Vercel, where it cannot work;
+ * see NEXT_PUBLIC_BOTID_ENABLED in next.config.ts.
  */
-initBotId({
-  protect: [{ path: "/api/leads", method: "POST" }],
-});
+if (
+  process.env.NEXT_PUBLIC_BOTID_ENABLED === "true" ||
+  process.env.NODE_ENV === "development"
+) {
+  initBotId({
+    protect: [{ path: "/api/leads", method: "POST" }],
+  });
+}
