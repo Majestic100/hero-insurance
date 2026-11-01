@@ -127,7 +127,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 0  | Setup                         | done   |
 | 1  | Database                      | done   |
 | 2  | Frontend skeleton             | done   |
-| 3  | Steps per insurance type      | 3a done (car, home contents, house); 3b next |
+| 3  | Steps per insurance type      | done   |
 | 4  | Contact and consent           |        |
 | 5  | Submission                    |        |
 | 6  | Registers and APIs            |        |

@@ -1,9 +1,11 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { CLAIM_FREE_YEARS, YES_NO } from "./shared";
-
-/** Danish plates: standard (AB12345) and personal plates, 2-7 characters. */
-const LICENSE_PLATE_PATTERN = "^[A-ZÆØÅ0-9]{2,7}$";
+import {
+  CLAIM_FREE_YEARS,
+  LICENSE_PLATE_MESSAGE,
+  LICENSE_PLATE_PATTERN,
+  YES_NO,
+} from "./shared";
 
 export const carFields: readonly FieldConfig[] = [
   {
@@ -21,7 +23,7 @@ export const carFields: readonly FieldConfig[] = [
     maxLength: 10,
     normalize: "uppercase-no-spaces",
     pattern: LICENSE_PLATE_PATTERN,
-    patternMessage: "Tjek nummerpladen. Den består af bogstaver og tal.",
+    patternMessage: LICENSE_PLATE_MESSAGE,
     showIf: { field: "hasLicensePlate", equals: "yes" },
   },
   {

@@ -3,9 +3,18 @@ import {
   INSURANCE_TYPES,
   type InsuranceType,
 } from "./insurance-types";
+import { accidentHealthFields } from "./steps/accident-health";
+import { boatFields } from "./steps/boat";
 import { carFields } from "./steps/car";
+import { caravanFields } from "./steps/caravan";
+import { changeOfOwnershipFields } from "./steps/change-of-ownership";
+import { holidayHomeFields } from "./steps/holiday-home";
 import { homeContentsFields } from "./steps/home-contents";
 import { houseFields } from "./steps/house";
+import { lifeFields } from "./steps/life";
+import { motorcycleAtvMopedFields } from "./steps/motorcycle-atv-moped";
+import { petFields } from "./steps/pet";
+import { travelFields } from "./steps/travel";
 import type {
   ChoiceOption,
   FieldConfig,
@@ -25,31 +34,35 @@ const insuranceOptions = INSURANCE_TYPES.map(
 ) as [ChoiceOption, ...ChoiceOption[]];
 
 /**
- * The questions per insurance type, one file each in ./steps. Types not
- * listed yet get a placeholder step (module 3b adds them).
+ * The questions per insurance type, one file each in ./steps. A Record, so
+ * adding an insurance type without questions fails the typecheck.
  */
-const INSURANCE_FIELDS: Partial<Record<InsuranceType, readonly FieldConfig[]>> =
-  {
-    car: carFields,
-    home_contents: homeContentsFields,
-    house: houseFields,
-  };
+const INSURANCE_FIELDS: Record<InsuranceType, readonly FieldConfig[]> = {
+  car: carFields,
+  home_contents: homeContentsFields,
+  house: houseFields,
+  accident_health: accidentHealthFields,
+  travel: travelFields,
+  holiday_home: holidayHomeFields,
+  motorcycle_atv_moped: motorcycleAtvMopedFields,
+  boat: boatFields,
+  caravan: caravanFields,
+  pet: petFields,
+  life: lifeFields,
+  change_of_ownership: changeOfOwnershipFields,
+};
 
 function insuranceStep(type: InsuranceType): StepConfig {
-  const fields = INSURANCE_FIELDS[type];
   return {
     id: INSURANCE_TYPE_INFO[type].slug,
     title: INSURANCE_TYPE_INFO[type].label,
-    description: fields
-      ? undefined
-      : "Her kommer spørgsmålene om din forsikring.",
     insuranceType: type,
-    fields: fields ?? [],
+    fields: INSURANCE_FIELDS[type],
   };
 }
 
 export const formConfig = {
-  version: "2026-11-01.3",
+  version: "2026-11-01.4",
   steps: [
     {
       id: "forsikringer",

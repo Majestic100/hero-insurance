@@ -59,5 +59,7 @@ Values of choice fields are stored in the answers: never rename one.
 3. Add a component in `src/components/form/fields/` and a case in
    `src/components/form/field-renderer.tsx`.
 
-Questions exist for car, home contents and house (module 3a). The other
-types still have placeholder steps (module 3b).
+Every insurance type has its questions (module 3). `index.ts` maps each
+type to its fields with a full `Record`, so a new type without questions
+fails the typecheck. No health questions anywhere (GDPR art. 9), and no
+contact or address fields here: those are collected once, in module 4.
