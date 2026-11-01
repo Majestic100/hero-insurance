@@ -31,6 +31,14 @@ type BaseField = {
   /** Danish error shown when a required field is empty. */
   requiredMessage?: string;
   showIf?: FieldCondition;
+  /** Browser autofill hint, e.g. "given-name", "email", "bday-year". */
+  autoComplete?: string;
+  /**
+   * Personal data: never saved in the sessionStorage draft, so it is gone
+   * when the tab closes or the page reloads. Consent fields are always
+   * excluded.
+   */
+  noDraft?: boolean;
 };
 
 export type ChoiceOption = {
@@ -71,18 +79,45 @@ export type SelectField = BaseField & {
   placeholder?: string;
 };
 
+/**
+ * Built-in formats: each sets the keyboard on mobile, normalizes the value
+ * and checks it with a Danish error message.
+ * - email: lowercased, must look like an email address
+ * - phone-dk: spaces and +45 removed, must be 8 digits
+ * - postal-code-dk: must be 4 digits
+ */
+export type TextFormat = "email" | "phone-dk" | "postal-code-dk";
+
 export type TextField = BaseField & {
   type: "text";
   placeholder?: string;
   /** Defaults to 100. */
   maxLength?: number;
+  format?: TextFormat;
   /** Uppercases and removes spaces before validating (license plates). */
   normalize?: "uppercase-no-spaces";
   /** Regex (as a string) the normalized value must match. */
   pattern?: string;
   /** Danish error shown when the value does not match `pattern`. */
   patternMessage?: string;
-  autoComplete?: string;
+};
+
+export type ConsentType = "partner_contact" | "marketing";
+
+/**
+ * A consent checkbox. The exact `text` and `version` are stored with the
+ * lead as proof of what the user agreed to. Required consents must be
+ * checked; the value is a boolean and is never saved in the draft.
+ */
+export type ConsentField = BaseField & {
+  type: "consent";
+  consentType: ConsentType;
+  /** The full Danish consent text shown next to the checkbox. */
+  text: string;
+  /** Bump when `text` changes. */
+  version: string;
+  /** Optional link shown after the text, e.g. the privacy policy. */
+  link?: { href: string; label: string };
 };
 
 /** A whole number, typed with the numeric keyboard on mobile. */
@@ -110,7 +145,8 @@ export type FieldConfig =
   | SelectField
   | TextField
   | NumberField
-  | YearField;
+  | YearField
+  | ConsentField;
 
 export type FieldType = FieldConfig["type"];
 

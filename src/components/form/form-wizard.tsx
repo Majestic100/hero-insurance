@@ -18,7 +18,7 @@ import {
   type InsuranceType,
 } from "@/config/forms/insurance-types";
 import type { FormConfig, StepConfig } from "@/config/forms/types";
-import { loadDraft, saveDraft } from "@/lib/form/draft";
+import { draftableValues, loadDraft, saveDraft } from "@/lib/form/draft";
 import { getVisibleFields } from "@/lib/form/visibility";
 import {
   getActiveSteps,
@@ -80,12 +80,22 @@ function useIsClient() {
  *
  * Uses useSearchParams, so it must be rendered inside <Suspense>.
  */
-export function FormWizard({ config }: { config: FormConfig }) {
+type FormWizardProps = {
+  config: FormConfig;
+  /**
+   * Called when the last step is submitted and valid, with all form values.
+   * The receiver must validate them again (the server always does).
+   * Returns a Danish error message to show, or undefined on success.
+   */
+  onComplete?: (values: FormValues) => Promise<string | undefined>;
+};
+
+export function FormWizard(props: FormWizardProps) {
   const isClient = useIsClient();
-  return isClient ? <WizardForm config={config} /> : <FormWizardSkeleton />;
+  return isClient ? <WizardForm {...props} /> : <FormWizardSkeleton />;
 }
 
-function WizardForm({ config }: { config: FormConfig }) {
+function WizardForm({ config, onComplete }: FormWizardProps) {
   const searchParams = useSearchParams();
   const [defaultValues] = useState(() =>
     getInitialValues(config, searchParams.get(PRESELECT_PARAM)),
@@ -165,19 +175,28 @@ function WizardForm({ config }: { config: FormConfig }) {
     headingRef.current?.focus({ preventScroll: true });
   }, [step.id, form]);
 
-  // Save a draft on every change.
+  // Save a draft on every change (without personal data and consents).
   useEffect(() => {
-    saveDraft(config.version, values);
-  }, [config.version, values]);
+    saveDraft(config.version, draftableValues(config, values));
+  }, [config, values]);
 
   function goTo(stepId: string) {
     window.history.pushState(null, "", stepUrl(stepId));
   }
 
-  const onSubmit = form.handleSubmit(() => {
+  const [completeError, setCompleteError] = useState<string>();
+  const onSubmit = form.handleSubmit(async () => {
     if (!isLast) {
       goTo(steps[index + 1].id);
+      return;
     }
+    setCompleteError(undefined);
+    if (!onComplete) {
+      setCompleteError("Indsendelse er ikke åbnet endnu.");
+      return;
+    }
+    const error = await onComplete(form.getValues());
+    setCompleteError(error);
   });
 
   return (
@@ -199,6 +218,7 @@ function WizardForm({ config }: { config: FormConfig }) {
         </div>
 
         <div className="mt-6 space-y-6">
+          {isLast && <SelectedSummary types={selected} />}
           {getVisibleFields(step, values).map((field) => (
             <FieldRenderer
               key={fieldPath(step, field)}
@@ -207,7 +227,14 @@ function WizardForm({ config }: { config: FormConfig }) {
               control={form.control}
             />
           ))}
-          {isLast && <SelectedSummary types={selected} />}
+          {completeError && (
+            <p
+              role="alert"
+              className="rounded-lg border border-destructive/50 bg-destructive/5 p-4 text-sm text-destructive"
+            >
+              {completeError}
+            </p>
+          )}
         </div>
       </div>
 
@@ -215,6 +242,7 @@ function WizardForm({ config }: { config: FormConfig }) {
         canGoBack={index > 0}
         onBack={() => goTo(steps[index - 1].id)}
         isLast={isLast}
+        busy={form.formState.isSubmitting}
       />
     </form>
   );

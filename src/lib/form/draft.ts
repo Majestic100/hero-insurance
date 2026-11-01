@@ -1,11 +1,38 @@
+import type { FormConfig } from "@/config/forms/types";
 import type { FormValues } from "./step-sequence";
 
 /**
  * Keeps the user's answers in sessionStorage, so a reload or an
  * interrupted visit does not lose them. sessionStorage is per tab and is
  * cleared when the tab closes. Drafts from another config version are
- * discarded. Contact data must not be stored here (decided in module 4).
+ * discarded.
+ *
+ * Personal data (fields with `noDraft`) and consents are never stored:
+ * contact details are retyped after a reload, and consent must always be
+ * given again, actively.
  */
+
+/** A copy of the values without personal data and consents. */
+export function draftableValues(
+  config: FormConfig,
+  values: FormValues,
+): FormValues {
+  const copy: FormValues = structuredClone(values);
+  for (const step of config.steps) {
+    const target = step.insuranceType
+      ? (copy[step.insuranceType] as FormValues | undefined)
+      : copy;
+    if (!target) {
+      continue;
+    }
+    for (const field of step.fields) {
+      if (field.noDraft || field.type === "consent") {
+        delete target[field.name];
+      }
+    }
+  }
+  return copy;
+}
 
 const STORAGE_KEY = "hero-insurance:form-draft";
 

@@ -52,7 +52,7 @@ export function NumberInput({
           id={ids.input}
           type="text"
           inputMode="numeric"
-          autoComplete="off"
+          autoComplete={field.autoComplete ?? "off"}
           value={
             value === undefined
               ? ""

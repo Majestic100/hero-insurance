@@ -12,6 +12,10 @@ generated from this configuration, and the components in
 - `steps/<type>.ts`: the questions for one insurance type.
   `steps/shared.ts` holds option lists used by several types.
 - `insurers.ts`: the "Nuværende selskab" field and its list of insurers.
+- `steps/contact.ts`: name, contact details, address and birth year, asked
+  once per lead (stored in the `leads` table). All `noDraft`.
+- `consents.ts`: the consent texts on the last step, with versions. The
+  exact text and version are stored with each lead as proof.
 
 A step with `insuranceType` is only shown when that type is selected, and
 its values are stored under `values[insuranceType]`. Step ids appear in the
@@ -30,8 +34,12 @@ discards drafts saved with an older config.
 | `text`          | `string`                | `maxLength`, `pattern`, `normalize`              |
 | `number`        | `number`                | whole numbers, `min`/`max`, `unit`               |
 | `year`          | `number`                | `minYear`, `maxYearsAgo`                         |
+| `consent`       | `boolean`               | checkbox with the full text; required = must be checked |
 
-Every field is required unless `optional: true`. Error messages are Danish
+Every field is required unless `optional: true`. Text fields can have a
+`format` (`email`, `phone-dk`, `postal-code-dk`) that sets the mobile
+keyboard, normalizes the value and checks it. Fields with `noDraft` (personal
+data) and all consents are never saved in the sessionStorage draft. Error messages are Danish
 defaults and can be overridden per field.
 
 `showIf: { field, equals }` shows a field only when an earlier choice field

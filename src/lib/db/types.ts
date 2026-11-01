@@ -90,6 +90,7 @@ export type Database = {
       leads: {
         Row: {
           address_id: string | null
+          birth_year: number | null
           city: string | null
           created_at: string
           email: string
@@ -104,6 +105,7 @@ export type Database = {
         }
         Insert: {
           address_id?: string | null
+          birth_year?: number | null
           city?: string | null
           created_at?: string
           email: string
@@ -118,6 +120,7 @@ export type Database = {
         }
         Update: {
           address_id?: string | null
+          birth_year?: number | null
           city?: string | null
           created_at?: string
           email?: string
