@@ -9,7 +9,8 @@ Generic form components that render fields from the form configuration
   users back to the first invalid step on deep links. Renders only in the
   browser (the draft is not visible to the server).
 - `field-renderer.tsx`: maps a field type to its component.
-- `fields/`: one component per field type.
+- `fields/`: one component per field type, plus `field-parts.tsx`
+  (label, legend, help text and error, wired up for screen readers).
 - `step-progress.tsx`, `step-navigation.tsx`: progress bar and back/next
   buttons (sticky at the bottom on mobile).
 
