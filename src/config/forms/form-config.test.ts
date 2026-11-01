@@ -111,8 +111,86 @@ describe("insurance steps accept a realistic answer", () => {
     expect(result.success).toBe(true);
   });
 
+  it.each([
+    [
+      "ulykke-sundhed",
+      {
+        coverageTypes: ["accident", "health"],
+        insuredPersons: "me",
+        occupation: "office",
+      },
+    ],
+    ["rejse", { tripType: "annual", area: "worldwide", travellers: "family" }],
+    [
+      "fritidshus",
+      { livingArea: 70, buildYear: 1980, roofType: "thatch", rentedOut: "no" },
+    ],
+    [
+      "mc-atv-knallert",
+      { vehicleType: "moped_30", coverage: "liability", claimFreeYears: "0" },
+    ],
+    [
+      "baad",
+      { boatType: "sailboat", lengthFeet: 28, value: "50000_200000" },
+    ],
+    [
+      "camping",
+      { caravanType: "motorhome", modelYear: 2015, value: "over_400000" },
+    ],
+    [
+      "dyr",
+      {
+        animal: "cat",
+        breed: "Blanding",
+        birthYear: 2022,
+        coverageTypes: ["illness"],
+      },
+    ],
+    ["liv", { payout: "unknown", purpose: "mortgage" }],
+    [
+      "ejerskifte",
+      {
+        role: "seller",
+        salePrice: 3500000,
+        buildYear: 1975,
+        livingArea: 140,
+        conditionReport: "yes",
+      },
+    ],
+  ])("%s", (stepId, answers) => {
+    expect(parse(stepId, answers).success).toBe(true);
+  });
+
+  it("has questions for every insurance type", () => {
+    for (const step of steps.filter((candidate) => candidate.insuranceType)) {
+      expect(step.fields.length, step.id).toBeGreaterThan(0);
+    }
+  });
+
   it("rejects a car step with missing answers", () => {
     const result = parse("bil", { hasLicensePlate: "yes" });
     expect(result.success).toBe(false);
+  });
+
+  it("asks dog and horse owners about liability, but not cat owners", () => {
+    const dog = parse("dyr", {
+      animal: "dog",
+      breed: "Labrador",
+      birthYear: 2020,
+      coverageTypes: ["illness"],
+    });
+    expect(dog.success).toBe(false);
+    expect(dog.error?.issues[0]?.path).toEqual(["pet", "liability"]);
+
+    const cat = parse("dyr", {
+      animal: "cat",
+      breed: "Huskat",
+      birthYear: 2020,
+      coverageTypes: ["life"],
+      liability: "yes",
+    });
+    expect(cat.success).toBe(true);
+    // The hidden answer is dropped.
+    expect(cat.data?.pet).not.toHaveProperty("liability");
   });
 });

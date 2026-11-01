@@ -49,7 +49,7 @@ export function TextInput({
         autoComplete={field.autoComplete ?? "off"}
         autoCapitalize={isPlate ? "characters" : undefined}
         spellCheck={isPlate ? false : undefined}
-        className={cn("h-11 text-base md:text-base", isPlate && "uppercase")}
+        className={cn("h-11 text-base md:text-base", isPlate && "uppercase placeholder:normal-case")}
         {...describedBy(field, ids, error)}
       />
       <FieldError ids={ids} error={error} />

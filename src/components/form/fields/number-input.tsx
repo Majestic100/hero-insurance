@@ -26,7 +26,8 @@ type NumberInputProps = {
 /**
  * A whole number or a year. Uses a text input with the numeric keyboard
  * (type="number" behaves badly on phones). Anything but digits is ignored,
- * so "1.500.000" is read as 1500000.
+ * so "1.500.000" is read as 1500000, and numbers are shown with Danish
+ * thousands separators while typing.
  */
 export function NumberInput({
   field,
@@ -52,7 +53,13 @@ export function NumberInput({
           type="text"
           inputMode="numeric"
           autoComplete="off"
-          value={value === undefined ? "" : String(value)}
+          value={
+            value === undefined
+              ? ""
+              : isYear
+                ? String(value)
+                : value.toLocaleString("da-DK")
+          }
           onChange={(event) => {
             const digits = event.target.value
               .replace(/\D/g, "")
