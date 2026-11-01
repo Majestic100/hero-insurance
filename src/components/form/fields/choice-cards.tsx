@@ -4,6 +4,8 @@ import { useId, type Ref } from "react";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import type { MultiChoiceField } from "@/config/forms/types";
+import { cn } from "@/lib/utils";
+import { getOptionIcon } from "../option-icons";
 
 type ChoiceCardsProps = {
   field: MultiChoiceField;
@@ -15,7 +17,11 @@ type ChoiceCardsProps = {
   error?: string;
 };
 
-/** Multi-select as large cards: easy to tap on mobile (min. 56px tall). */
+/**
+ * Multi-select as large cards, easy to tap on mobile. "list" shows
+ * full-width rows (min. 56px); "grid" shows compact tiles with an icon,
+ * 2 per row on mobile and 3 from the `sm` breakpoint (min. 96px tall).
+ */
 export function ChoiceCards({
   field,
   value,
@@ -26,6 +32,7 @@ export function ChoiceCards({
 }: ChoiceCardsProps) {
   const id = useId();
   const errorId = `${id}-error`;
+  const isGrid = field.layout === "grid";
 
   function toggle(optionValue: string, checked: boolean) {
     const next = checked
@@ -42,15 +49,23 @@ export function ChoiceCards({
   return (
     <fieldset aria-describedby={error ? errorId : undefined}>
       <legend className="sr-only">{field.label}</legend>
-      <div className="grid gap-3">
+      <div
+        className={cn("grid gap-3", isGrid && "grid-cols-2 sm:grid-cols-3")}
+      >
         {field.options.map((option, index) => {
           const optionId = `${id}-${option.value}`;
           const checked = value.includes(option.value);
+          const Icon = getOptionIcon(option.icon);
           return (
             <label
               key={option.value}
               htmlFor={optionId}
-              className="flex min-h-14 cursor-pointer items-center gap-4 rounded-lg border bg-card px-4 py-3 transition-colors hover:bg-accent has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-accent has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50"
+              className={cn(
+                "relative flex cursor-pointer rounded-lg border bg-card transition-colors hover:bg-accent has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-accent has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50",
+                isGrid
+                  ? "min-h-24 flex-col items-center justify-center gap-2 px-3 pt-5 pb-3 text-center"
+                  : "min-h-14 items-center gap-4 px-4 py-3",
+              )}
             >
               <Checkbox
                 ref={index === 0 ? inputRef : undefined}
@@ -59,9 +74,15 @@ export function ChoiceCards({
                 onCheckedChange={(state) => toggle(option.value, state === true)}
                 onBlur={onBlur}
                 aria-invalid={error ? true : undefined}
-                className="size-5"
+                className={cn(isGrid ? "absolute top-2 right-2" : "size-5")}
               />
-              <span className="grid gap-0.5">
+              {Icon && (
+                <Icon
+                  aria-hidden
+                  className="size-6 shrink-0 text-muted-foreground"
+                />
+              )}
+              <span className={cn("grid gap-0.5", isGrid && "text-sm")}>
                 <span className="font-medium">{option.label}</span>
                 {option.description && (
                   <span className="text-sm text-muted-foreground">

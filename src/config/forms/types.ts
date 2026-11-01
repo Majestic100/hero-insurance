@@ -20,12 +20,16 @@ export type ChoiceOption = {
   value: string;
   label: string;
   description?: string;
+  /** Icon key, resolved by src/components/form/option-icons.ts. */
+  icon?: string;
 };
 
 /** Several options as large tappable cards; the value is an array. */
 export type MultiChoiceField = BaseField & {
   type: "multi-choice";
   options: readonly [ChoiceOption, ...ChoiceOption[]];
+  /** "list": full-width rows (default). "grid": compact tiles for many options. */
+  layout?: "list" | "grid";
   /** Minimum number of options the user must pick. Defaults to 0. */
   minSelected?: number;
   /** Danish error shown when fewer than `minSelected` are picked. */

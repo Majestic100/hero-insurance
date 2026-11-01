@@ -4,7 +4,17 @@ Fields per insurance type (car, home contents, house) as data, not code.
 The zod schemas in `src/lib/schemas` are generated from this configuration.
 
 - `insurance-types.ts`: the insurance type ids (matching the database),
-  Danish labels and URL slugs (`/tilbud?forsikring=bil`).
+  Danish labels and URL slugs (`/tilbud?forsikring=bil`). Icons live in
+  `src/components/insurance-icons.ts`.
+
+## Adding an insurance type
+
+1. Add the id and its Danish info to `insurance-types.ts`.
+2. Add an icon in `src/components/insurance-icons.ts`.
+3. Add a migration that extends the `insurance_type` check constraint
+   (see `20261101133323_add_insurance_types.sql`). A test fails if the
+   constraint and the list in code differ.
+4. Bump the config `version`.
 - `types.ts`: the config types. Field types are a union (`FieldConfig`).
 - `index.ts`: the form itself: its `version` and its steps.
 
