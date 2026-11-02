@@ -24,6 +24,8 @@ if (
     protect: [
       { path: "/api/leads", method: "POST" },
       { path: "/api/postnummer/*", method: "GET" },
+      { path: "/api/adresser", method: "GET" },
+      { path: "/api/bbr/*", method: "GET" },
     ],
   });
 }

@@ -1,8 +1,9 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { ROOF_TYPES, YES_NO } from "./shared";
+import { propertyAddressField, ROOF_TYPES, YES_NO } from "./shared";
 
 export const holidayHomeFields: readonly FieldConfig[] = [
+  propertyAddressField("Fritidshusets adresse"),
   {
     type: "number",
     name: "livingArea",
@@ -12,6 +13,7 @@ export const holidayHomeFields: readonly FieldConfig[] = [
     min: 10,
     max: 1000,
     unit: "m²",
+    autofill: { from: "address", lookup: "bbr-living-area" },
   },
   {
     type: "year",
@@ -19,12 +21,14 @@ export const holidayHomeFields: readonly FieldConfig[] = [
     label: "Byggeår",
     placeholder: "Fx 1980",
     minYear: 1600,
+    autofill: { from: "address", lookup: "bbr-build-year" },
   },
   {
     type: "single-choice",
     name: "roofType",
     label: "Hvad er taget lavet af?",
     options: ROOF_TYPES,
+    autofill: { from: "address", lookup: "bbr-roof-type" },
   },
   {
     type: "single-choice",

@@ -93,6 +93,8 @@ describe("insurance steps accept a realistic answer", () => {
 
   it("home contents", () => {
     const result = parse("indbo", {
+      // Typed by hand (not on the list): saved without an id.
+      address: { text: "Nørrebrogade 1, 2. th, 2200 København N" },
       residenceType: "apartment",
       tenure: "tenant",
       livingArea: 72,
@@ -104,6 +106,7 @@ describe("insurance steps accept a realistic answer", () => {
 
   it("house", () => {
     const result = parse("hus", {
+      address: { text: "Egevej 5, 4030 Tune", id: "0a3f5081-1b18-32b8-e044-0003ba298018" },
       livingArea: 140,
       buildYear: 1975,
       roofType: "tiles",
@@ -123,7 +126,13 @@ describe("insurance steps accept a realistic answer", () => {
     ["rejse", { tripType: "annual", area: "worldwide", travellers: "family" }],
     [
       "fritidshus",
-      { livingArea: 70, buildYear: 1980, roofType: "thatch", rentedOut: "no" },
+      {
+        address: { text: "Strandvejen 100, Reersø, 4281 Gørlev" },
+        livingArea: 70,
+        buildYear: 1980,
+        roofType: "thatch",
+        rentedOut: "no",
+      },
     ],
     [
       "mc-atv-knallert",

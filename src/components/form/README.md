@@ -13,8 +13,11 @@ Generic form components that render fields from the form configuration
   (label, legend, help text and error, wired up for screen readers).
 - `step-progress.tsx`, `step-navigation.tsx`: progress bar and back/next
   buttons (sticky at the bottom on mobile).
-- `use-autofill.ts`: fills fields with `autofill` in their config (e.g. the
-  city from the postal code) via `src/lib/form/autofill.ts`, without ever
+- `use-autofill.ts`: fills fields with `autofill` in their config (the city
+  from the postal code, BBR facts from the address, the contact address
+  from the home address) via `src/lib/form/autofill.ts`, without ever
   overwriting what the user typed.
+- `fields/address-input.tsx`: address with suggestions from DAR (a
+  combobox). A picked address carries its DAR id; a typed one does not.
 
 Filled in: module 2 (skeleton), module 3 (field types), module 4 (contact and consent).

@@ -1,4 +1,4 @@
-import type { ChoiceOption } from "../types";
+import type { AddressField, ChoiceOption } from "../types";
 
 /**
  * Option lists used by several insurance types. Values are stored in the
@@ -31,8 +31,24 @@ export const LICENSE_PLATE_MESSAGE =
 
 export const ROOF_TYPES = [
   { value: "tiles", label: "Tegl" },
+  { value: "concrete_tiles", label: "Betontagsten" },
   { value: "fiber_cement", label: "Fibercement eller eternit" },
   { value: "thatch", label: "Strå" },
   { value: "felt", label: "Tagpap" },
   { value: "other", label: "Andet" },
 ] as const satisfies readonly [ChoiceOption, ...ChoiceOption[]];
+
+/**
+ * The address of the property, first in the property steps. Picking it
+ * from the list fills in the BBR facts below it (see `autofill`).
+ */
+export function propertyAddressField(label: string): AddressField {
+  return {
+    type: "address",
+    name: "address",
+    label,
+    description: "Vælg adressen på listen, så henter vi boligens data fra BBR.",
+    placeholder: "Fx Strandvejen 12, 2900",
+    noDraft: true,
+  };
+}

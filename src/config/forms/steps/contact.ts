@@ -48,6 +48,8 @@ export const contactFields: readonly FieldConfig[] = [
     maxLength: 200,
     autoComplete: "address-line1",
     noDraft: true,
+    // The home address from an earlier step, so it is not typed twice.
+    autofill: { from: ["house.address", "home_contents.address"], lookup: "address-street" },
   },
   {
     type: "text",
@@ -57,6 +59,7 @@ export const contactFields: readonly FieldConfig[] = [
     maxLength: 4,
     autoComplete: "postal-code",
     noDraft: true,
+    autofill: { from: ["house.address", "home_contents.address"], lookup: "address-postal-code" },
   },
   {
     type: "text",

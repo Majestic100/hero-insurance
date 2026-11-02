@@ -33,6 +33,7 @@ type Shape = Record<string, z.ZodType>;
 const DEFAULT_REQUIRED = "Udfyld feltet.";
 const DEFAULT_CHOOSE = "Vælg en mulighed.";
 const DEFAULT_TEXT_MAX_LENGTH = 100;
+const ADDRESS_MAX_LENGTH = 200;
 
 function formatNumber(value: number): string {
   return value.toLocaleString("da-DK");
@@ -60,6 +61,26 @@ function requiredSchema(field: FieldConfig): z.ZodType {
 
     case "text":
       return buildTextSchema(field);
+
+    case "address": {
+      const required =
+        field.requiredMessage ?? "Skriv adressen, og vælg den på listen.";
+      // Any 8-4-4-4-12 hex id: DAR ids are not RFC 4122 UUIDs.
+      return z
+        .object(
+          { text: z.string(), id: z.guid().optional() },
+          { error: required },
+        )
+        .transform(({ text, id }) => ({
+          text: text.replace(/\s+/g, " ").trim(),
+          ...(id ? { id } : {}),
+        }))
+        .refine((address) => address.text.length > 0, required)
+        .refine(
+          (address) => address.text.length <= ADDRESS_MAX_LENGTH,
+          `Højst ${ADDRESS_MAX_LENGTH} tegn.`,
+        );
+    }
 
     case "number": {
       const unit = field.unit ? ` ${field.unit}` : "";
@@ -230,6 +251,7 @@ function defaultFieldValue(field: FieldConfig): unknown {
       return false;
     case "single-choice":
     case "select":
+    case "address":
     case "number":
     case "year":
       return undefined;

@@ -3,8 +3,13 @@
 import { useId } from "react";
 import { Controller, get, useFormState, type Control } from "react-hook-form";
 
-import type { FieldConfig, StepConfig } from "@/config/forms/types";
+import type {
+  AddressValue,
+  FieldConfig,
+  StepConfig,
+} from "@/config/forms/types";
 import type { FormValues } from "@/lib/form/step-sequence";
+import { AddressInput } from "./fields/address-input";
 import { ChoiceCards } from "./fields/choice-cards";
 import { ConsentCheckbox } from "./fields/consent-checkbox";
 import { fieldIds } from "./fields/field-parts";
@@ -77,6 +82,15 @@ export function FieldRenderer({ step, field, control }: FieldRendererProps) {
                 {...shared}
                 field={field}
                 value={input.value as string | undefined}
+                onChange={input.onChange}
+              />
+            );
+          case "address":
+            return (
+              <AddressInput
+                {...shared}
+                field={field}
+                value={input.value as AddressValue | undefined}
                 onChange={input.onChange}
               />
             );

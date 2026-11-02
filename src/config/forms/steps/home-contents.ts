@@ -1,7 +1,9 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
+import { propertyAddressField } from "./shared";
 
 export const homeContentsFields: readonly FieldConfig[] = [
+  propertyAddressField("Din adresse"),
   {
     type: "single-choice",
     name: "residenceType",
@@ -32,6 +34,8 @@ export const homeContentsFields: readonly FieldConfig[] = [
     min: 10,
     max: 1000,
     unit: "m²",
+    // BBR only knows the area of houses; for apartments it is left empty.
+    autofill: { from: "address", lookup: "bbr-living-area" },
   },
   {
     type: "single-choice",

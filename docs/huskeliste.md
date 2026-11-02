@@ -17,6 +17,10 @@ rigtige leads.
 - [ ] **Listen over forsikringsselskaber** i "Nuværende selskab". Findes
   Codan og Topdanmark stadig som selvstændige mærker? Mangler der nogen?
   Kode: `src/config/forms/insurers.ts`.
+- [ ] **Tagtyper:** listen er Tegl, Betontagsten (ny, fordi den er
+  almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
+  Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
+  Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
 - [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
   muligt data). Er det nok til prisen?
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
@@ -70,8 +74,13 @@ rigtige leads.
   ($1 pr. 1.000 tjek).
 - [x] **Datafordeler (modul 6):** adgang og API-nøgler er på plads (én pr.
   miljø: Production, Preview og lokal). Postnummer udfylder nu byen.
-- [ ] **Adresse- og BBR-opslag (modul 6):** næste skridt er at hente
-  boligareal, byggeår og tagtype fra BBR ud fra adressen.
+- [x] **Adresse- og BBR-opslag (modul 6):** hus, indbo og fritidshus
+  starter nu med boligens adresse. Vælges den på listen, udfyldes
+  boligareal, byggeår og tagtype fra BBR, og adressen genbruges på
+  "Dine oplysninger". Brugeren kan altid rette tallene.
+- [ ] **Indbo i lejlighed:** BBR giver kun areal for huse, ikke for den
+  enkelte lejlighed, så lejere udfylder selv arealet. Det kan hentes fra
+  BBR's enheder, hvis brugeren også vælger etage og dør. Værd at bygge?
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
 - [x] **Meta (modul 7):** Pixel `2223771328169512` og Conversions API-token
   ligger i Vercel (Production og Preview). Preview sender kun test-events
