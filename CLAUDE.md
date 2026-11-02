@@ -140,6 +140,11 @@ belongs there.
   Production (production project) and Preview (dev project). The Supabase
   Vercel integration is deliberately not installed (it uses different
   variable names).
+- **Meta:** dataset/Pixel `2223771328169512`. `NEXT_PUBLIC_META_PIXEL_ID` and
+  `META_CAPI_ACCESS_TOKEN` are set for Production and Preview;
+  `META_TEST_EVENT_CODE` only for Preview, so Preview sends test events
+  (Events Manager > Test events) and never pollutes live data. Server Lead
+  verified end to end on 2026-11-02.
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
 
@@ -156,7 +161,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 4  | Contact and consent           | done   |
 | 5  | Submission                    | done   |
 | 6  | Registers and APIs            |        |
-| 7  | Tracking                      | foundation done; waiting for Meta keys |
+| 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      |        |
 | 9  | Survey                        |        |
 | 10 | Testing and launch            |        |
