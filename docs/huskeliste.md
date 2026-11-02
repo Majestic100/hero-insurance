@@ -25,6 +25,10 @@ rigtige leads.
   hvilke felter, hvor hurtigt, og hvad sker der ved fejl?
 - [ ] **Fordeling:** hvor mange partnere får hvert lead, og hvem får hvilke
   forsikringstyper? Det skal også stå i samtykketeksten.
+- [ ] **Resultat pr. lead (feedback til Meta):** partnerne skal fortælle os,
+  hvordan det gik med hvert lead (fx kontaktet, tilbud givet, solgt), så vi
+  kan sende de gode leads tilbage til Meta og optimere annoncerne efter dem
+  (modul 8). Hvilke statusser kan de levere, og hvordan (API, fil, e-mail)?
 
 ## Juridisk (advokat eller GDPR-rådgiver)
 
@@ -45,6 +49,9 @@ rigtige leads.
   partnerne om, hvem der er dataansvarlig for hvad.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
   versionen. Er det nok, eller skal IP-adresse også gemmes?
+- [ ] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
+  skal gennemgås, også fordi vi sender hashede kontaktdata (e-mail og
+  telefon) til Meta for at måle og optimere annoncer. Kode: modul 7.
 
 ## Dig (forretning og indhold)
 
@@ -63,12 +70,20 @@ rigtige leads.
 - [ ] **Adresse- og BBR-opslag (modul 6):** adgang til Datafordeler eller en
   anden kilde, så adresse, boligareal og byggeår kan slås op automatisk.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
-- [ ] **Tracking (modul 7):** konti til fx GA4 og Meta, og en cookie-løsning.
+- [ ] **Meta (modul 7):** Pixel/datasæt-id og et adgangstoken til Conversions
+  API fra Meta Events Manager. Uden dem er tracking bygget, men slukket.
+- [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
+  end Meta?
 
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-02: Gode leads skal sendes tilbage til Meta, så annoncerne
+  optimeres efter kvalitet (Pixel og Conversions API i modul 7, partnernes
+  resultat pr. lead i modul 8).
+- 2026-11-02: Venter med: intern oversigt over leads, automatisk sletning af
+  gamle leads og e-mail til os ved nye leads.
 - 2026-11-02: Spam-beskyttelse med Vercel BotID (usynlig, ingen ny
   leverandør eller nøgler). Turnstile er alternativet, hvis vi forlader
   Vercel. Ingen rate limiting pr. IP-adresse (det kræver, at vi gemmer

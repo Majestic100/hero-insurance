@@ -32,12 +32,16 @@ npm run build      # production build
 npm run lint       # ESLint
 npm run typecheck  # generate route types + tsc --noEmit
 npm run test       # unit tests (Vitest): schema generator and form logic
+npm run test:e2e   # end-to-end tests (Playwright) of the quote flow, mobile + desktop
 npm run db:push       # apply pending migrations to the DEV Supabase project
 npm run db:push:prod  # apply pending migrations to PRODUCTION (after dev)
 npm run db:types      # regenerate src/lib/db/types.ts from the dev database
 ```
 
-Run `lint`, `typecheck`, `test` and `build` before every commit.
+Run `lint`, `typecheck`, `test` and `build` before every commit, and
+`test:e2e` when the form changes. GitHub Actions (`.github/workflows/ci.yml`)
+runs all of them on every pull request and on `main`. The e2e tests mock
+`POST /api/leads`, so they need no secrets and never write to a database.
 
 `GET /api/health` reports whether Supabase is configured and reachable
 (`supabase`: `ok`, `not_configured` or `error`) and whether the migrations
@@ -158,6 +162,24 @@ We build one module at a time. Do not start work belonging to a later module.
 
 Update the status column when a module is finished.
 
+### Owner requirement: lead quality back to Meta (modules 7 and 8)
+
+Ads run on Meta, and Meta must optimize for leads that turn out *good*,
+not just for any lead. So:
+
+- **Module 7** sends a `Lead` event to Meta both from the browser (Pixel)
+  and from the server (Conversions API), deduplicated with a shared
+  `event_id`, and only with the user's marketing/tracking consent. Store
+  per lead what is needed to match it later: the `event_id`, the click id
+  (`fbclid` / `_fbc`), the browser id (`_fbp`) and the consent state.
+- **Module 8** gets each lead's outcome back from the partners (e.g.
+  contacted, quoted, sold) and sends the good ones to Meta as a
+  server-side conversion event for the same lead, so campaigns can be
+  optimized for lead quality.
+
+Design data and APIs so this feedback loop is possible; do not drop the
+identifiers it needs.
+
 ## Rules
 
 1. **One module at a time.** Only build what the current module asks for.
@@ -206,8 +228,10 @@ Update the status column when a module is finished.
   them over editing them. If you do edit one, keep the change small.
 - **Bot protection (Vercel BotID).** `src/instrumentation-client.ts` lists the
   protected routes and the route calls `checkBotId()` first. Keep the two in
-  sync. BotID only works on Vercel: locally it always passes, and `curl`
-  against production is blocked (403), so test from a page in the app.
+  sync. BotID only works on Vercel: in `next dev` it always passes, `curl`
+  against production is blocked (403), so test from a page in the app. The
+  browser part is only loaded on Vercel and in dev (`NEXT_PUBLIC_BOTID_ENABLED`
+  in `next.config.ts`), so a local `next start` (e2e tests) works.
 - **Env vars** are validated lazily, so the app builds and runs without keys.
   Code that needs Supabase should call `getSupabaseServerClient()`, which
   throws a clear error if keys are missing or invalid.
