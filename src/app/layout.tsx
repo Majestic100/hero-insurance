@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { ConsentProvider } from "@/lib/tracking/consent-context";
+import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,9 +33,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <ConsentProvider>
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <ConsentBanner />
+          <MetaPixel />
+        </ConsentProvider>
       </body>
     </html>
   );

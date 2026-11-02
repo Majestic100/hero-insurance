@@ -20,8 +20,19 @@ const CONTACT_COLUMNS = {
   birthYear: "birth_year",
 } as const;
 
+export type LeadTracking = {
+  /** Marketing consent from the cookie banner. */
+  consent: boolean;
+  /** Meta click id and browser id (_fbc, _fbp); ignored without consent. */
+  fbc?: string;
+  fbp?: string;
+};
+
 export type LeadPayload = {
   submission_id: string;
+  tracking_consent: boolean;
+  fbc: string | null;
+  fbp: string | null;
   insurances: {
     insurance_type: InsuranceType;
     answers: Json;
@@ -52,9 +63,14 @@ export function toLeadPayload(
   config: FormConfig,
   parsed: FormValues,
   submissionId: string,
+  tracking: LeadTracking = { consent: false },
 ): LeadPayload {
   const payload: LeadPayload = {
     submission_id: submissionId,
+    tracking_consent: tracking.consent,
+    // Meta ids are personal data for ads: only kept with consent.
+    fbc: tracking.consent ? (tracking.fbc ?? null) : null,
+    fbp: tracking.consent ? (tracking.fbp ?? null) : null,
     insurances: [],
     consents: [],
   };

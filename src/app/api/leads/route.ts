@@ -1,7 +1,10 @@
 import { checkBotId } from "botid/server";
+import { after } from "next/server";
 import { z } from "zod";
 
 import { submitLead } from "@/lib/leads/submit-lead";
+import { CONSENT_COOKIE, parseConsent, readCookie } from "@/lib/tracking/consent";
+import { sendMetaLeadEvent } from "@/lib/tracking/meta-capi";
 
 /** A lead is a few kilobytes; anything far bigger is not a real form. */
 const MAX_BODY_BYTES = 64 * 1024;
@@ -55,9 +58,36 @@ export async function POST(request: Request) {
     return json({ error: "Ugyldig forespørgsel." }, 400);
   }
 
+  // Tracking: marketing consent and Meta ids come from first-party cookies.
+  const cookieHeader = request.headers.get("cookie");
+  const tracking = {
+    consent:
+      parseConsent(readCookie(cookieHeader, CONSENT_COOKIE))?.marketing === true,
+    fbc: readCookie(cookieHeader, "_fbc"),
+    fbp: readCookie(cookieHeader, "_fbp"),
+  };
+
   try {
-    const result = await submitLead(parsed.data.values, parsed.data.submissionId);
+    const { submissionId } = parsed.data;
+    const result = await submitLead(parsed.data.values, submissionId, tracking);
     if (result.ok) {
+      if (tracking.consent) {
+        // Sent after the response, so Meta never slows down the user.
+        after(() =>
+          sendMetaLeadEvent({
+            eventId: submissionId,
+            eventTime: new Date(),
+            sourceUrl: request.headers.get("referer") ?? new URL("/tilbud", request.url).href,
+            email: result.lead.email,
+            phone: result.lead.phone,
+            insuranceTypes: result.lead.insuranceTypes,
+            fbc: tracking.fbc,
+            fbp: tracking.fbp,
+            ipAddress: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim(),
+            userAgent: request.headers.get("user-agent") ?? undefined,
+          }),
+        );
+      }
       return json({ ok: true }, 201);
     }
     if (result.reason === "invalid") {

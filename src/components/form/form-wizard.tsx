@@ -88,6 +88,11 @@ type FormWizardProps = {
    * Returns a Danish error message to show, or undefined on success.
    */
   onComplete?: (values: FormValues) => Promise<string | undefined>;
+  /**
+   * Called whenever a step is shown (also the first), with its id and its
+   * 1-based number. Pass a stable function (e.g. a module-level one).
+   */
+  onStepChange?: (stepId: string, stepNumber: number) => void;
 };
 
 export function FormWizard(props: FormWizardProps) {
@@ -95,7 +100,7 @@ export function FormWizard(props: FormWizardProps) {
   return isClient ? <WizardForm {...props} /> : <FormWizardSkeleton />;
 }
 
-function WizardForm({ config, onComplete }: FormWizardProps) {
+function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
   const searchParams = useSearchParams();
   const [defaultValues] = useState(() =>
     getInitialValues(config, searchParams.get(PRESELECT_PARAM)),
@@ -155,6 +160,10 @@ function WizardForm({ config, onComplete }: FormWizardProps) {
       window.history.replaceState(null, "", stepUrl(step.id));
     }
   }, [requestedId, step.id, searchParams, stepUrl]);
+
+  useEffect(() => {
+    onStepChange?.(step.id, index + 1);
+  }, [onStepChange, step.id, index]);
 
   // On every step change: reset validation state, scroll up, and move focus
   // to the heading so screen readers announce the new step.

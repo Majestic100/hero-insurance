@@ -71,3 +71,21 @@ describe("toLeadPayload", () => {
     );
   });
 });
+
+describe("toLeadPayload tracking", () => {
+  const parsed = buildFormSchema(formConfig, raw).parse(raw);
+  const id = "22222222-2222-4222-8222-222222222222";
+
+  it("keeps Meta ids only with marketing consent", () => {
+    expect(
+      toLeadPayload(formConfig, parsed, id, { consent: true, fbc: "c", fbp: "p" }),
+    ).toMatchObject({ tracking_consent: true, fbc: "c", fbp: "p" });
+    expect(
+      toLeadPayload(formConfig, parsed, id, { consent: false, fbc: "c", fbp: "p" }),
+    ).toMatchObject({ tracking_consent: false, fbc: null, fbp: null });
+    expect(toLeadPayload(formConfig, parsed, id)).toMatchObject({
+      tracking_consent: false,
+      fbc: null,
+    });
+  });
+});
