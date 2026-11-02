@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ConsentSettingsButton } from "./consent-banner";
+
 export function SiteFooter() {
   return (
     <footer className="border-t">
@@ -10,6 +12,7 @@ export function SiteFooter() {
         >
           Privatlivspolitik
         </Link>
+        <ConsentSettingsButton />
       </div>
     </footer>
   );

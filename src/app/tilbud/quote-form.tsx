@@ -6,12 +6,17 @@ import { useState } from "react";
 import { FormWizard } from "@/components/form/form-wizard";
 import type { FormConfig } from "@/config/forms/types";
 import { clearDraft } from "@/lib/form/draft";
-import type { FormValues } from "@/lib/form/step-sequence";
+import { getSelectedTypes, type FormValues } from "@/lib/form/step-sequence";
+import { trackLead, trackStepViewed } from "@/lib/tracking/track";
 
 /**
  * The quote form: the generic wizard plus sending the lead to
- * POST /api/leads. The submission id is created once per page visit and
- * reused on retries, so a double click or a retry never creates two leads.
+ * POST /api/leads and tracking (only with consent, see src/lib/tracking).
+ *
+ * The submission id is created once per page visit and reused on retries,
+ * so a double click or a retry never creates two leads. It is also the
+ * event id of the Lead event, shared with the server-side Conversions API
+ * event so Meta counts the lead once.
  */
 export function QuoteForm({ config }: { config: FormConfig }) {
   const router = useRouter();
@@ -30,6 +35,7 @@ export function QuoteForm({ config }: { config: FormConfig }) {
     }
 
     if (response.ok) {
+      trackLead(submissionId, getSelectedTypes(values));
       clearDraft();
       router.push("/tilbud/tak");
       return undefined;
@@ -41,5 +47,11 @@ export function QuoteForm({ config }: { config: FormConfig }) {
     return body.error ?? "Vi kunne ikke sende din forespørgsel. Prøv igen om lidt.";
   }
 
-  return <FormWizard config={config} onComplete={submit} />;
+  return (
+    <FormWizard
+      config={config}
+      onComplete={submit}
+      onStepChange={trackStepViewed}
+    />
+  );
 }

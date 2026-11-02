@@ -2,12 +2,16 @@ import "server-only";
 
 import { formConfig } from "@/config/forms";
 import { getSupabaseServerClient } from "@/lib/db/server";
-import type { FormValues } from "@/lib/form/step-sequence";
+import { getSelectedTypes, type FormValues } from "@/lib/form/step-sequence";
 import { buildFormSchema } from "@/lib/schemas/build-schema";
-import { toLeadPayload } from "./to-payload";
+import { toLeadPayload, type LeadTracking } from "./to-payload";
 
 export type SubmitLeadResult =
-  | { ok: true }
+  | {
+      ok: true;
+      /** What the server-side Meta event needs (normalized values). */
+      lead: { email: string; phone: string; insuranceTypes: string[] };
+    }
   | { ok: false; reason: "invalid"; fields: string[] }
   | { ok: false; reason: "error" };
 
@@ -20,6 +24,7 @@ export type SubmitLeadResult =
 export async function submitLead(
   values: FormValues,
   submissionId: string,
+  tracking: LeadTracking,
 ): Promise<SubmitLeadResult> {
   const result = buildFormSchema(formConfig, values).safeParse(values);
   if (!result.success) {
@@ -29,7 +34,7 @@ export async function submitLead(
     return { ok: false, reason: "invalid", fields };
   }
 
-  const payload = toLeadPayload(formConfig, result.data, submissionId);
+  const payload = toLeadPayload(formConfig, result.data, submissionId, tracking);
   const { error } = await getSupabaseServerClient().rpc("create_lead", {
     payload,
   });
@@ -37,5 +42,12 @@ export async function submitLead(
     console.error("[leads] create_lead failed:", error.code, error.message);
     return { ok: false, reason: "error" };
   }
-  return { ok: true };
+  return {
+    ok: true,
+    lead: {
+      email: String(result.data.email),
+      phone: String(result.data.phone),
+      insuranceTypes: getSelectedTypes(result.data),
+    },
+  };
 }

@@ -1,5 +1,11 @@
 import { initBotId } from "botid/client/core";
 
+import { rememberClickId } from "./lib/tracking/meta-ids";
+
+// Keep a Meta click id (?fbclid=) in memory; it is only stored as a cookie
+// once the user gives marketing consent (src/lib/tracking/meta-ids.ts).
+rememberClickId();
+
 /**
  * Vercel BotID: runs an invisible check in the browser and attaches its
  * result to requests to the protected routes. The server verifies it with

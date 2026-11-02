@@ -66,6 +66,7 @@ src/
     form/                     generic form components, rendered from config
     site-header.tsx           header shown on every page
     site-footer.tsx           footer with the privacy policy link
+    consent-banner.tsx        cookie consent banner (Meta only after "Accepter")
   config/
     forms/                    form configuration: fields per insurance type, as data
   lib/
@@ -78,7 +79,7 @@ src/
       address/                address lookup
       bbr/                    BBR building data
       license-plate/          license plate lookup
-    tracking/                 analytics and conversion tracking
+    tracking/                 consent, Meta Pixel and Conversions API (see README)
     utils.ts                  cn() helper for shadcn
 supabase/
   config.toml                 Supabase CLI config
@@ -155,7 +156,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 4  | Contact and consent           | done   |
 | 5  | Submission                    | done   |
 | 6  | Registers and APIs            |        |
-| 7  | Tracking                      |        |
+| 7  | Tracking                      | foundation done; waiting for Meta keys |
 | 8  | Delivery                      |        |
 | 9  | Survey                        |        |
 | 10 | Testing and launch            |        |

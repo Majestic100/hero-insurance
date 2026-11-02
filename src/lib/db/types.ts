@@ -94,6 +94,8 @@ export type Database = {
           city: string | null
           created_at: string
           email: string
+          fbc: string | null
+          fbp: string | null
           first_name: string
           id: string
           last_name: string
@@ -101,6 +103,7 @@ export type Database = {
           postal_code: string | null
           street_address: string | null
           submission_id: string
+          tracking_consent: boolean
           updated_at: string
         }
         Insert: {
@@ -109,6 +112,8 @@ export type Database = {
           city?: string | null
           created_at?: string
           email: string
+          fbc?: string | null
+          fbp?: string | null
           first_name: string
           id?: string
           last_name: string
@@ -116,6 +121,7 @@ export type Database = {
           postal_code?: string | null
           street_address?: string | null
           submission_id: string
+          tracking_consent?: boolean
           updated_at?: string
         }
         Update: {
@@ -124,6 +130,8 @@ export type Database = {
           city?: string | null
           created_at?: string
           email?: string
+          fbc?: string | null
+          fbp?: string | null
           first_name?: string
           id?: string
           last_name?: string
@@ -131,6 +139,7 @@ export type Database = {
           postal_code?: string | null
           street_address?: string | null
           submission_id?: string
+          tracking_consent?: boolean
           updated_at?: string
         }
         Relationships: []

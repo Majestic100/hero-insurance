@@ -41,3 +41,27 @@ export function getServerEnv(): ServerEnv {
   }
   return result.data;
 }
+
+/**
+ * Meta Conversions API. Optional: without these, server-side tracking is
+ * off and leads are still saved. The pixel id is public (it is also used
+ * by the browser Pixel); the access token is secret.
+ */
+const metaEnvSchema = z.object({
+  NEXT_PUBLIC_META_PIXEL_ID: z.string().regex(/^\d+$/),
+  META_CAPI_ACCESS_TOKEN: z.string().min(20),
+  /** From Events Manager > Test events; set only while testing. */
+  META_TEST_EVENT_CODE: z.string().min(1).optional(),
+});
+
+export type MetaEnv = z.infer<typeof metaEnvSchema>;
+
+/** The Meta settings, or undefined when tracking is not configured. */
+export function getMetaEnv(): MetaEnv | undefined {
+  const result = metaEnvSchema.safeParse({
+    NEXT_PUBLIC_META_PIXEL_ID: process.env.NEXT_PUBLIC_META_PIXEL_ID || undefined,
+    META_CAPI_ACCESS_TOKEN: process.env.META_CAPI_ACCESS_TOKEN || undefined,
+    META_TEST_EVENT_CODE: process.env.META_TEST_EVENT_CODE || undefined,
+  });
+  return result.success ? result.data : undefined;
+}

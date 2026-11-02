@@ -8,6 +8,13 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 
 const next = (page: Page) => page.getByRole("button", { name: "Næste" }).click();
 
+// A choice in the cookie banner, so the banner does not cover the form.
+test.beforeEach(async ({ context, baseURL }) => {
+  await context.addCookies([
+    { name: "hi_consent", value: "v1.marketing-0", url: baseURL ?? "http://localhost:3100" },
+  ]);
+});
+
 async function fillContact(page: Page) {
   await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
   await page.getByLabel("Fornavn", { exact: true }).fill("Test");

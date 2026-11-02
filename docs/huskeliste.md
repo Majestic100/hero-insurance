@@ -67,11 +67,16 @@ rigtige leads.
   projektet > Firewall > Rules. Basisversionen af BotID kører allerede og
   stopper almindelige bots; Deep Analysis stopper også de avancerede
   ($1 pr. 1.000 tjek).
-- [ ] **Adresse- og BBR-opslag (modul 6):** adgang til Datafordeler eller en
-  anden kilde, så adresse, boligareal og byggeår kan slås op automatisk.
+- [ ] **Adresse-, postnummer- og BBR-opslag (modul 6):** Danmarks gratis
+  adresse-API (DAWA) er lukket. Vi skal have adgang til Datafordeler (gratis
+  bruger, kræver oprettelse) eller en anden kilde, så adresse, by ud fra
+  postnummer, boligareal og byggeår kan udfyldes automatisk.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
-- [ ] **Meta (modul 7):** Pixel/datasæt-id og et adgangstoken til Conversions
-  API fra Meta Events Manager. Uden dem er tracking bygget, men slukket.
+- [ ] **Meta (modul 7):** tracking er bygget, men slukket. Opret/find et
+  Pixel/datasæt i Meta Events Manager og lav et adgangstoken til
+  Conversions API. Læg dem i Vercel (Production) som
+  `NEXT_PUBLIC_META_PIXEL_ID` og `META_CAPI_ACCESS_TOKEN`. Jeg hjælper med at
+  teste det med Metas test-events, før det går live.
 - [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
   end Meta?
 
