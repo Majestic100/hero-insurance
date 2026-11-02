@@ -33,6 +33,7 @@ import {
 import { FieldRenderer, fieldPath } from "./field-renderer";
 import { StepNavigation } from "./step-navigation";
 import { StepProgress } from "./step-progress";
+import { useAutofill } from "./use-autofill";
 
 /** Current step id in the URL, so the browser back button works. */
 const STEP_PARAM = "trin";
@@ -144,6 +145,9 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
     stepRef.current = step;
   }, [step]);
 
+  const visibleFields = getVisibleFields(step, values);
+  useAutofill(step, visibleFields, values, form);
+
   const stepUrl = useCallback(
     (stepId: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -228,7 +232,7 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
 
         <div className="mt-6 space-y-6">
           {isLast && <SelectedSummary types={selected} />}
-          {getVisibleFields(step, values).map((field) => (
+          {visibleFields.map((field) => (
             <FieldRenderer
               key={fieldPath(step, field)}
               step={step}

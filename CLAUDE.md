@@ -72,11 +72,12 @@ src/
   lib/
     db/                       Supabase server client, queries, generated DB types
     env/server.ts             zod-validated server env vars (server-only)
-    form/                     step sequence and sessionStorage draft (no React)
+    form/                     step sequence, draft and autofill (no React)
     leads/                    server-side submit: validate, map, create_lead RPC
     schemas/                  zod schemas generated from the form config
     integrations/
-      address/                address lookup
+      datafordeler/           Datafordeler GraphQL client (DAR, BBR)
+      address/                postal code to city (DAR); address lookup later
       bbr/                    BBR building data
       license-plate/          license plate lookup
     tracking/                 consent, Meta Pixel and Conversions API (see README)
@@ -145,6 +146,11 @@ belongs there.
   `META_TEST_EVENT_CODE` only for Preview, so Preview sends test events
   (Events Manager > Test events) and never pollutes live data. Server Lead
   verified end to end on 2026-11-02.
+- **Datafordeler** (registers, module 6): one API key per environment,
+  `DATAFORDELER_API_KEY`, set in Vercel for Production and Preview and in
+  `.env.local`. GraphQL at `https://graphql.datafordeler.dk/{DAR|BBR}/v2`
+  (v1 is gone, introspection is off). DAWA (`api.dataforsyningen.dk`) is
+  closed (410 Gone): do not use it.
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
 
@@ -160,7 +166,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 3  | Steps per insurance type      | done   |
 | 4  | Contact and consent           | done   |
 | 5  | Submission                    | done   |
-| 6  | Registers and APIs            |        |
+| 6  | Registers and APIs            | in progress (postal code to city done; BBR, address, plates open) |
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      |        |
 | 9  | Survey                        |        |

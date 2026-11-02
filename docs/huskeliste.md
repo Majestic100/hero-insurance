@@ -68,10 +68,10 @@ rigtige leads.
   projektet > Firewall > Rules. Basisversionen af BotID kører allerede og
   stopper almindelige bots; Deep Analysis stopper også de avancerede
   ($1 pr. 1.000 tjek).
-- [ ] **Adresse-, postnummer- og BBR-opslag (modul 6):** Danmarks gratis
-  adresse-API (DAWA) er lukket. Vi skal have adgang til Datafordeler (gratis
-  bruger, kræver oprettelse) eller en anden kilde, så adresse, by ud fra
-  postnummer, boligareal og byggeår kan udfyldes automatisk.
+- [x] **Datafordeler (modul 6):** adgang og API-nøgler er på plads (én pr.
+  miljø: Production, Preview og lokal). Postnummer udfylder nu byen.
+- [ ] **Adresse- og BBR-opslag (modul 6):** næste skridt er at hente
+  boligareal, byggeår og tagtype fra BBR ud fra adressen.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
 - [x] **Meta (modul 7):** Pixel `2223771328169512` og Conversions API-token
   ligger i Vercel (Production og Preview). Preview sender kun test-events

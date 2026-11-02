@@ -64,6 +64,7 @@ export const contactFields: readonly FieldConfig[] = [
     label: "By",
     maxLength: 100,
     autoComplete: "address-level2",
+    autofill: { from: "postalCode", lookup: "dk-postal-code-city" },
     noDraft: true,
   },
   {
