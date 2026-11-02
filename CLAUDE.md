@@ -60,7 +60,9 @@ src/
     privatlivspolitik/        privacy policy (placeholder until legal review)
     api/                      server endpoints (route handlers)
       health/route.ts         Supabase health check
-      leads/route.ts          POST: validates and saves a lead
+      leads/route.ts          POST: validates and saves a lead, then delivers it
+      partners/outcomes/      POST: partners report outcomes (API key)
+      cron/deliver-leads/     GET: Vercel Cron retries deliveries (CRON_SECRET)
       postnummer/, adresser/, bbr/, nummerplade/
                               GET: register lookups for the form (BotID)
   components/
@@ -71,18 +73,20 @@ src/
     consent-banner.tsx        cookie consent banner (Meta only after "Accepter")
   config/
     forms/                    form configuration: fields per insurance type, as data
+    partners.ts               partners and which insurance types each gets
   lib/
     db/                       Supabase server client, queries, generated DB types
     env/server.ts             zod-validated server env vars (server-only)
     form/                     step sequence, draft and autofill (no React)
     leads/                    server-side submit: validate, map, create_lead RPC
+    delivery/                 leads to partners (outbox, webhook, retries) and
+                              partner outcomes to Meta (see its README)
     schemas/                  zod schemas generated from the form config
     integrations/
       datafordeler/           Datafordeler GraphQL client (DAR, BBR)
       address/                address search and postal code to city (DAR)
       bbr/                    BBR facts about the home on an address
       license-plate/          vehicle data for a plate (MotorAPI, for now)
-      license-plate/          license plate lookup
     tracking/                 consent, Meta Pixel and Conversions API (see README)
     utils.ts                  cn() helper for shadcn
 supabase/
@@ -138,7 +142,9 @@ belongs there.
   - **Dev** `dshqzvqmncmpukiboeot` ("Hero Insurance Dev"): used by local
     development (`.env.local`) and Vercel Preview. Test leads go here.
   - Tables `leads`, `lead_insurances` and `consents` (module 1) exist in
-    both. Apply new migrations to dev first, then to production.
+    both. `lead_deliveries` and `lead_outcomes` (module 8) are on dev only
+    until production is migrated. Apply new migrations to dev first, then
+    to production.
 - **Vercel:** project connected to the repo, functions in `fra1`.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
   Production (production project) and Preview (dev project). The Supabase
@@ -158,6 +164,11 @@ belongs there.
   `GET https://v1.motorapi.dk/vehicles/<plate>` with header `X-AUTH-TOKEN`.
   A stopgap: MotorAPI sees the plates we look up, so the owner wants our own
   copy of the motor register (DMR) later (see the checklist).
+- **Partners and cron** (module 8): per partner `PARTNER_<ID>_WEBHOOK_URL`,
+  `_WEBHOOK_SECRET` and `_API_KEY`, set for Production only, so Preview
+  never sends to a partner. `CRON_SECRET` protects the cron endpoint. The
+  cron runs once a day while Vercel is on Hobby (more often fails to
+  deploy); make it every 5 minutes after the Pro upgrade.
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
 
@@ -175,7 +186,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 5  | Submission                    | done   |
 | 6  | Registers and APIs            | done (postal code, address, BBR; plates via MotorAPI until our own DMR copy) |
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
-| 8  | Delivery                      |        |
+| 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
 | 9  | Survey                        |        |
 | 10 | Testing and launch            |        |
 

@@ -84,6 +84,59 @@ export function getDatafordelerEnv(): DatafordelerEnv | undefined {
   return result.success ? result.data : undefined;
 }
 
+/**
+ * A partner's webhook (module 8), per partner and environment. Leads are
+ * personal data, so only https is allowed, except localhost for testing.
+ */
+const partnerWebhookSchema = z.object({
+  url: z.url().refine(
+    (url) => {
+      const { protocol, hostname } = new URL(url);
+      return (
+        protocol === "https:" ||
+        (protocol === "http:" && ["localhost", "127.0.0.1"].includes(hostname))
+      );
+    },
+    { message: "must be https (http only for localhost)" },
+  ),
+  secret: z.string().min(32),
+});
+
+export type PartnerWebhookEnv = z.infer<typeof partnerWebhookSchema>;
+
+function partnerVar(partnerId: string, name: string): string | undefined {
+  return process.env[`PARTNER_${partnerId.toUpperCase()}_${name}`] || undefined;
+}
+
+/**
+ * Where and how to deliver leads to a partner, or undefined when it is not
+ * configured in this environment (then deliveries wait and are retried).
+ */
+export function getPartnerWebhookEnv(
+  partnerId: string,
+): PartnerWebhookEnv | undefined {
+  const result = partnerWebhookSchema.safeParse({
+    url: partnerVar(partnerId, "WEBHOOK_URL"),
+    secret: partnerVar(partnerId, "WEBHOOK_SECRET"),
+  });
+  return result.success ? result.data : undefined;
+}
+
+/** The key a partner uses to report outcomes, or undefined when not set. */
+export function getPartnerApiKey(partnerId: string): string | undefined {
+  const key = partnerVar(partnerId, "API_KEY");
+  return key && key.length >= 32 ? key : undefined;
+}
+
+/**
+ * Vercel sends it as `Authorization: Bearer <CRON_SECRET>` on every cron
+ * call. Without it the cron endpoint refuses all calls.
+ */
+export function getCronSecret(): string | undefined {
+  const secret = process.env.CRON_SECRET;
+  return secret && secret.length >= 16 ? secret : undefined;
+}
+
 const motorApiEnvSchema = z.object({ MOTORAPI_API_KEY: z.string().min(10) });
 
 export type MotorApiEnv = z.infer<typeof motorApiEnvSchema>;

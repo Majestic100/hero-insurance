@@ -52,6 +52,59 @@ export type Database = {
           },
         ]
       }
+      lead_deliveries: {
+        Row: {
+          attempts: number
+          created_at: string
+          id: string
+          insurance_types: string[]
+          last_error: string | null
+          lead_id: string
+          next_attempt_at: string
+          partner_id: string
+          partner_reference: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          insurance_types: string[]
+          last_error?: string | null
+          lead_id: string
+          next_attempt_at?: string
+          partner_id: string
+          partner_reference?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          id?: string
+          insurance_types?: string[]
+          last_error?: string | null
+          lead_id?: string
+          next_attempt_at?: string
+          partner_id?: string
+          partner_reference?: string | null
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_deliveries_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lead_insurances: {
         Row: {
           answers: Json
@@ -80,6 +133,47 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "lead_insurances_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lead_outcomes: {
+        Row: {
+          created_at: string
+          id: string
+          lead_id: string
+          meta_sent_at: string | null
+          meta_status: string
+          occurred_at: string
+          partner_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lead_id: string
+          meta_sent_at?: string | null
+          meta_status?: string
+          occurred_at: string
+          partner_id: string
+          status: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lead_id?: string
+          meta_sent_at?: string | null
+          meta_status?: string
+          occurred_at?: string
+          partner_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_outcomes_lead_id_fkey"
             columns: ["lead_id"]
             isOneToOne: false
             referencedRelation: "leads"
@@ -149,6 +243,29 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      claim_lead_deliveries: {
+        Args: { lease_seconds: number; max_rows: number; only_lead?: string }
+        Returns: {
+          attempts: number
+          created_at: string
+          id: string
+          insurance_types: string[]
+          last_error: string | null
+          lead_id: string
+          next_attempt_at: string
+          partner_id: string
+          partner_reference: string | null
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "lead_deliveries"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       create_lead: { Args: { payload: Json }; Returns: string }
     }
     Enums: {

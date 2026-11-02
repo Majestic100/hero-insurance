@@ -24,7 +24,9 @@ consent. Everything is off until Meta is configured (see `.env.example`).
 
 **Stored per lead** (`leads`): `tracking_consent`, `fbc`, `fbp`. Module 8
 uses them to send partner outcomes (good leads) back to Meta for the same
-lead. See "Owner requirement: lead quality back to Meta" in CLAUDE.md.
+lead (`src/lib/delivery/outcome-meta.ts`: custom events such as
+`LeadQuoted`, with the same hashed match keys and `external_id`). See
+"Owner requirement: lead quality back to Meta" in CLAUDE.md.
 
 **Testing with real keys:** set `META_TEST_EVENT_CODE` and watch Events
 Manager > Test events, then remove it.

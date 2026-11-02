@@ -15,6 +15,8 @@ live in `/supabase/migrations`.
 | `leads`           | One row per submission. Contact data in typed columns.         |
 | `lead_insurances` | One row per selected insurance type, form answers as `jsonb`.  |
 | `consents`        | Consent given or declined, with the exact text shown.          |
+| `lead_deliveries` | Outbox: one row per lead and partner, with status and retries. |
+| `lead_outcomes`   | What partners report (contacted, sold, ...) and Meta status.   |
 
-`lead_insurances` and `consents` are deleted with their lead
+`lead_insurances`, `consents`, `lead_deliveries` and `lead_outcomes` are deleted with their lead
 (`on delete cascade`), so erasing a lead removes all its data.

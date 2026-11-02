@@ -29,14 +29,25 @@ rigtige leads.
   muligt data). Er det nok til prisen?
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
   påkrævet for nogle typer?
-- [ ] **Levering af leads (modul 8):** hvilket format (API, e-mail, fil),
-  hvilke felter, hvor hurtigt, og hvad sker der ved fejl?
+- [ ] **Levering af leads (modul 8):** vi har bygget en standard, som vi
+  kan tilbyde alle partnere: hvert lead sendes med det samme som signeret
+  JSON til partnerens HTTPS-adresse, og ved fejl prøver vi igen i op til to
+  døgn. Beskrivelsen til partnerne står i `src/lib/delivery/README.md`.
+  Kan de tage imod det, eller kræver nogen e-mail eller fil? Svarene sendes
+  som koder (fx `annual`, `europe`); vil de hellere have teksterne?
 - [ ] **Fordeling:** hvor mange partnere får hvert lead, og hvem får hvilke
   forsikringstyper? Det skal også stå i samtykketeksten.
 - [ ] **Resultat pr. lead (feedback til Meta):** partnerne skal fortælle os,
   hvordan det gik med hvert lead (fx kontaktet, tilbud givet, solgt), så vi
   kan sende de gode leads tilbage til Meta og optimere annoncerne efter dem
-  (modul 8). Hvilke statusser kan de levere, og hvordan (API, fil, e-mail)?
+  (modul 8). Bygget som API: kontaktet, tilbud givet, solgt, ikke
+  interesseret, kunne ikke træffes og ugyldigt. Kan de levere dem? **Vigtigt:**
+  Meta bruger kun hændelser, der kommer inden for få dage efter klikket, så
+  partnerne skal melde "kontaktet" og "tilbud givet" hurtigt (helst samme
+  dag), ikke først når der er solgt.
+- [ ] **Partnernes tekniske kontakt og nøgler:** for hver partner skal vi
+  have en HTTPS-adresse til levering, og de skal have en hemmelig nøgle til
+  signaturen og en API-nøgle til resultater (vi laver dem).
 
 ## Juridisk (advokat eller GDPR-rådgiver)
 
@@ -103,12 +114,33 @@ rigtige leads.
   (`META_TEST_EVENT_CODE`). Lead fra serveren er bekræftet i Events Manager.
 - [ ] **Hold øje med matchkvaliteten (EMQ)** for Lead i Events Manager, når
   der kommer rigtige leads. Den bør ligge højt (6 eller mere).
+- [ ] **Kør databaseændringen for modul 8 i produktionen** (tabellerne til
+  levering og resultater). Ligger på dev. Skal gøres før eller samtidig med,
+  at modul 8 merges.
+- [ ] **`CRON_SECRET` i Vercel (Production):** en tilfældig tekst på mindst
+  16 tegn (`openssl rand -hex 16`). Uden den afviser den daglige kørsel, der
+  prøver fejlede leveringer igen.
+- [ ] **Hyppigere genforsøg efter Vercel Pro:** på Hobby må cron kun køre én
+  gang i døgnet, så et lead, der fejler, kan vente op til et døgn. Med Pro
+  ændres `vercel.json` til hvert 5. minut.
+- [ ] **Besked ved fejlede leveringer:** i dag står de kun i Vercels log og i
+  databasen (`lead_deliveries` med status `failed`). Før lancering bør vi få
+  en advarsel, fx en alarm i Vercel eller en e-mail. Hvad foretrækker du?
+- [ ] **Hvilken Meta-hændelse skal kampagnerne optimere efter?** Gode leads
+  sendes som `LeadContacted`, `LeadQuoted` og `LeadSold`. I Events Manager
+  laves en tilpasset konvertering på den, vi vælger (anbefaling:
+  `LeadQuoted`, fordi den kommer hurtigt og siger noget om kvaliteten).
 - [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
   end Meta?
 
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
+
+- 2026-11-02: Levering (modul 8): partnerne og deres forsikringstyper står
+  i koden, og modtagerne af et lead lægges fast, når brugeren giver
+  samtykke. Leads sendes kun, hvis samtykket til partnerne er givet. Ingen
+  partnere er sat op endnu.
 
 - 2026-11-02: Gode leads skal sendes tilbage til Meta, så annoncerne
   optimeres efter kvalitet (Pixel og Conversions API i modul 7, partnernes
