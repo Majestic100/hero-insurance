@@ -83,3 +83,18 @@ export function getDatafordelerEnv(): DatafordelerEnv | undefined {
   });
   return result.success ? result.data : undefined;
 }
+
+const motorApiEnvSchema = z.object({ MOTORAPI_API_KEY: z.string().min(10) });
+
+export type MotorApiEnv = z.infer<typeof motorApiEnvSchema>;
+
+/**
+ * MotorAPI (license plate lookups, module 6). Optional: without it the
+ * plate is not looked up and leads are saved without vehicle data.
+ */
+export function getMotorApiEnv(): MotorApiEnv | undefined {
+  const result = motorApiEnvSchema.safeParse({
+    MOTORAPI_API_KEY: process.env.MOTORAPI_API_KEY || undefined,
+  });
+  return result.success ? result.data : undefined;
+}

@@ -24,6 +24,7 @@ export const carFields: readonly FieldConfig[] = [
     normalize: "uppercase-no-spaces",
     pattern: LICENSE_PLATE_PATTERN,
     patternMessage: LICENSE_PLATE_MESSAGE,
+    lookup: "dk-license-plate",
     showIf: { field: "hasLicensePlate", equals: "yes" },
   },
   {

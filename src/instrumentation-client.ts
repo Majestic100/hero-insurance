@@ -26,6 +26,7 @@ if (
       { path: "/api/postnummer/*", method: "GET" },
       { path: "/api/adresser", method: "GET" },
       { path: "/api/bbr/*", method: "GET" },
+      { path: "/api/nummerplade/*", method: "GET" },
     ],
   });
 }

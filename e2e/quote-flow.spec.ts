@@ -33,6 +33,11 @@ test.beforeEach(async ({ context, baseURL }) => {
     const suggestions = /^egevej 5/i.test(query) ? [EGEVEJ] : [];
     return route.fulfill({ json: { suggestions } });
   });
+  await context.route("**/api/nummerplade/*", (route) =>
+    route.request().url().endsWith("/AB12345")
+      ? route.fulfill({ json: { description: "Toyota Yaris 1.0 (2018)" } })
+      : route.fulfill({ status: 404, json: { error: "Ukendt nummerplade." } }),
+  );
   await context.route("**/api/bbr/*", (route) =>
     route.request().url().endsWith(EGEVEJ.id)
       ? route.fulfill({ json: { buildYear: 1964, livingArea: 124, roofType: "fiber_cement" } })
@@ -90,7 +95,12 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
   await expect(page.locator("form").getByRole("alert").first()).toHaveText("Vælg en mulighed.");
 
   await page.getByRole("radio", { name: "Ja" }).click();
-  await page.getByLabel("Nummerplade", { exact: true }).fill("ab 12 345");
+  // A typo gives a hint, the right plate shows the car.
+  const plate = page.getByLabel("Nummerplade", { exact: true });
+  await plate.fill("ab 12 346");
+  await expect(page.getByText("Vi kan ikke finde nummerpladen")).toBeVisible();
+  await plate.fill("ab 12 345");
+  await expect(page.getByText("Toyota Yaris 1.0 (2018)")).toBeVisible();
   await page.getByRole("radio", { name: "Mig" }).click();
   await page.getByRole("radio", { name: "Under 10.000 km" }).click();
   await page.getByRole("radio", { name: /^Ansvar og kasko/ }).click();

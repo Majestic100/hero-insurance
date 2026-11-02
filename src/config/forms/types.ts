@@ -127,7 +127,17 @@ export type TextField = BaseField & {
   pattern?: string;
   /** Danish error shown when the value does not match `pattern`. */
   patternMessage?: string;
+  /**
+   * Looks the value up in a register while the user types, and shows what
+   * was found under the field (see src/lib/form/field-lookup.ts):
+   * - dk-license-plate: the vehicle for a Danish plate (motor register).
+   *   The server also saves the full vehicle data with the lead.
+   * Never blocks the form: an unknown value only shows a hint.
+   */
+  lookup?: FieldLookup;
 };
+
+export type FieldLookup = "dk-license-plate";
 
 /**
  * The value of an address field: the text, plus the DAR address id when
