@@ -4,6 +4,7 @@ import { formConfig } from "@/config/forms";
 import { getSupabaseServerClient } from "@/lib/db/server";
 import { getSelectedTypes, type FormValues } from "@/lib/form/step-sequence";
 import { buildFormSchema } from "@/lib/schemas/build-schema";
+import { addRegistryData } from "./registry-data";
 import { toLeadPayload, type LeadTracking } from "./to-payload";
 
 export type SubmitLeadResult =
@@ -25,7 +26,8 @@ export type SubmitLeadResult =
 
 /**
  * Validates submitted form values with the same generated schema as the
- * client (never trusting the client's validation) and saves the lead.
+ * client (never trusting the client's validation), adds register data
+ * looked up on the server (vehicle data), and saves the lead.
  *
  * Logs no personal data: only field paths and error codes.
  */
@@ -42,7 +44,8 @@ export async function submitLead(
     return { ok: false, reason: "invalid", fields };
   }
 
-  const payload = toLeadPayload(formConfig, result.data, submissionId, tracking);
+  const enriched = await addRegistryData(formConfig, result.data);
+  const payload = toLeadPayload(formConfig, enriched, submissionId, tracking);
   const { error } = await getSupabaseServerClient().rpc("create_lead", {
     payload,
   });

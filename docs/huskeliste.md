@@ -17,6 +17,10 @@ rigtige leads.
 - [ ] **Listen over forsikringsselskaber** i "Nuværende selskab". Findes
   Codan og Topdanmark stadig som selvstændige mærker? Mangler der nogen?
   Kode: `src/config/forms/insurers.ts`.
+- [ ] **Bildata til partnerne:** ved nummerplade gemmer vi nu alt, hvad
+  Motorregistret har (mærke, model, variant, første indregistrering,
+  brændstof, motor, vægt, stelnummer, leasing og seneste syn mv.). Årgang
+  mangler ofte i registeret. Hvilke felter vil de have leveret (modul 8)?
 - [ ] **Tagtyper:** listen er Tegl, Betontagsten (ny, fordi den er
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
@@ -41,6 +45,9 @@ rigtige leads.
   en klar kategori) og formålet. Kode: `src/config/forms/consents.ts`.
 - [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
   skal overholde markedsføringslovens § 10. Kode: samme fil.
+- [ ] **Underleverandører i privatlivspolitikken:** MotorAPI (nummerplader)
+  og Datafordeler (adresser, BBR) skal nævnes. MotorAPI ser
+  nummerpladerne, men ikke hvem brugeren er.
 - [ ] **[Blokerer lancering] Privatlivspolitik.** Siden
   `/privatlivspolitik` er en pladsholder. Kode:
   `src/app/privatlivspolitik/page.tsx`.
@@ -81,7 +88,16 @@ rigtige leads.
 - [ ] **Indbo i lejlighed:** BBR giver kun areal for huse, ikke for den
   enkelte lejlighed, så lejere udfylder selv arealet. Det kan hentes fra
   BBR's enheder, hvis brugeren også vælger etage og dør. Værd at bygge?
-- [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
+- [ ] **MotorAPI-nøgle (nummerplader, modul 6):** opret en konto på
+  motorapi.dk (accepter deres handelsbetingelser og databehandleraftale),
+  og læg nøglen i Vercel som `MOTORAPI_API_KEY` (Production og Preview) og
+  i `.env.local`. Uden nøglen virker formularen som før, bare uden bildata.
+  Gratis op til ca. 3.000 opslag om måneden.
+- [ ] **Vores egen kopi af Motorregistret** i stedet for MotorAPI, så ingen
+  udenfor ser, hvilke nummerplader vi slår op. Ugentligt job, der henter
+  Motorstyrelsens statistikudtræk (100+ GB XML), og en tabel i Supabase.
+  Kræver Supabase Pro (ca. $25 om måneden). Besluttet at vente
+  (2026-11-02): MotorAPI først, "bare for at få det til at virke".
 - [x] **Meta (modul 7):** Pixel `2223771328169512` og Conversions API-token
   ligger i Vercel (Production og Preview). Preview sender kun test-events
   (`META_TEST_EVENT_CODE`). Lead fra serveren er bekræftet i Events Manager.

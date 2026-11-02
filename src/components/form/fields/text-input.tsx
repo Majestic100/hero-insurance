@@ -12,6 +12,7 @@ import {
   FieldLabel,
   type FieldIds,
 } from "./field-parts";
+import { FieldLookupResult } from "./field-lookup-result";
 
 type TextInputProps = {
   field: TextField;
@@ -69,6 +70,9 @@ export function TextInput({
         className={cn("h-11 text-base md:text-base", isPlate && "uppercase placeholder:normal-case")}
         {...describedBy(field, ids, error)}
       />
+      {field.lookup && !error && (
+        <FieldLookupResult lookup={field.lookup} value={value ?? ""} />
+      )}
       <FieldError ids={ids} error={error} />
     </div>
   );
