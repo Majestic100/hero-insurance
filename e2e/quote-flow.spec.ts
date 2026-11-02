@@ -3,16 +3,25 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 /**
  * The whole quote flow in a real browser. POST /api/leads is mocked, so
  * nothing is saved; the server side is covered by unit tests and was
- * verified against the dev database.
+ * verified against the dev database. The postal code lookup is mocked too,
+ * so the tests never call Datafordeler.
  */
 
 const next = (page: Page) => page.getByRole("button", { name: "Næste" }).click();
+
+const CITIES: Record<string, string> = { "2100": "København Ø", "8000": "Aarhus C" };
 
 // A choice in the cookie banner, so the banner does not cover the form.
 test.beforeEach(async ({ context, baseURL }) => {
   await context.addCookies([
     { name: "hi_consent", value: "v1.marketing-0", url: baseURL ?? "http://localhost:3100" },
   ]);
+  await context.route("**/api/postnummer/*", (route) => {
+    const city = CITIES[new URL(route.request().url()).pathname.split("/").pop() ?? ""];
+    return city
+      ? route.fulfill({ json: { city } })
+      : route.fulfill({ status: 404, json: { error: "Ukendt postnummer." } });
+  });
 });
 
 async function fillContact(page: Page) {
@@ -144,4 +153,32 @@ test("browser back works, and a reload keeps answers but not contact data", asyn
   );
   expect(draft).toContain("europe");
   expect(draft).not.toContain("Test");
+});
+
+test("the postal code fills in the city, but never overwrites the user's own", async ({
+  page,
+}) => {
+  await page.goto("/tilbud?forsikring=rejse");
+  await next(page);
+  await fillTravel(page);
+
+  const postalCode = page.getByLabel("Postnummer", { exact: true });
+  const city = page.getByLabel("By", { exact: true });
+  await postalCode.fill("2100");
+  await expect(city).toHaveValue("København Ø");
+
+  // A new code replaces the filled-in city.
+  await postalCode.fill("8000");
+  await expect(city).toHaveValue("Aarhus C");
+
+  // An unknown code leaves it alone.
+  await postalCode.fill("0001");
+  await expect(city).toHaveValue("Aarhus C");
+
+  // Once the user types their own city, it stays.
+  await city.fill("Viby J");
+  await postalCode.fill("2100");
+  await expect(postalCode).toHaveValue("2100");
+  await page.waitForTimeout(300);
+  await expect(city).toHaveValue("Viby J");
 });

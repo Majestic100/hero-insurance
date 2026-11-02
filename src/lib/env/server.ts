@@ -65,3 +65,21 @@ export function getMetaEnv(): MetaEnv | undefined {
   });
   return result.success ? result.data : undefined;
 }
+
+/**
+ * Datafordeler (Danish public registers: addresses, BBR). Optional: without
+ * it, lookups are off and users fill in the fields themselves.
+ */
+const datafordelerEnvSchema = z.object({
+  DATAFORDELER_API_KEY: z.string().min(20),
+});
+
+export type DatafordelerEnv = z.infer<typeof datafordelerEnvSchema>;
+
+/** The Datafordeler settings, or undefined when not configured. */
+export function getDatafordelerEnv(): DatafordelerEnv | undefined {
+  const result = datafordelerEnvSchema.safeParse({
+    DATAFORDELER_API_KEY: process.env.DATAFORDELER_API_KEY || undefined,
+  });
+  return result.success ? result.data : undefined;
+}

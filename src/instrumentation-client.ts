@@ -21,6 +21,9 @@ if (
   process.env.NODE_ENV === "development"
 ) {
   initBotId({
-    protect: [{ path: "/api/leads", method: "POST" }],
+    protect: [
+      { path: "/api/leads", method: "POST" },
+      { path: "/api/postnummer/*", method: "GET" },
+    ],
   });
 }

@@ -88,6 +88,13 @@ export type SelectField = BaseField & {
  */
 export type TextFormat = "email" | "phone-dk" | "postal-code-dk";
 
+/**
+ * Built-in lookups that fill a field from another field (see
+ * src/lib/form/autofill.ts):
+ * - dk-postal-code-city: the city for a Danish postal code (DAR)
+ */
+export type AutofillLookup = "dk-postal-code-city";
+
 export type TextField = BaseField & {
   type: "text";
   placeholder?: string;
@@ -100,6 +107,13 @@ export type TextField = BaseField & {
   pattern?: string;
   /** Danish error shown when the value does not match `pattern`. */
   patternMessage?: string;
+  /**
+   * Fills this field from another field in the same step, e.g. the city
+   * from the postal code. It only writes when this field is empty or still
+   * holds the last filled-in value, so it never overwrites what the user
+   * typed. If the lookup fails, the user simply types the value.
+   */
+  autofill?: { from: string; lookup: AutofillLookup };
 };
 
 export type ConsentType = "partner_contact" | "marketing";
