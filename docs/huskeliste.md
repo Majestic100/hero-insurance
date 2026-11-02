@@ -18,8 +18,9 @@ rigtige leads.
   Codan og Topdanmark stadig som selvstændige mærker? Mangler der nogen?
   Kode: `src/config/forms/insurers.ts`.
 - [ ] **Bildata til partnerne:** ved nummerplade gemmer vi nu alt, hvad
-  Motorregistret har (mærke, model, variant, årgang, brændstof, motor,
-  vægt, stelnummer mv.). Hvilke felter vil de have leveret (modul 8)?
+  Motorregistret har (mærke, model, variant, første indregistrering,
+  brændstof, motor, vægt, stelnummer, leasing og seneste syn mv.). Årgang
+  mangler ofte i registeret. Hvilke felter vil de have leveret (modul 8)?
 - [ ] **Tagtyper:** listen er Tegl, Betontagsten (ny, fordi den er
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?

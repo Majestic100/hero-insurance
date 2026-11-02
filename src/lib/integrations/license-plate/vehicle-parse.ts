@@ -12,97 +12,74 @@ export function normalizePlate(plate: string): string | undefined {
 }
 
 /**
- * Everything the register tells us about the vehicle, for the partners.
- * Every field is optional: what the register lacks is left out.
+ * Everything the register tells us about the vehicle, for the partners:
+ * every field MotorAPI fills in, with camelCase keys (e.g. make, model,
+ * variant, modelYear, firstRegistration, fuelType, enginePower, isLeasing,
+ * leasingFrom, motInfo). Blank values are left out. The few fields we
+ * read ourselves are typed.
  */
 export type VehicleFacts = {
   registrationNumber?: string;
-  status?: string;
-  statusDate?: string;
-  type?: string;
-  use?: string;
-  vin?: string;
   make?: string;
   model?: string;
   variant?: string;
-  modelType?: string;
   modelYear?: number;
-  color?: string;
-  chassisType?: string;
-  fuelType?: string;
-  engineCylinders?: number;
-  engineVolume?: number;
-  enginePower?: number;
-  ownWeight?: number;
-  totalWeight?: number;
-  axles?: number;
-  seats?: number;
-  doors?: number;
-  coupling?: boolean;
+  /** ISO date, e.g. "2010-09-17+02:00". */
+  firstRegistration?: string;
+  [field: string]: unknown;
 };
 
-/** MotorAPI field -> our field. */
-const MOTORAPI_FIELDS: Record<string, keyof VehicleFacts> = {
-  registration_number: "registrationNumber",
-  status: "status",
-  status_date: "statusDate",
-  type: "type",
-  use: "use",
-  vin: "vin",
-  make: "make",
-  model: "model",
-  variant: "variant",
-  model_type: "modelType",
-  model_year: "modelYear",
-  color: "color",
-  chassis_type: "chassisType",
-  fuel_type: "fuelType",
-  engine_cylinders: "engineCylinders",
-  engine_volume: "engineVolume",
-  engine_power: "enginePower",
-  own_weight: "ownWeight",
-  total_weight: "totalWeight",
-  axels: "axles",
-  seats: "seats",
-  doors: "doors",
-  coupling: "coupling",
-};
+/**
+ * Left out on purpose: the postal code where the vehicle is registered is
+ * about the owner, not the vehicle, and we already have the user's own.
+ */
+const EXCLUDED_FIELDS = new Set(["registration_zipcode"]);
 
-const NUMBER_FIELDS = new Set<keyof VehicleFacts>([
-  "modelYear",
-  "engineCylinders",
-  "engineVolume",
-  "enginePower",
-  "ownWeight",
-  "totalWeight",
-  "axles",
-  "seats",
-  "doors",
-]);
+/** Values the register uses for "nothing". */
+function isBlank(value: unknown): boolean {
+  return (
+    value === null ||
+    value === undefined ||
+    value === 0 ||
+    (typeof value === "string" && (value.trim() === "" || value.trim() === "Ukendt"))
+  );
+}
+
+const camelCase = (key: string) => key.replace(/_([a-z])/g, (_, letter: string) => letter.toUpperCase());
+
+function clean(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(clean);
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([, inner]) => !isBlank(inner))
+        .map(([key, inner]) => [camelCase(key), clean(inner)]),
+    );
+  }
+  return typeof value === "string" ? value.trim() : value;
+}
 
 /** Reads a MotorAPI vehicle; undefined when it has no make or model. */
 export function vehicleFromMotorApi(body: unknown): VehicleFacts | undefined {
-  if (!body || typeof body !== "object") {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
     return undefined;
   }
-  const facts: Record<string, unknown> = {};
-  for (const [source, target] of Object.entries(MOTORAPI_FIELDS)) {
-    const value = (body as Record<string, unknown>)[source];
-    if (NUMBER_FIELDS.has(target)) {
-      const number = typeof value === "string" ? Number(value) : value;
-      if (typeof number === "number" && Number.isFinite(number) && number > 0) {
-        facts[target] = number;
-      }
-    } else if (target === "coupling") {
-      if (typeof value === "boolean") {
-        facts[target] = value;
-      }
-    } else if (typeof value === "string" && value.trim()) {
-      facts[target] = value.trim();
-    }
-  }
-  const vehicle = facts as VehicleFacts;
+  const kept = Object.fromEntries(
+    Object.entries(body).filter(([key]) => !EXCLUDED_FIELDS.has(key)),
+  );
+  const vehicle = clean(kept) as VehicleFacts;
   return vehicle.make || vehicle.model ? vehicle : undefined;
+}
+
+/** The model year, or else the year of first registration. */
+export function vehicleYear(vehicle: VehicleFacts): number | undefined {
+  if (typeof vehicle.modelYear === "number" && vehicle.modelYear > 1900) {
+    return vehicle.modelYear;
+  }
+  const year = Number(String(vehicle.firstRegistration ?? "").slice(0, 4));
+  return year > 1900 ? year : undefined;
 }
 
 /** One line for the user, e.g. "Toyota Yaris 1.0 (2018)". */
@@ -110,5 +87,6 @@ export function describeVehicle(vehicle: VehicleFacts): string {
   const name = [vehicle.make, vehicle.model, vehicle.variant]
     .filter(Boolean)
     .join(" ");
-  return vehicle.modelYear ? `${name} (${vehicle.modelYear})` : name;
+  const year = vehicleYear(vehicle);
+  return year ? `${name} (${year})` : name;
 }
