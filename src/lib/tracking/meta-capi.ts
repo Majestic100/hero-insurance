@@ -4,7 +4,7 @@ import { getMetaEnv } from "@/lib/env/server";
 import { buildMetaLeadEvent, type MetaLeadInput } from "./meta-event";
 
 /** Graph API version. Meta retires versions after about two years. */
-const GRAPH_API_VERSION = "v23.0";
+const GRAPH_API_VERSION = "v26.0";
 
 /**
  * Sends a Lead event to the Meta Conversions API. Does nothing when Meta is
