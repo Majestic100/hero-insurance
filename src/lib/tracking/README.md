@@ -14,8 +14,10 @@ consent. Everything is off until Meta is configured (see `.env.example`).
   PageView on every page.
 - `track.ts`: `QuoteStepViewed` per form step and `Lead` after a saved lead.
 - `meta-event.ts` + `meta-capi.ts` (server): the same `Lead` event sent by
-  the server (Conversions API) after the response, with hashed e-mail and
-  phone, `_fbc`, `_fbp`, IP and user agent.
+  the server (Conversions API) after the response, with hashed e-mail,
+  phone, first and last name, postal code, city, country and an
+  `external_id` (the hashed lead id), plus `_fbc`, `_fbp`, IP and user
+  agent. Never the form answers.
 
 **Deduplication:** the browser and the server send `Lead` with the same
 `event_id`: the lead's `submission_id`.
