@@ -39,6 +39,16 @@ type BaseField = {
    * excluded.
    */
   noDraft?: boolean;
+  /**
+   * Fills this field from another field, e.g. the city from the postal
+   * code, or the build year from the address (BBR). `from` is a field in
+   * the same step, or "<insurance type>.<field>" for an insurance step
+   * (the first one that is selected and filled in counts). It only writes
+   * when this field is empty or still holds the last filled-in value, so
+   * it never overwrites what the user typed, and only values the field
+   * accepts. If the lookup fails, the user simply fills in the field.
+   */
+  autofill?: { from: string | readonly string[]; lookup: AutofillLookup };
 };
 
 export type ChoiceOption = {
@@ -92,8 +102,18 @@ export type TextFormat = "email" | "phone-dk" | "postal-code-dk";
  * Built-in lookups that fill a field from another field (see
  * src/lib/form/autofill.ts):
  * - dk-postal-code-city: the city for a Danish postal code (DAR)
+ * - bbr-build-year, bbr-living-area, bbr-roof-type: facts about the home
+ *   on an address picked from the list (BBR)
+ * - address-street, address-postal-code: parts of an address picked from
+ *   the list
  */
-export type AutofillLookup = "dk-postal-code-city";
+export type AutofillLookup =
+  | "dk-postal-code-city"
+  | "bbr-build-year"
+  | "bbr-living-area"
+  | "bbr-roof-type"
+  | "address-street"
+  | "address-postal-code";
 
 export type TextField = BaseField & {
   type: "text";
@@ -107,13 +127,23 @@ export type TextField = BaseField & {
   pattern?: string;
   /** Danish error shown when the value does not match `pattern`. */
   patternMessage?: string;
-  /**
-   * Fills this field from another field in the same step, e.g. the city
-   * from the postal code. It only writes when this field is empty or still
-   * holds the last filled-in value, so it never overwrites what the user
-   * typed. If the lookup fails, the user simply types the value.
-   */
-  autofill?: { from: string; lookup: AutofillLookup };
+};
+
+/**
+ * The value of an address field: the text, plus the DAR address id when
+ * the user picked the address from the list (it is then a real address,
+ * and the id is used for BBR lookups).
+ */
+export type AddressValue = { text: string; id?: string };
+
+/**
+ * A Danish address (street and house number) with suggestions from DAR
+ * while typing. If the address is not on the list, the user can type it
+ * in full; it is then saved without an id.
+ */
+export type AddressField = BaseField & {
+  type: "address";
+  placeholder?: string;
 };
 
 export type ConsentType = "partner_contact" | "marketing";
@@ -158,6 +188,7 @@ export type FieldConfig =
   | SingleChoiceField
   | SelectField
   | TextField
+  | AddressField
   | NumberField
   | YearField
   | ConsentField;

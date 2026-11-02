@@ -9,7 +9,12 @@ import { expect, test, type Page, type Route } from "@playwright/test";
 
 const next = (page: Page) => page.getByRole("button", { name: "Næste" }).click();
 
-const CITIES: Record<string, string> = { "2100": "København Ø", "8000": "Aarhus C" };
+const CITIES: Record<string, string> = {
+  "2100": "København Ø",
+  "4030": "Tune",
+  "8000": "Aarhus C",
+};
+const EGEVEJ = { id: "0a3f5081-1b18-32b8-e044-0003ba298018", text: "Egevej 5, 4030 Tune" };
 
 // A choice in the cookie banner, so the banner does not cover the form.
 test.beforeEach(async ({ context, baseURL }) => {
@@ -22,6 +27,17 @@ test.beforeEach(async ({ context, baseURL }) => {
       ? route.fulfill({ json: { city } })
       : route.fulfill({ status: 404, json: { error: "Ukendt postnummer." } });
   });
+  // Address search: only "Egevej 5..." is known.
+  await context.route("**/api/adresser?*", (route) => {
+    const query = new URL(route.request().url()).searchParams.get("q") ?? "";
+    const suggestions = /^egevej 5/i.test(query) ? [EGEVEJ] : [];
+    return route.fulfill({ json: { suggestions } });
+  });
+  await context.route("**/api/bbr/*", (route) =>
+    route.request().url().endsWith(EGEVEJ.id)
+      ? route.fulfill({ json: { buildYear: 1964, livingArea: 124, roofType: "fiber_cement" } })
+      : route.fulfill({ status: 404, json: { error: "Ingen bolig fundet i BBR." } }),
+  );
 });
 
 async function fillContact(page: Page) {
@@ -181,4 +197,63 @@ test("the postal code fills in the city, but never overwrites the user's own", a
   await expect(postalCode).toHaveValue("2100");
   await page.waitForTimeout(300);
   await expect(city).toHaveValue("Viby J");
+});
+
+test("a house address from the list fills in BBR facts and the contact address", async ({
+  page,
+}) => {
+  const bodies = await mockLeadsApi(page);
+  await page.goto("/tilbud?forsikring=hus");
+  await next(page);
+
+  await expect(page.getByRole("heading", { name: "Husforsikring" })).toBeVisible();
+  const address = page.getByRole("combobox", { name: "Husets adresse" });
+  // The user typed the year before picking the address: it is kept.
+  await page.getByLabel("Byggeår", { exact: true }).fill("1970");
+  await address.fill("egevej 5");
+  await page.getByRole("option", { name: EGEVEJ.text }).click();
+  await expect(address).toHaveValue(EGEVEJ.text);
+
+  await expect(page.getByLabel("Boligareal", { exact: true })).toHaveValue("124");
+  await expect(page.getByLabel("Byggeår", { exact: true })).toHaveValue("1970");
+  await expect(page.getByRole("radio", { name: "Fibercement eller eternit" })).toBeChecked();
+  await next(page);
+
+  await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
+  await expect(page.getByLabel("Adresse", { exact: true })).toHaveValue("Egevej 5");
+  await expect(page.getByLabel("Postnummer", { exact: true })).toHaveValue("4030");
+  await expect(page.getByLabel("By", { exact: true })).toHaveValue("Tune");
+  await page.getByLabel("Fornavn", { exact: true }).fill("Test");
+  await page.getByLabel("Efternavn", { exact: true }).fill("Testesen");
+  await page.getByLabel("E-mail", { exact: true }).fill("test@example.dk");
+  await page.getByLabel("Telefonnummer", { exact: true }).fill("12345678");
+  await page.getByLabel("Dit fødselsår", { exact: true }).fill("1985");
+  await next(page);
+
+  await page.getByRole("checkbox", { name: /blive kontaktet med tilbud/ }).click();
+  await page.getByRole("button", { name: /Send forespørgsel/ }).click();
+  await expect(page).toHaveURL(/\/tilbud\/tak/);
+  const { values } = bodies[0] as { values: { house: Record<string, unknown> } };
+  expect(values.house).toMatchObject({ address: EGEVEJ, livingArea: 124, buildYear: 1970 });
+});
+
+test("an address that is not on the list can be typed by hand", async ({ page }) => {
+  await page.goto("/tilbud?forsikring=hus");
+  await next(page);
+
+  const address = page.getByRole("combobox", { name: "Husets adresse" });
+  await next(page);
+  await expect(page.locator("form").getByRole("alert").first()).toContainText(
+    "Skriv adressen, og vælg den på listen.",
+  );
+
+  await address.fill("Ny Vej 1, 9999 Nyby");
+  await expect(page.getByText("Vi kan ikke finde adressen")).toBeVisible();
+  await page.getByLabel("Boligareal", { exact: true }).fill("150");
+  await page.getByLabel("Byggeår", { exact: true }).fill("2024");
+  await page.getByRole("radio", { name: "Tegl" }).click();
+  await next(page);
+  await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
+  // Not picked from the list, so the contact address is not filled in.
+  await expect(page.getByLabel("Adresse", { exact: true })).toHaveValue("");
 });

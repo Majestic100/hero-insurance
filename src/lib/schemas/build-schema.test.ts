@@ -280,3 +280,25 @@ describe("consent", () => {
     expect(errorFor({ ...consent, optional: true }, "yes")).toBeDefined();
   });
 });
+
+describe("address fields", () => {
+  const schema = buildFieldSchema({ type: "address", name: "address", label: "Adresse" });
+  const id = "0a3f5081-1b18-32b8-e044-0003ba298018";
+
+  it("accepts a picked address with its DAR id, and a typed one without", () => {
+    expect(schema.parse({ text: " Egevej  5, 4030 Tune ", id })).toEqual({
+      text: "Egevej 5, 4030 Tune",
+      id,
+    });
+    expect(schema.parse({ text: "Egevej 5, 4030 Tune" })).toEqual({ text: "Egevej 5, 4030 Tune" });
+  });
+
+  it("rejects missing addresses and bad ids, in Danish", () => {
+    const missing = schema.safeParse(undefined);
+    expect(missing.error?.issues[0].message).toBe("Skriv adressen, og vælg den på listen.");
+    expect(schema.safeParse({ text: "  " }).error?.issues[0].message).toBe(
+      "Skriv adressen, og vælg den på listen.",
+    );
+    expect(schema.safeParse({ text: "Egevej 5", id: "nope" }).success).toBe(false);
+  });
+});
