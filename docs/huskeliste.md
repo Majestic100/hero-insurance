@@ -73,11 +73,11 @@ rigtige leads.
   bruger, kræver oprettelse) eller en anden kilde, så adresse, by ud fra
   postnummer, boligareal og byggeår kan udfyldes automatisk.
 - [ ] **Nummerpladeopslag (modul 6):** valg af leverandør (betalt API).
-- [ ] **Meta (modul 7):** tracking er bygget, men slukket. Opret/find et
-  Pixel/datasæt i Meta Events Manager og lav et adgangstoken til
-  Conversions API. Læg dem i Vercel (Production) som
-  `NEXT_PUBLIC_META_PIXEL_ID` og `META_CAPI_ACCESS_TOKEN`. Jeg hjælper med at
-  teste det med Metas test-events, før det går live.
+- [x] **Meta (modul 7):** Pixel `2223771328169512` og Conversions API-token
+  ligger i Vercel (Production og Preview). Preview sender kun test-events
+  (`META_TEST_EVENT_CODE`). Lead fra serveren er bekræftet i Events Manager.
+- [ ] **Hold øje med matchkvaliteten (EMQ)** for Lead i Events Manager, når
+  der kommer rigtige leads. Den bør ligge højt (6 eller mere).
 - [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
   end Meta?
 
