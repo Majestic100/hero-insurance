@@ -2,28 +2,38 @@ import { describe, expect, it } from "vitest";
 
 import { buildMetaLeadEvent, normalizeForMeta, sha256 } from "./meta-event";
 
-describe("buildMetaLeadEvent", () => {
-  const input = {
-    eventId: "11111111-1111-4111-8111-111111111111",
-    eventTime: new Date("2026-11-02T12:00:00Z"),
-    sourceUrl: "https://example.dk/tilbud?trin=afslut",
-    email: " Test@Example.DK ",
-    phone: "12345678",
-    insuranceTypes: ["car", "house"],
-    fbc: "fb.1.1700000000000.abc",
-    fbp: "fb.1.1700000000000.123",
-    ipAddress: "192.0.2.1",
-    userAgent: "Mozilla/5.0",
-  };
+const input = {
+  eventId: "11111111-1111-4111-8111-111111111111",
+  eventTime: new Date("2026-11-02T12:00:00Z"),
+  sourceUrl: "https://example.dk/tilbud?trin=afslut",
+  email: " Test@Example.DK ",
+  phone: "12345678",
+  firstName: " Søren ",
+  lastName: "Ager-Ødegaard",
+  postalCode: "2100",
+  city: "København Ø",
+  insuranceTypes: ["car", "house"],
+  fbc: "fb.1.1700000000000.abc",
+  fbp: "fb.1.1700000000000.123",
+  ipAddress: "192.0.2.1",
+  userAgent: "Mozilla/5.0",
+};
 
-  it("normalizes e-mail and adds the Danish country code to phones", () => {
-    expect(normalizeForMeta(" Test@Example.DK ", "12345678")).toEqual({
+describe("normalizeForMeta", () => {
+  it("follows Meta's rules and keeps Danish letters", () => {
+    expect(normalizeForMeta(input)).toEqual({
       email: "test@example.dk",
       phone: "4512345678",
+      firstName: "søren",
+      lastName: "agerødegaard",
+      postalCode: "2100",
+      city: "københavnø",
     });
   });
+});
 
-  it("hashes contact data and keeps the shared event id", () => {
+describe("buildMetaLeadEvent", () => {
+  it("hashes every match key and keeps the shared event id", () => {
     const event = buildMetaLeadEvent(input);
     expect(event).toMatchObject({
       event_name: "Lead",
@@ -34,6 +44,12 @@ describe("buildMetaLeadEvent", () => {
       user_data: {
         em: [sha256("test@example.dk")],
         ph: [sha256("4512345678")],
+        fn: [sha256("søren")],
+        ln: [sha256("agerødegaard")],
+        zp: [sha256("2100")],
+        ct: [sha256("københavnø")],
+        country: [sha256("dk")],
+        external_id: [sha256(input.eventId)],
         fbc: input.fbc,
         fbp: input.fbp,
         client_ip_address: input.ipAddress,
@@ -41,11 +57,13 @@ describe("buildMetaLeadEvent", () => {
       },
       custom_data: { content_category: "car,house" },
     });
-    // No clear-text contact data anywhere in the event.
-    const json = JSON.stringify(event);
-    expect(json).not.toContain("example.dk\"");
-    expect(json).not.toContain("12345678\"");
-    expect(event.user_data.em[0]).toMatch(/^[0-9a-f]{64}$/);
+  });
+
+  it("sends no contact data in clear text", () => {
+    const json = JSON.stringify(buildMetaLeadEvent(input).user_data);
+    for (const clear of ["example.dk", "12345678", "Søren", "søren", "Ødegaard", "København"]) {
+      expect(json, clear).not.toContain(clear);
+    }
   });
 
   it("leaves out ids that are missing", () => {

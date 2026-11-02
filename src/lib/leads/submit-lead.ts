@@ -10,7 +10,15 @@ export type SubmitLeadResult =
   | {
       ok: true;
       /** What the server-side Meta event needs (normalized values). */
-      lead: { email: string; phone: string; insuranceTypes: string[] };
+      lead: {
+        email: string;
+        phone: string;
+        firstName: string;
+        lastName: string;
+        postalCode: string;
+        city: string;
+        insuranceTypes: string[];
+      };
     }
   | { ok: false; reason: "invalid"; fields: string[] }
   | { ok: false; reason: "error" };
@@ -47,6 +55,10 @@ export async function submitLead(
     lead: {
       email: String(result.data.email),
       phone: String(result.data.phone),
+      firstName: String(result.data.firstName),
+      lastName: String(result.data.lastName),
+      postalCode: String(result.data.postalCode),
+      city: String(result.data.city),
       insuranceTypes: getSelectedTypes(result.data),
     },
   };

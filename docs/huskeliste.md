@@ -50,8 +50,9 @@ rigtige leads.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
   versionen. Er det nok, eller skal IP-adresse også gemmes?
 - [ ] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
-  skal gennemgås, også fordi vi sender hashede kontaktdata (e-mail og
-  telefon) til Meta for at måle og optimere annoncer. Kode: modul 7.
+  skal gennemgås, også fordi vi med samtykke sender hashede kontaktdata
+  (e-mail, telefon, navn, postnummer og by) til Meta for at måle og optimere
+  annoncer. Aldrig forsikringssvarene. Kode: `src/components/consent-banner.tsx`.
 
 ## Dig (forretning og indhold)
 
