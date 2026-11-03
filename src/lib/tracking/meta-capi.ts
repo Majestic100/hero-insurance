@@ -6,17 +6,17 @@ import { buildMetaLeadEvent, type MetaLeadInput } from "./meta-event";
 /** Graph API version. Meta retires versions after about two years. */
 const GRAPH_API_VERSION = "v26.0";
 
+export type MetaPostResult = "ok" | "not_configured" | "rejected" | "failed";
+
 /**
- * Sends a Lead event to the Meta Conversions API. Does nothing when Meta is
- * not configured. Never throws, and logs no personal data: a failed event
- * must not affect the lead, which is already saved.
- *
- * Only call this with the user's marketing consent.
+ * Posts events to the Meta Conversions API. Never throws, and logs no
+ * personal data. "rejected" means Meta answered with an error (retrying
+ * the same events will not help); "failed" means no answer (it may).
  */
-export async function sendMetaLeadEvent(input: MetaLeadInput): Promise<void> {
+export async function postMetaEvents(events: object[]): Promise<MetaPostResult> {
   const env = getMetaEnv();
   if (!env) {
-    return;
+    return "not_configured";
   }
   try {
     const response = await fetch(
@@ -25,7 +25,7 @@ export async function sendMetaLeadEvent(input: MetaLeadInput): Promise<void> {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: [buildMetaLeadEvent(input)],
+          data: events,
           access_token: env.META_CAPI_ACCESS_TOKEN,
           ...(env.META_TEST_EVENT_CODE && {
             test_event_code: env.META_TEST_EVENT_CODE,
@@ -39,16 +39,30 @@ export async function sendMetaLeadEvent(input: MetaLeadInput): Promise<void> {
         error?: { code?: number; type?: string };
       };
       console.error(
-        "[meta] Conversions API rejected the event:",
+        "[meta] Conversions API rejected the events:",
         response.status,
         body.error?.type,
         body.error?.code,
       );
+      return response.status >= 500 ? "failed" : "rejected";
     }
+    return "ok";
   } catch (error) {
     console.error(
       "[meta] Conversions API request failed:",
       error instanceof Error ? error.name : "unknown",
     );
+    return "failed";
   }
+}
+
+/**
+ * Sends a Lead event to the Meta Conversions API. Does nothing when Meta is
+ * not configured. A failed event must not affect the lead, which is
+ * already saved.
+ *
+ * Only call this with the user's marketing consent.
+ */
+export async function sendMetaLeadEvent(input: MetaLeadInput): Promise<void> {
+  await postMetaEvents([buildMetaLeadEvent(input)]);
 }

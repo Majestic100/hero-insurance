@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { buildMetaLeadEvent, normalizeForMeta, sha256 } from "./meta-event";
+import {
+  buildMetaLeadEvent,
+  buildMetaOutcomeEvent,
+  normalizeForMeta,
+  sha256,
+} from "./meta-event";
 
 const input = {
   eventId: "11111111-1111-4111-8111-111111111111",
@@ -70,5 +75,30 @@ describe("buildMetaLeadEvent", () => {
     const event = buildMetaLeadEvent({ ...input, fbc: undefined, ipAddress: undefined });
     expect(event.user_data).not.toHaveProperty("fbc");
     expect(event.user_data).not.toHaveProperty("client_ip_address");
+  });
+});
+
+describe("buildMetaOutcomeEvent", () => {
+  it("matches the Lead event's person and dedupes per lead and status", () => {
+    const lead = buildMetaLeadEvent(input);
+    const outcome = buildMetaOutcomeEvent({
+      ...input,
+      submissionId: input.eventId,
+      eventName: "LeadQuoted",
+      status: "quoted",
+      occurredAt: new Date("2026-11-03T09:00:00Z"),
+      ipAddress: undefined,
+      userAgent: undefined,
+    });
+    expect(outcome).toMatchObject({
+      event_name: "LeadQuoted",
+      event_id: `${input.eventId}:quoted`,
+      action_source: "system_generated",
+      custom_data: { lead_status: "quoted" },
+    });
+    expect(outcome.user_data.external_id).toEqual(lead.user_data.external_id);
+    expect(outcome.user_data.em).toEqual(lead.user_data.em);
+    expect(outcome.user_data.fbc).toBe(input.fbc);
+    expect(outcome.user_data).not.toHaveProperty("client_ip_address");
   });
 });

@@ -2,6 +2,7 @@ import { checkBotId } from "botid/server";
 import { after } from "next/server";
 import { z } from "zod";
 
+import { processDeliveries } from "@/lib/delivery/deliver";
 import { submitLead } from "@/lib/leads/submit-lead";
 import { CONSENT_COOKIE, parseConsent, readCookie } from "@/lib/tracking/consent";
 import { sendMetaLeadEvent } from "@/lib/tracking/meta-capi";
@@ -27,8 +28,9 @@ function json(body: unknown, status: number) {
  *
  * Receives the quote form. The values are validated again on the server
  * with the generated schema, then saved with the `create_lead` database
- * function. Errors returned to the client are in Danish and contain no
- * details beyond which fields are invalid.
+ * function, which also queues the deliveries to the partners. Errors
+ * returned to the client are in Danish and contain no details beyond which
+ * fields are invalid.
  *
  * Bots are stopped first with Vercel BotID (set up in
  * src/instrumentation-client.ts). It only works on Vercel; locally it always
@@ -71,6 +73,8 @@ export async function POST(request: Request) {
     const { submissionId } = parsed.data;
     const result = await submitLead(parsed.data.values, submissionId, tracking);
     if (result.ok) {
+      // Delivered to the partners after the response; the cron job retries.
+      after(() => processDeliveries({ leadId: result.leadId }));
       if (tracking.consent) {
         // Sent after the response, so Meta never slows down the user.
         after(() =>

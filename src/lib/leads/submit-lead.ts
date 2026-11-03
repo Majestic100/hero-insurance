@@ -1,7 +1,9 @@
 import "server-only";
 
 import { formConfig } from "@/config/forms";
+import { PARTNERS } from "@/config/partners";
 import { getSupabaseServerClient } from "@/lib/db/server";
+import { routeLead } from "@/lib/delivery/routing";
 import { getSelectedTypes, type FormValues } from "@/lib/form/step-sequence";
 import { buildFormSchema } from "@/lib/schemas/build-schema";
 import { addRegistryData } from "./registry-data";
@@ -10,6 +12,8 @@ import { toLeadPayload, type LeadTracking } from "./to-payload";
 export type SubmitLeadResult =
   | {
       ok: true;
+      /** The saved lead (also when a retry found it already saved). */
+      leadId: string;
       /** What the server-side Meta event needs (normalized values). */
       lead: {
         email: string;
@@ -27,7 +31,8 @@ export type SubmitLeadResult =
 /**
  * Validates submitted form values with the same generated schema as the
  * client (never trusting the client's validation), adds register data
- * looked up on the server (vehicle data), and saves the lead.
+ * looked up on the server (vehicle data), routes it to the partners and
+ * saves it together with its deliveries.
  *
  * Logs no personal data: only field paths and error codes.
  */
@@ -45,16 +50,21 @@ export async function submitLead(
   }
 
   const enriched = await addRegistryData(formConfig, result.data);
-  const payload = toLeadPayload(formConfig, enriched, submissionId, tracking);
-  const { error } = await getSupabaseServerClient().rpc("create_lead", {
-    payload,
-  });
+  const payload = {
+    ...toLeadPayload(formConfig, enriched, submissionId, tracking),
+    deliveries: routeLead(PARTNERS, getSelectedTypes(enriched)),
+  };
+  const { data: leadId, error } = await getSupabaseServerClient().rpc(
+    "create_lead",
+    { payload },
+  );
   if (error) {
     console.error("[leads] create_lead failed:", error.code, error.message);
     return { ok: false, reason: "error" };
   }
   return {
     ok: true,
+    leadId,
     lead: {
       email: String(result.data.email),
       phone: String(result.data.phone),
