@@ -141,10 +141,9 @@ belongs there.
     Vercel Production.
   - **Dev** `dshqzvqmncmpukiboeot` ("Hero Insurance Dev"): used by local
     development (`.env.local`) and Vercel Preview. Test leads go here.
-  - Tables `leads`, `lead_insurances` and `consents` (module 1) exist in
-    both. `lead_deliveries` and `lead_outcomes` (module 8) are on dev only
-    until production is migrated. Apply new migrations to dev first, then
-    to production.
+  - Tables `leads`, `lead_insurances` and `consents` (module 1) and
+    `lead_deliveries` and `lead_outcomes` (module 8) exist in both. Apply
+    new migrations to dev first, then to production.
 - **Vercel:** project connected to the repo, functions in `fra1`.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
   Production (production project) and Preview (dev project). The Supabase

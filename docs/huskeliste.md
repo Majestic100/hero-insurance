@@ -114,9 +114,8 @@ rigtige leads.
   (`META_TEST_EVENT_CODE`). Lead fra serveren er bekræftet i Events Manager.
 - [ ] **Hold øje med matchkvaliteten (EMQ)** for Lead i Events Manager, når
   der kommer rigtige leads. Den bør ligge højt (6 eller mere).
-- [ ] **Kør databaseændringen for modul 8 i produktionen** (tabellerne til
-  levering og resultater). Ligger på dev. Skal gøres før eller samtidig med,
-  at modul 8 merges.
+- [x] **Databaseændringen for modul 8 er kørt i produktionen** (2026-11-03).
+  Tabellerne til levering og resultater findes nu på både dev og produktion.
 - [ ] **`CRON_SECRET` i Vercel (Production):** en tilfældig tekst på mindst
   16 tegn (`openssl rand -hex 16`). Uden den afviser den daglige kørsel, der
   prøver fejlede leveringer igen.
