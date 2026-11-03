@@ -78,7 +78,9 @@ rigtige leads.
 
 ## Dig (forretning og indhold)
 
-- [ ] **Brand:** navn, logo, farver og domæne. Siden er neutral indtil da.
+- [ ] **Brand:** navnet er Nemforsikringstjek (nemforsikringstjek.dk).
+  Mangler: logo (du laver det), farver, og at domænet kobles på Vercel.
+  Navnet kommer på siden, når design og tekster gennemgås.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
@@ -116,9 +118,8 @@ rigtige leads.
   der kommer rigtige leads. Den bør ligge højt (6 eller mere).
 - [x] **Databaseændringen for modul 8 er kørt i produktionen** (2026-11-03).
   Tabellerne til levering og resultater findes nu på både dev og produktion.
-- [ ] **`CRON_SECRET` i Vercel (Production):** en tilfældig tekst på mindst
-  16 tegn (`openssl rand -hex 16`). Uden den afviser den daglige kørsel, der
-  prøver fejlede leveringer igen.
+- [x] **`CRON_SECRET` i Vercel (Production)** er sat (2026-11-03) og
+  testet: den daglige kørsel, der prøver fejlede leveringer igen, virker.
 - [ ] **Hyppigere genforsøg efter Vercel Pro:** på Hobby må cron kun køre én
   gang i døgnet, så et lead, der fejler, kan vente op til et døgn. Med Pro
   ændres `vercel.json` til hvert 5. minut.
@@ -136,6 +137,8 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-03: Siden hedder Nemforsikringstjek, på domænet
+  nemforsikringstjek.dk. "Hero Insurance" er kun det interne navn.
 - 2026-11-02: Levering (modul 8): partnerne og deres forsikringstyper står
   i koden, og modtagerne af et lead lægges fast, når brugeren giver
   samtykke. Leads sendes kun, hvis samtykket til partnerne er givet. Ingen

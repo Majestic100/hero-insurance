@@ -165,9 +165,15 @@ belongs there.
   copy of the motor register (DMR) later (see the checklist).
 - **Partners and cron** (module 8): per partner `PARTNER_<ID>_WEBHOOK_URL`,
   `_WEBHOOK_SECRET` and `_API_KEY`, set for Production only, so Preview
-  never sends to a partner. `CRON_SECRET` protects the cron endpoint. The
+  never sends to a partner. `CRON_SECRET` (Production only, set
+  2026-11-03) protects the cron endpoint. The
   cron runs once a day while Vercel is on Hobby (more often fails to
   deploy); make it every 5 minutes after the Pro upgrade.
+- **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
+  team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
+  Authentication. The brand domain `nemforsikringstjek.dk` is not connected
+  yet. The Vercel CLI is logged in locally and the folder is linked
+  (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
 
