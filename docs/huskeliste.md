@@ -59,9 +59,27 @@ rigtige leads.
 - [ ] **Underleverandører i privatlivspolitikken:** MotorAPI (nummerplader)
   og Datafordeler (adresser, BBR) skal nævnes. MotorAPI ser
   nummerpladerne, men ikke hvem brugeren er.
-- [ ] **[Blokerer lancering] Privatlivspolitik.** Siden
-  `/privatlivspolitik` er en pladsholder. Kode:
+- [ ] **[Blokerer lancering] Privatlivspolitik.** Der ligger nu et udkast
+  på `/privatlivspolitik` (med en gul "udkast"-boks), skrevet ud fra, hvad
+  koden faktisk gør, og med FindForsikring.dk som reference. Mangler:
+  virksomhedens navn, CVR, adresse og kontakt-e-mail (dig), den endelige
+  partnerliste (kommer automatisk fra `src/config/partners.ts`) og
+  advokatens godkendelse. Advokaten bør især se på: fælles dataansvar med
+  Meta, retsgrundlaget for at videregive til selskaberne (samtykke), og om
+  Vercel og MotorAPI er beskrevet korrekt. Kode:
   `src/app/privatlivspolitik/page.tsx`.
+- [ ] **[Blokerer lancering] Opbevaringstid og automatisk sletning.**
+  Udkastet lover sletning senest 12 måneder efter forespørgslen, men
+  sletningen er ikke bygget endnu. Beslut perioden, så bygger vi jobbet.
+- [ ] **Lær af FindForsikring.dk** (analyseret 2026-11-04): de oplyser ikke
+  noget om Finanstilsynet og kalder sig "ikke forsikringsmægler", og de
+  sender fagforeningsmedlemskab videre (følsom oplysning, det gør vi ikke).
+  Deres samtykke nævner 51 mulige modtagere, men ikke hvor mange der får
+  det enkelte lead. Vores tekst bør være mere præcis. Bemærk også, at vores
+  side i dag siger "Sammenlign forsikringer": hvis vi ikke selv
+  sammenligner priser, er "Få tilbud" både mere ærligt og juridisk
+  tryggere (ren videregivelse af kontaktdata er undtaget fra lov om
+  forsikringsdistribution, sammenligning er det ikke nødvendigvis).
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Formidling og sammenligning af forsikringer kan være
   forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
