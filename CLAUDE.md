@@ -168,11 +168,10 @@ belongs there.
   - Tables `leads`, `lead_insurances` and `consents` (module 1) and
     `lead_deliveries` and `lead_outcomes` (module 8) exist in both. Apply
     new migrations to dev first, then to production.
-  - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`) is
-    written but not applied yet: the owner runs it (SQL editor or
-    `db:push`), as this environment has no Supabase access. Until then
-    the RKI answer is dropped by `create_lead`; nothing breaks while there
-    are no partners (deliveries read the column).
+  - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`)
+    was applied by the owner in the SQL editor on dev and production
+    (2026-11-10). The migration is idempotent, so a later `db push` that
+    records it in the migration history does not fail.
 - **Vercel:** project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
