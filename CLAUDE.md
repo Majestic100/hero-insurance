@@ -190,9 +190,10 @@ belongs there.
     stored `rki_status`, rolled back). The migration is idempotent, so a later `db push` that
     records it in the migration history does not fail.
   - Retention (`20261110150000_lead_retention.sql`: `leads.answers_purged_at`
-    and `purge_old_leads`) is applied and tested on dev (2026-11-10), not
-    yet on production (needs the owner's OK). The daily cron calls it; if
-    the function is missing, the cron logs `retention_failed` and goes on.
+    and `purge_old_leads`) is applied on dev (tested) and on production
+    (owner's OK, 2026-11-10, through the connector; only `service_role`
+    may run it). The daily cron calls it; on an error it logs
+    `retention_failed` and goes on.
 - **Vercel:** project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
