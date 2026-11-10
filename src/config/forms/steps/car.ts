@@ -2,7 +2,6 @@ import { CAR_MAKES } from "../car-brands";
 import { currentInsurerField } from "../insurers";
 import type { ChoiceOption, FieldConfig } from "../types";
 import {
-  CLAIM_FREE_YEARS,
   LICENSE_PLATE_MESSAGE,
   LICENSE_PLATE_PATTERN,
   otherInfoField,
@@ -155,13 +154,6 @@ export const carFields: readonly FieldConfig[] = [
       },
       { value: "unknown", label: "Ved ikke" },
     ],
-  },
-  {
-    type: "single-choice",
-    name: "claimFreeYears",
-    label: "Hvor mange år har du kørt uden skader?",
-    layout: "grid",
-    options: CLAIM_FREE_YEARS,
   },
   currentInsurerField(),
   {

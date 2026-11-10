@@ -27,7 +27,6 @@ describe("buildGhlContactPayload", () => {
             mainDriver: "me",
             annualMileage: "under_10000",
             coverage: "comprehensive",
-            claimFreeYears: "6_plus",
             registry: {
               licensePlate: {
                 vehicle: { make: "Toyota", model: "Yaris", variant: "1.0", modelYear: 2018 },

@@ -24,21 +24,22 @@ rigtige leads.
   46 selskaber efter Findforsikrings liste (2026-11-10). Codan og
   Topdanmark er bevaret, fordi mange stadig kender deres police under det
   navn. Kode: `src/config/forms/insurers.ts`.
-- [ ] **Bildata til partnerne:** ved nummerplade gemmer vi nu alt, hvad
-  Motorregistret har (mærke, model, variant, første indregistrering,
-  brændstof, motor, vægt, stelnummer, leasing og seneste syn mv.). Årgang
-  mangler ofte i registeret. Hvilke felter vil de have leveret (modul 8)?
+- [x] **Bildata til partnerne** (løst 2026-11-10 som Findforsikring): ved
+  nummerplade får partnerne faste felter (mærke, model, variant, årgang,
+  drivmiddel, motor i kW, vægt, stelnummer, første indregistrering, leasing,
+  seneste syn) og alt det øvrige fra Motorregistret. **Årgang** tages fra
+  registeret, ellers fra stelnummeret (10. tegn, fx hos VW-koncernen),
+  ellers fra første indregistrering; feltet `model_year_source` siger
+  hvilken.
 - [ ] **Tagtyper** (Findforsikring bruger kun Hårdt tag, Fladt tag, Stråtag,
   Andet og Ved ikke; vi har flere, fordi BBR giver dem): listen er Tegl, Betontagsten (ny, fordi den er
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
   Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
-- [ ] **Bilforsikring (opdateret 2026-11-10 efter Findforsikring):** uden
-  nummerplade spørger vi nu om mærke, model, drivmiddel, årgang og
-  motorstørrelse; og under "Vis flere detaljer" om år med bil i eget navn
-  og fri tekst. Vi spørger både om **skadefri år** og **år med bil i eget
-  navn**. Bruger partnerne begge, eller kan vi droppe det ene?
-  (Findforsikring spørger kun om år med bil i eget navn, og kun valgfrit.)
+- [x] **Skadefri år eller år med bil i eget navn** (besluttet 2026-11-10,
+  som Findforsikring): kun år med bil i eget navn, valgfrit under "Vis
+  flere detaljer". Skadefri år er fjernet fra bilforsikringen (MC beholder
+  det).
 - [ ] **Fri tekst til selskaberne** ("Andre oplysninger"): brugeren kan
   skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
   advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til

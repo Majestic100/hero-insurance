@@ -84,6 +84,12 @@ X-Lead-Signature: t=1793633295,v1=5f0c...e9
 - `contact.rki_status`: whether the user says they are registered in RKI:
   `no`, `yes` or `unknown` (`null` for leads from before 2026-11-10).
   Added without a new schema version: ignore fields you do not know.
+- Vehicles looked up by license plate: `answers.registry.<field>.summary`
+  has fixed fields (`make`, `model`, `variant`, `model_year`,
+  `model_year_source` = `register` | `vin` | `first_registration`,
+  `fuel_type`, `engine_power_kw`, `weight_kg`, `vin`, `first_registration`,
+  `is_leasing`, `last_inspection`); `.vehicle` has everything the register
+  has.
 - `insurances` holds only the types you receive. The answers are codes; the
   list of fields and codes per type is in `src/config/forms/steps/`.
 - **Check the signature:** HMAC-SHA256 of `<t>.<raw body>` with your
