@@ -14,14 +14,16 @@ rigtige leads.
 - [ ] **Intervaller og svarmuligheder**, fx kørsel om året, indboets værdi,
   bådens værdi og udbetaling på livsforsikring. Passer de med partnernes
   prisgrupper? Kode: samme filer.
-- [ ] **Listen over forsikringsselskaber** i "Nuværende selskab". Findes
-  Codan og Topdanmark stadig som selvstændige mærker? Mangler der nogen?
-  Kode: `src/config/forms/insurers.ts`.
+- [x] **Listen over forsikringsselskaber** i "Nuværende selskab": udvidet til
+  46 selskaber efter Findforsikrings liste (2026-11-10). Codan og
+  Topdanmark er bevaret, fordi mange stadig kender deres police under det
+  navn. Kode: `src/config/forms/insurers.ts`.
 - [ ] **Bildata til partnerne:** ved nummerplade gemmer vi nu alt, hvad
   Motorregistret har (mærke, model, variant, første indregistrering,
   brændstof, motor, vægt, stelnummer, leasing og seneste syn mv.). Årgang
   mangler ofte i registeret. Hvilke felter vil de have leveret (modul 8)?
-- [ ] **Tagtyper:** listen er Tegl, Betontagsten (ny, fordi den er
+- [ ] **Tagtyper** (Findforsikring bruger kun Hårdt tag, Fladt tag, Stråtag,
+  Andet og Ved ikke; vi har flere, fordi BBR giver dem): listen er Tegl, Betontagsten (ny, fordi den er
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
   Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
@@ -30,12 +32,13 @@ rigtige leads.
   motorstørrelse; og under "Vis flere detaljer" om år med bil i eget navn
   og fri tekst. Vi spørger både om **skadefri år** og **år med bil i eget
   navn**. Bruger partnerne begge, eller kan vi droppe det ene?
+  (Findforsikring spørger kun om år med bil i eget navn, og kun valgfrit.)
 - [ ] **Fri tekst til selskaberne** ("Andre oplysninger"): brugeren kan
   skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
   advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til
-  advokaten)
+  advokaten; både Findforsikring og Forsikringsportalen har et fritekstfelt)
 - [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
-  muligt data). Er det nok til prisen?
+  muligt data). Er det nok til prisen? (Findforsikring spørger kun om alder.)
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
   påkrævet for nogle typer?
 - [ ] **Levering af leads (modul 8):** vi har bygget en standard, som vi
@@ -44,8 +47,11 @@ rigtige leads.
   døgn. Beskrivelsen til partnerne står i `src/lib/delivery/README.md`.
   Kan de tage imod det, eller kræver nogen e-mail eller fil? Svarene sendes
   som koder (fx `annual`, `europe`); vil de hellere have teksterne?
-- [ ] **Fordeling:** hvor mange partnere får hvert lead, og hvem får hvilke
-  forsikringstyper? Det skal også stå i samtykketeksten.
+- [x] **Fordeling (markedspraksis, 2026-11-10):** op til 3 partnere pr. lead,
+  ligesom Findforsikring og Forsikringsportalen. Partnerne prioriteres i
+  den rækkefølge, de står i `src/config/partners.ts`; først så hver valgt
+  forsikring får mindst ét selskab, derefter fyldes op. Samtykketeksten
+  siger "op til 3". Hvem der får hvilke typer, afgøres af aftalerne.
 - [ ] **Resultat pr. lead (feedback til Meta):** partnerne skal fortælle os,
   hvordan det gik med hvert lead (fx kontaktet, tilbud givet, solgt), så vi
   kan sende de gode leads tilbage til Meta og optimere annoncerne efter dem
@@ -68,23 +74,43 @@ rigtige leads.
   - Privatlivspolitikken lover sletning af forespørgslen efter **12
     måneder** og af samtykkebevis (navn, e-mail, telefon og samtykker)
     efter **5 år**. Er det de rigtige frister? Sletningen er bygget og kører
-    hver dag.
+    hver dag. (Begge konkurrenter gemmer alt i 5 år; vi sletter mere og
+    tidligere.)
   - Er vi **fælles dataansvarlige med Meta** for Pixel og Conversions API
     (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
     Vercel og Meta?
   - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
     rådgiver. Passer det med svaret om Finanstilsynet nedenfor?
-- [ ] **[Blokerer lancering] Samtykketeksten** til at sende oplysningerne
-  videre til forsikringsselskaber. Den skal nævne modtagerne (navne eller
-  en klar kategori) og formålet. Vi har nu `/partnere`, der viser
-  modtagerne automatisk fra listen i koden; teksten kunne henvise dertil.
-  Kode: `src/config/forms/consents.ts` (`/samtykke` viser altid den
-  aktuelle tekst).
+- [ ] **[Blokerer lancering] Samtykketeksten** er skrevet om efter
+  markedspraksis (2026-11-10): op til 3 selskaber fra partnerlisten (med
+  link til `/partnere`), telefon, e-mail og SMS, vores egen opfølgning, og
+  tilbagetrækning via kontakt@nemforsikringstilbud.dk. Findforsikring
+  navngiver 51 mulige modtagere; Forsikringsportalen nævner ingen navne
+  ("op til 3 udbydere"). Advokaten skal godkende. Kode:
+  `src/config/forms/consents.ts`.
 - [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
   skal overholde markedsføringslovens § 10. Kode: samme fil.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
-  Formidling og sammenligning af forsikringer kan være
-  forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
+  Research (2026-11-10, ikke juridisk rådgivning):
+  - **Hverken Findforsikring eller Forsikringsportalen er registreret** i
+    Finanstilsynets register. Samlino er registreret, men de viser priser
+    og sammenligner.
+  - **Loven har en undtagelse, der passer på os:** lov om
+    forsikringsformidling § 1, stk. 3, nr. 3: "levering af data og
+    oplysninger om potentielle forsikringstagere" til forsikringsselskaber
+    er ikke omfattet, så længe vi ikke gør mere for at hjælpe aftalen på
+    plads.
+  - **Vi bliver kun ved med at være undtaget, hvis vi:** ikke rådgiver,
+    ikke viser priser, rangeringer eller sammenligninger, ikke kalder os
+    "sammenligningstjeneste", ikke indhenter eller viser tilbud, og bliver
+    betalt pr. lead (ikke pr. solgt forsikring). Det står nu som en fast
+    regel for udviklingen.
+  - Det gælder også liv og ulykke. Hold pensions- og opsparingsprodukter
+    ude, og spørg aldrig om helbred eller familiens sygdomme.
+  - **Partnerne vil spørge** (de må kun bruge formidlere med tilladelse,
+    § 3, stk. 7). **Anbefaling:** bed Finanstilsynet om en skriftlig
+    bekræftelse af, at modellen ikke kræver tilladelse, eller få advokaten
+    til at skrive et kort notat. Det kan vises til partnerne.
 - [ ] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
   12 måneder efter (svar, adresse, fødselsår, RKI, Meta-id'er), og efter 5
   år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med
@@ -97,7 +123,8 @@ rigtige leads.
   grundlag af legitim interesse (ikke markedsføring). Privatlivspolitikken
   siger det nu. Er det nok, eller skal det stå i samtykket?
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
-  versionen. Er det nok, eller skal IP-adresse også gemmes?
+  versionen. Er det nok, eller skal IP-adresse også gemmes? (Ingen af
+  konkurrenterne skriver, at de gemmer IP-adresse.)
 - [ ] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
   skal gennemgås, også fordi vi med samtykke sender hashede kontaktdata
   (e-mail, telefon, navn, postnummer og by) til Meta for at måle og optimere

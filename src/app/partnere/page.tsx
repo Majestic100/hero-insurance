@@ -22,8 +22,9 @@ export default function PartnersPage() {
       title="Vores partnere"
       intro={
         <p>
-          Når du giver samtykke, sender vi din forespørgsel til de selskaber på
-          listen, som tilbyder de forsikringer, du har valgt. Kun dem.
+          Når du giver samtykke, sender vi din forespørgsel til op til 3 af
+          selskaberne på listen, som tilbyder de forsikringer, du har valgt.
+          Kun dem.
         </p>
       }
     >

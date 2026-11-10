@@ -15,13 +15,19 @@ export const consentFields: readonly FieldConfig[] = [
     name: "consentPartnerContact",
     label: "Samtykke til at blive kontaktet med tilbud",
     consentType: "partner_contact",
-    version: "2026-11-01.1",
+    version: "2026-11-10.1",
+    // Market practice (Findforsikring, Forsikringsportalen, 2026-11-10):
+    // named recipients via the partner list, "op til 3", phone, e-mail and
+    // SMS, our own follow-up, and how to withdraw. MAX_PARTNERS_PER_LEAD in
+    // src/config/partners.ts must match "op til 3".
     text:
       "Jeg giver samtykke til, at mine oplysninger fra denne formular sendes " +
-      "til vores samarbejdspartnere blandt forsikringsselskaberne, så de kan " +
-      "kontakte mig på telefon og e-mail med tilbud på de forsikringer, jeg " +
-      "har valgt. Jeg kan til enhver tid trække samtykket tilbage.",
-    link: { href: "/privatlivspolitik", label: "Læs vores privatlivspolitik" },
+      "til op til 3 forsikringsselskaber på partnerlisten, som tilbyder de " +
+      "forsikringer, jeg har valgt, så de kan kontakte mig på telefon, e-mail " +
+      "og SMS med et tilbud. Nemforsikringstilbud må kontakte mig for at følge " +
+      "op på min forespørgsel. Jeg kan til enhver tid trække samtykket tilbage " +
+      "ved at skrive til kontakt@nemforsikringstilbud.dk.",
+    link: { href: "/partnere", label: "Se partnerlisten" },
     requiredMessage:
       "Du skal give samtykke, for at forsikringsselskaberne kan sende dig tilbud.",
   },
