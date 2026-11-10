@@ -97,10 +97,9 @@ rigtige leads.
   (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
   `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
   advokat): brug "Share" på en deployment i Vercel.
-- [ ] **Kobl nemforsikringstilbud.dk og www på Production ved lanceringen**
-  (ikke før samtykketekst, privatlivspolitik og første partner er på plads).
-  DNS ligger hos Simply.com.
-- [ ] **Sådan kobles hovedadressen på (ved lanceringen):** Vercel > projektet >
+- [ ] **Kobl nemforsikringstilbud.dk på Production ved lanceringen** (ikke
+  før samtykketekst, privatlivspolitik og første partner er på plads; DNS
+  ligger hos Simply.com). Vercel > projektet >
   Settings > Domains > Add, tilføj både `nemforsikringstilbud.dk` og
   `www.nemforsikringstilbud.dk` (lad www viderestille til uden www, eller
   omvendt). Sæt derefter de DNS-poster, Vercel viser, hos den udbyder, hvor
