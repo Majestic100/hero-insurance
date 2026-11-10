@@ -1,5 +1,6 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
+import { otherInfoField } from "./shared";
 
 export const boatFields: readonly FieldConfig[] = [
   {
@@ -46,5 +47,71 @@ export const boatFields: readonly FieldConfig[] = [
     max: 2000,
     unit: "hk",
   },
+  {
+    type: "select",
+    name: "engineType",
+    label: "Motortype",
+    placeholder: "Vælg",
+    options: [
+      { value: "inboard", label: "Indenbords" },
+      { value: "outboard", label: "Påhængsmotor" },
+      { value: "none", label: "Ingen motor" },
+      { value: "other", label: "Andet" },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+    width: "half",
+  },
+  {
+    type: "year",
+    name: "buildYear",
+    label: "Byggeår",
+    placeholder: "Fx 2005",
+    minYear: 1900,
+    width: "half",
+  },
+  {
+    type: "single-choice",
+    name: "mooring",
+    label: "Hvor ligger båden?",
+    layout: "grid",
+    options: [
+      { value: "harbour", label: "I havn" },
+      { value: "trailer", label: "På trailer" },
+      { value: "land", label: "På land" },
+      { value: "other", label: "Andet" },
+    ],
+  },
+  {
+    type: "single-choice",
+    name: "sailingArea",
+    label: "Hvor sejler du?",
+    layout: "grid",
+    options: [
+      { value: "danish", label: "Danske farvande" },
+      { value: "scandinavian", label: "Skandinavien" },
+      { value: "european", label: "Europa" },
+      { value: "international", label: "Hele verden" },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+  },
+  {
+    type: "single-choice",
+    name: "coverage",
+    label: "Hvilken dækning ønsker du?",
+    options: [
+      {
+        value: "liability",
+        label: "Kun ansvar",
+        description: "Skader, du laver på andre og deres ting",
+      },
+      {
+        value: "comprehensive",
+        label: "Ansvar og kasko",
+        description: "Også skader på din egen båd",
+      },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+  },
   currentInsurerField(),
+  otherInfoField(),
 ];

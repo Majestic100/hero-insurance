@@ -12,6 +12,7 @@ export const contactFields: readonly FieldConfig[] = [
     label: "Fornavn",
     maxLength: 100,
     autoComplete: "given-name",
+    width: "half",
     noDraft: true,
   },
   {
@@ -20,6 +21,17 @@ export const contactFields: readonly FieldConfig[] = [
     label: "Efternavn",
     maxLength: 100,
     autoComplete: "family-name",
+    width: "half",
+    noDraft: true,
+  },
+  {
+    type: "text",
+    name: "phone",
+    label: "Telefonnummer",
+    description: "Deles kun med de selskaber, der skal give dig tilbud. Ingen spam.",
+    format: "phone-dk",
+    maxLength: 20,
+    autoComplete: "tel-national",
     noDraft: true,
   },
   {
@@ -29,15 +41,6 @@ export const contactFields: readonly FieldConfig[] = [
     format: "email",
     maxLength: 254,
     autoComplete: "email",
-    noDraft: true,
-  },
-  {
-    type: "text",
-    name: "phone",
-    label: "Telefonnummer",
-    format: "phone-dk",
-    maxLength: 20,
-    autoComplete: "tel-national",
     noDraft: true,
   },
   {
@@ -58,6 +61,7 @@ export const contactFields: readonly FieldConfig[] = [
     format: "postal-code-dk",
     maxLength: 4,
     autoComplete: "postal-code",
+    width: "half",
     noDraft: true,
     autofill: { from: ["house.address", "home_contents.address"], lookup: "address-postal-code" },
   },
@@ -67,6 +71,7 @@ export const contactFields: readonly FieldConfig[] = [
     label: "By",
     maxLength: 100,
     autoComplete: "address-level2",
+    width: "half",
     autofill: { from: "postalCode", lookup: "dk-postal-code-city" },
     noDraft: true,
   },
@@ -79,6 +84,22 @@ export const contactFields: readonly FieldConfig[] = [
     minYear: 1920,
     maxYearsAgo: 18,
     autoComplete: "bday-year",
+    noDraft: true,
+  },
+  {
+    // The partners always ask. Personal data (credit information), so it is
+    // never saved in the draft. Any answer still gets offers.
+    type: "single-choice",
+    name: "rkiRegistered",
+    label: "Er du registreret i RKI?",
+    description:
+      "Selskaberne spørger altid om det. Svarer du ja eller ved ikke, kan du stadig få tilbud.",
+    layout: "grid",
+    options: [
+      { value: "no", label: "Nej" },
+      { value: "yes", label: "Ja" },
+      { value: "unknown", label: "Ved ikke" },
+    ],
     noDraft: true,
   },
 ];

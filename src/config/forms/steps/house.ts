@@ -1,9 +1,26 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { propertyAddressField, ROOF_TYPES } from "./shared";
+import {
+  otherInfoField,
+  propertyAddressField,
+  ROOF_TYPES,
+} from "./shared";
 
 export const houseFields: readonly FieldConfig[] = [
   propertyAddressField("Husets adresse"),
+  {
+    type: "single-choice",
+    name: "houseType",
+    label: "Hvilken type hus?",
+    layout: "grid",
+    options: [
+      { value: "detached", label: "Villa eller parcelhus" },
+      { value: "terraced", label: "Række- eller dobbelthus" },
+      { value: "farmhouse", label: "Landejendom" },
+      { value: "former_farm", label: "Nedlagt landbrug" },
+      { value: "other", label: "Andet" },
+    ],
+  },
   {
     type: "number",
     name: "livingArea",
@@ -31,4 +48,5 @@ export const houseFields: readonly FieldConfig[] = [
     autofill: { from: "address", lookup: "bbr-roof-type" },
   },
   currentInsurerField(),
+  otherInfoField(),
 ];

@@ -69,7 +69,8 @@ X-Lead-Signature: t=1793633295,v1=5f0c...e9
     "first_name": "Test", "last_name": "Testesen",
     "email": "test@example.dk", "phone": "12345678",
     "street_address": "Testvej 1", "postal_code": "2100",
-    "city": "København Ø", "birth_year": 1985
+    "city": "København Ø", "birth_year": 1985,
+    "rki_status": "no"
   },
   "insurances": [
     { "type": "travel", "form_version": "...",
@@ -80,6 +81,9 @@ X-Lead-Signature: t=1793633295,v1=5f0c...e9
 }
 ```
 
+- `contact.rki_status`: whether the user says they are registered in RKI:
+  `no`, `yes` or `unknown` (`null` for leads from before 2026-11-10).
+  Added without a new schema version: ignore fields you do not know.
 - `insurances` holds only the types you receive. The answers are codes; the
   list of fields and codes per type is in `src/config/forms/steps/`.
 - **Check the signature:** HMAC-SHA256 of `<t>.<raw body>` with your

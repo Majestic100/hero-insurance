@@ -18,6 +18,7 @@ const CONTACT_COLUMNS = {
   postalCode: "postal_code",
   city: "city",
   birthYear: "birth_year",
+  rkiRegistered: "rki_status",
 } as const;
 
 export type LeadTracking = {

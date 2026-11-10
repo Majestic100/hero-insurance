@@ -76,6 +76,7 @@ describe("buildDeliveryPayload", () => {
     postal_code: "2100",
     city: "København Ø",
     birth_year: 1980,
+    rki_status: "no",
     lead_insurances: [
       { insurance_type: "car", answers: { plate: "AB12345" }, form_version: "v1" },
       { insurance_type: "life", answers: { payout: "1m" }, form_version: "v1" },

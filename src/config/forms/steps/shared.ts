@@ -1,4 +1,4 @@
-import type { AddressField, ChoiceOption } from "../types";
+import type { AddressField, ChoiceOption, TextField } from "../types";
 
 /**
  * Option lists used by several insurance types. Values are stored in the
@@ -50,5 +50,24 @@ export function propertyAddressField(label: string): AddressField {
     description: "Vælg adressen på listen, så henter vi boligens data fra BBR.",
     placeholder: "Fx Strandvejen 12, 2900",
     noDraft: true,
+  };
+}
+
+/**
+ * Free text for anything the questions do not cover, shown under "Vis
+ * flere detaljer". Partners read it, so we warn against health data
+ * (GDPR art. 9).
+ */
+export function otherInfoField(): TextField {
+  return {
+    type: "text",
+    name: "otherInfo",
+    label: "Andre oplysninger til selskaberne",
+    description: "Fx tidligere skader eller særlige ønsker. Skriv ikke om helbred.",
+    placeholder: "Skriv her",
+    multiline: true,
+    maxLength: 500,
+    optional: true,
+    advanced: true,
   };
 }

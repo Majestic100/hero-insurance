@@ -25,6 +25,15 @@ rigtige leads.
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
   Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
+- [ ] **Bilforsikring (opdateret 2026-11-10 efter Findforsikring):** uden
+  nummerplade spørger vi nu om mærke, model, drivmiddel, årgang og
+  motorstørrelse; og under "Vis flere detaljer" om år med bil i eget navn
+  og fri tekst. Vi spørger både om **skadefri år** og **år med bil i eget
+  navn**. Bruger partnerne begge, eller kan vi droppe det ene?
+- [ ] **Fri tekst til selskaberne** ("Andre oplysninger"): brugeren kan
+  skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
+  advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til
+  advokaten)
 - [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
   muligt data). Er det nok til prisen?
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
@@ -51,22 +60,34 @@ rigtige leads.
 
 ## Juridisk (advokat eller GDPR-rådgiver)
 
+- [ ] **[Blokerer lancering] Gennemgå de juridiske sider (skrevet
+  2026-11-10):** `/privatlivspolitik`, `/samtykke`, `/cookiepolitik`,
+  `/betingelser`, `/om-os`, `/kontakt` og `/partnere` (kan ses på
+  test.nemforsikringstilbud.dk). Skrevet ud fra, hvad siden faktisk gør i
+  dag. Særlige spørgsmål til advokaten:
+  - Privatlivspolitikken lover sletning af leads efter **12 måneder** og
+    samtykkebevis efter højst **5 år**. Er det de rigtige frister? Den
+    automatiske sletning er ikke bygget endnu og skal bygges før lancering,
+    ellers holder vi ikke vores eget løfte.
+  - Er vi **fælles dataansvarlige med Meta** for Pixel og Conversions API
+    (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
+    Vercel og Meta?
+  - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
+    rådgiver. Passer det med svaret om Finanstilsynet nedenfor?
 - [ ] **[Blokerer lancering] Samtykketeksten** til at sende oplysningerne
   videre til forsikringsselskaber. Den skal nævne modtagerne (navne eller
-  en klar kategori) og formålet. Kode: `src/config/forms/consents.ts`.
+  en klar kategori) og formålet. Vi har nu `/partnere`, der viser
+  modtagerne automatisk fra listen i koden; teksten kunne henvise dertil.
+  Kode: `src/config/forms/consents.ts` (`/samtykke` viser altid den
+  aktuelle tekst).
 - [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
   skal overholde markedsføringslovens § 10. Kode: samme fil.
-- [ ] **Underleverandører i privatlivspolitikken:** MotorAPI (nummerplader)
-  og Datafordeler (adresser, BBR) skal nævnes. MotorAPI ser
-  nummerpladerne, men ikke hvem brugeren er.
-- [ ] **[Blokerer lancering] Privatlivspolitik.** Siden
-  `/privatlivspolitik` er en pladsholder. Kode:
-  `src/app/privatlivspolitik/page.tsx`.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Formidling og sammenligning af forsikringer kan være
   forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
-- [ ] **Opbevaringstid:** hvor længe må vi gemme et lead, og hvornår slettes
-  det automatisk?
+- [ ] **Opbevaringstid:** privatlivspolitikken siger 12 måneder for leads og
+  højst 5 år for samtykkebevis (se ovenfor). Bekræft, så bygger vi den
+  automatiske sletning.
 - [ ] **Databehandleraftaler** med Supabase og Vercel, og aftaler med
   partnerne om, hvem der er dataansvarlig for hvad.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
@@ -78,13 +99,61 @@ rigtige leads.
 
 ## Dig (forretning og indhold)
 
-- [ ] **Brand:** navnet er Nemforsikringstjek (nemforsikringstjek.dk).
-  Mangler: logo (du laver det), farver, og at domænet kobles på Vercel.
-  Navnet kommer på siden, når design og tekster gennemgås.
+- [ ] **Brand:** navnet er Nemforsikringstilbud, og domænet
+  nemforsikringstilbud.dk er købt. Farverne er valgt. Mangler: logo (du
+  laver det; indtil da står navnet med et skjold-ikon), og at domænet
+  kobles på Vercel (se "Konti og adgang").
+- [ ] **[Blokerer lancering] Firmaoplysninger:** siderne skriver "Hero
+  Media". E-handelsloven kræver det fulde firmanavn (fx "Hero Media ApS"),
+  CVR-nummer og adresse. Kode: `COMPANY` i `src/config/site.ts`.
+- [ ] **[Blokerer lancering] Opret e-mailen kontakt@nemforsikringstilbud.dk**
+  hos Simply.com. Den står på alle de juridiske sider og på "Bliv partner",
+  og folk skal kunne skrive for at få indsigt eller slette deres data.
+- [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
+  året":** du har den og sender den, når den er klar. Teksten står
+  allerede tydeligt øverst på forsiden og siderne pr. forsikringstype.
+  Når dokumentationen kommer, tjekker vi, at ordlyden passer: er 3.300 kr.
+  et gennemsnit ("i gennemsnit") eller det højeste ("op til")? Kode:
+  `SAVINGS_CLAIM` i `src/config/site.ts`.
+- [ ] **Forsiden og siderne pr. forsikringstype** (`/bilforsikring`,
+  `/indboforsikring`, `/husforsikring`, `/ulykkesforsikring`): gennemgå
+  overskrifter, tekster og spørgsmål og svar. Kode: `src/app/page.tsx` og
+  `src/config/landing-pages.ts`. Ingen brugertal, Trustpilot eller
+  kundeudtalelser, før vi har rigtige tal. Logoer fra partnerne kommer på,
+  når partnerne er på plads.
+- [ ] **Flere sider pr. forsikringstype?** Vi har de 4 store. Resten (rejse,
+  fritidshus, MC, båd, camping, dyr, liv, ejerskifte) laves, når vi ved,
+  hvilke typer der annonceres for.
+- [ ] **Trustpilot:** opret en profil. Undersøgelsen i modul 9 kan bede
+  tilfredse brugere om en anmeldelse, så vi senere kan vise rigtige tal.
+- [ ] **Bliv partner** (`/bliv-partner`): gennemgå teksten. Henvendelser går
+  til kontakt-e-mailen.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
 ## Konti og adgang
+
+- [ ] **Kør databaseændringen for RKI** (2026-11-10, før første partner).
+  Indtil den er kørt, virker formularen, men RKI-svaret bliver ikke gemt.
+  Nemmeste vej, i browseren: åbn filen
+  `supabase/migrations/20261110120000_add_rki_status.sql` på GitHub, kopier
+  hele indholdet, og gå i Supabase til projektet **Hero Insurance Dev** >
+  SQL Editor > New query > indsæt > Run. Gentag i projektet **Hero
+  Insurance** (produktion). Den kan køres flere gange uden at gå galt.
+  Alternativt fra din computer: `npm run db:push` og `npm run db:push:prod`.
+- [x] **Fast test-adresse:** `https://test.nemforsikringstilbud.dk` virker
+  (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
+  `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
+  advokat): brug "Share" på en deployment i Vercel.
+- [ ] **Kobl nemforsikringstilbud.dk på Production ved lanceringen** (ikke
+  før samtykketekst, privatlivspolitik og første partner er på plads; DNS
+  ligger hos Simply.com). Vercel > projektet >
+  Settings > Domains > Add, tilføj både `nemforsikringstilbud.dk` og
+  `www.nemforsikringstilbud.dk` (lad www viderestille til uden www, eller
+  omvendt). Sæt derefter de DNS-poster, Vercel viser, hos den udbyder, hvor
+  domænet er købt. Kobles kun på Production. Meta: tilføj og verificer
+  domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
+  fra domænet tælles.
 
 - [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
@@ -137,8 +206,33 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
-- 2026-11-03: Siden hedder Nemforsikringstjek, på domænet
-  nemforsikringstjek.dk. "Hero Insurance" er kun det interne navn.
+- 2026-11-10: Formularen: kontaktoplysninger og samtykke er ét trin
+  ("Dine oplysninger"), fornavn og efternavn samt postnummer og by står
+  ved siden af hinanden, og telefonnummeret har teksten "Deles kun med de
+  selskaber, der skal give dig tilbud. Ingen spam." I formularen og på
+  takkesiden er footeren lille (firma, privatlivspolitik, betingelser,
+  cookies, åbner i ny fane), og "Få tilbud" er skjult i toppen. Takkesiden
+  forklarer de næste skridt, beder brugeren tage telefonen (også fra
+  ukendte numre) og tilbyder flere forsikringer.
+
+- 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
+  Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
+  og sendes med til partnerne. Gemmes aldrig i kladden i browseren.
+- 2026-11-10: Spørgsmålene er sammenlignet med Findforsikring
+  (`docs/research/findforsikring-forms.md`). Tilføjet: fri tekst på alle
+  typer, hustype, fritidshustype, afbestilling (rejse), nummerplade og
+  dækning (camping), motortype, byggeår, liggeplads, farvand og dækning
+  (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
+  dyr eller personer i samme forespørgsel.
+
+- 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
+  navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), blå #7692FF
+  (flader og valgte felter, afløste lavendel #C9B5E0) og creme #FCF9EC.
+  Baggrunden er hvid. Overskrifter på
+  forsiden i Source Serif 4, al anden tekst og formularen i Geist.
+- 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
+  Nemforsikringstjek, som stod her ved en fejl), på domænet
+  nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.
 - 2026-11-02: Levering (modul 8): partnerne og deres forsikringstyper står
   i koden, og modtagerne af et lead lægges fast, når brugeren giver
   samtykke. Leads sendes kun, hvis samtykket til partnerne er givet. Ingen

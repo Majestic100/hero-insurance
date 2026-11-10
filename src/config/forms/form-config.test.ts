@@ -28,6 +28,14 @@ describe("form config integrity", () => {
     }
   });
 
+  it("only hides optional fields under \"Vis flere detaljer\"", () => {
+    for (const step of steps) {
+      for (const field of step.fields.filter((candidate) => candidate.advanced)) {
+        expect(field.optional, `${step.id}.${field.name}`).toBe(true);
+      }
+    }
+  });
+
   it("only uses showIf on earlier choice fields with real option values", () => {
     for (const step of steps) {
       step.fields.forEach((field, index) => {
@@ -79,8 +87,13 @@ describe("insurance steps accept a realistic answer", () => {
 
     const withoutPlate = parse("bil", {
       hasLicensePlate: "no",
-      makeAndModel: "Toyota Yaris",
+      make: "toyota",
+      model: "Yaris",
       modelYear: 2021,
+      fuelType: "hybrid_petrol",
+      engineSize: "1,5",
+      ownCarYears: "10_plus",
+      otherInfo: "Bilen har anhængertræk.",
       mainDriver: "someone_else",
       mainDriverBirthYear: 1990,
       annualMileage: "under_10000",
@@ -89,6 +102,20 @@ describe("insurance steps accept a realistic answer", () => {
       currentInsurer: "tryg",
     });
     expect(withoutPlate.success).toBe(true);
+
+    // Without a plate the fuel type is required (the register gives it
+    // with a plate).
+    const noFuel = {
+      hasLicensePlate: "no",
+      make: "toyota",
+      model: "Yaris",
+      modelYear: 2021,
+      mainDriver: "me",
+      annualMileage: "under_10000",
+      coverage: "unknown",
+      claimFreeYears: "0",
+    };
+    expect(parse("bil", noFuel).success).toBe(false);
   });
 
   it("home contents", () => {
@@ -107,6 +134,7 @@ describe("insurance steps accept a realistic answer", () => {
   it("house", () => {
     const result = parse("hus", {
       address: { text: "Egevej 5, 4030 Tune", id: "0a3f5081-1b18-32b8-e044-0003ba298018" },
+      houseType: "detached",
       livingArea: 140,
       buildYear: 1975,
       roofType: "tiles",
@@ -123,11 +151,15 @@ describe("insurance steps accept a realistic answer", () => {
         occupation: "office",
       },
     ],
-    ["rejse", { tripType: "annual", area: "worldwide", travellers: "family" }],
+    [
+      "rejse",
+      { tripType: "annual", area: "worldwide", travellers: "family", cancellation: "yes" },
+    ],
     [
       "fritidshus",
       {
         address: { text: "Strandvejen 100, Reersø, 4281 Gørlev" },
+        holidayHomeType: "summer_house",
         livingArea: 70,
         buildYear: 1980,
         roofType: "thatch",
@@ -140,11 +172,26 @@ describe("insurance steps accept a realistic answer", () => {
     ],
     [
       "baad",
-      { boatType: "sailboat", lengthFeet: 28, value: "50000_200000" },
+      {
+        boatType: "sailboat",
+        lengthFeet: 28,
+        value: "50000_200000",
+        engineType: "inboard",
+        buildYear: 2005,
+        mooring: "harbour",
+        sailingArea: "danish",
+        coverage: "comprehensive",
+      },
     ],
     [
       "camping",
-      { caravanType: "motorhome", modelYear: 2015, value: "over_400000" },
+      {
+        caravanType: "motorhome",
+        licensePlate: "ab 12 345",
+        modelYear: 2015,
+        value: "over_400000",
+        coverage: "comprehensive",
+      },
     ],
     [
       "dyr",
@@ -155,7 +202,7 @@ describe("insurance steps accept a realistic answer", () => {
         coverageTypes: ["illness"],
       },
     ],
-    ["liv", { payout: "unknown", purpose: "mortgage" }],
+    ["liv", { payout: "unknown", purpose: "mortgage", industry: "education" }],
     [
       "ejerskifte",
       {
@@ -216,6 +263,9 @@ describe("contact and consent steps", () => {
       postalCode: "2100",
       city: "København Ø",
       birthYear: 1985,
+      rkiRegistered: "unknown",
+      consentPartnerContact: true,
+      consentMarketing: false,
     };
     const result = buildStepSchema(contact, values).safeParse(values);
     expect(result.success).toBe(true);
@@ -226,12 +276,24 @@ describe("contact and consent steps", () => {
   });
 
   it("requires the partner consent but not marketing", () => {
-    const consent = stepById("afslut");
-    const declined = { consentPartnerContact: false, consentMarketing: false };
+    // Consent sits on the contact step.
+    const consent = stepById("kontakt");
+    const contact = {
+      firstName: "Test",
+      lastName: "Testesen",
+      email: "test@example.dk",
+      phone: "12345678",
+      streetAddress: "Testvej 1",
+      postalCode: "2100",
+      city: "København Ø",
+      birthYear: 1985,
+      rkiRegistered: "no",
+    };
+    const declined = { ...contact, consentPartnerContact: false, consentMarketing: false };
     expect(buildStepSchema(consent, declined).safeParse(declined).success).toBe(
       false,
     );
-    const given = { consentPartnerContact: true, consentMarketing: false };
+    const given = { ...contact, consentPartnerContact: true, consentMarketing: false };
     expect(buildStepSchema(consent, given).safeParse(given).success).toBe(true);
   });
 });

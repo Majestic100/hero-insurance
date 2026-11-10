@@ -1,6 +1,9 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { YES_NO } from "./shared";
+import {
+  otherInfoField,
+  YES_NO,
+} from "./shared";
 
 export const petFields: readonly FieldConfig[] = [
   {
@@ -52,4 +55,5 @@ export const petFields: readonly FieldConfig[] = [
     showIf: { field: "animal", equals: ["dog", "horse"] },
   },
   currentInsurerField(),
+  otherInfoField(),
 ];
