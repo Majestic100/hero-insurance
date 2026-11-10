@@ -8,17 +8,17 @@ import { otherInfoField } from "./shared";
  */
 export const lifeFields: readonly FieldConfig[] = [
   {
-    type: "single-choice",
+    // An amount, not a range: fits every insurer. Empty means "Ved ikke".
+    type: "number",
     name: "payout",
     label: "Hvor stort et beløb skal udbetales?",
-    description: "Udbetales til dine efterladte, hvis du dør.",
-    options: [
-      { value: "under_500000", label: "Under 500.000 kr." },
-      { value: "500000_1000000", label: "500.000-1.000.000 kr." },
-      { value: "1000000_2000000", label: "1-2 mio. kr." },
-      { value: "over_2000000", label: "Over 2 mio. kr." },
-      { value: "unknown", label: "Ved ikke" },
-    ],
+    description:
+      "Udbetales til dine efterladte, hvis du dør. Lad feltet stå tomt, hvis du ikke ved det, så hjælper selskabet dig.",
+    optional: true,
+    placeholder: "Fx 1.000.000",
+    min: 50000,
+    max: 50000000,
+    unit: "kr.",
   },
   {
     type: "single-choice",

@@ -126,7 +126,7 @@ describe("insurance steps accept a realistic answer", () => {
       tenure: "tenant",
       livingArea: 72,
       householdSize: "2",
-      sumInsured: "under_500000",
+      sumInsured: "250000_500000",
     });
     expect(result.success).toBe(true);
   });
@@ -183,7 +183,7 @@ describe("insurance steps accept a realistic answer", () => {
         makeAndModel: "Bavaria 32",
         lengthFeet: 28,
         topSpeed: 7,
-        value: "50000_200000",
+        value: 150000,
         engineType: "inboard",
         buildYear: 2005,
         mooring: "harbour",
@@ -198,7 +198,7 @@ describe("insurance steps accept a realistic answer", () => {
         licensePlate: "ab 12 345",
         makeAndModel: "Hobby De Luxe",
         modelYear: 2015,
-        value: "over_400000",
+        value: 450000,
         coverage: "comprehensive",
       },
     ],
@@ -211,7 +211,8 @@ describe("insurance steps accept a realistic answer", () => {
         coverageTypes: ["illness"],
       },
     ],
-    ["liv", { payout: "unknown", purpose: "mortgage", industry: "education" }],
+    ["liv", { payout: 1500000, purpose: "mortgage", industry: "education" }],
+    ["liv", { purpose: "family" }],
     [
       "ejerskifte",
       {

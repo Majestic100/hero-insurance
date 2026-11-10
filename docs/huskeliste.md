@@ -12,9 +12,14 @@ rigtige leads.
   samme som Findforsikring eller mere, så partnerne har det, de plejer at
   få. De kan stadig bede om ændringer.
   Kode: `src/config/forms/steps/` (én fil pr. type).
-- [ ] **Intervaller og svarmuligheder**, fx kørsel om året, indboets værdi,
-  bådens værdi og udbetaling på livsforsikring. Passer de med partnernes
-  prisgrupper? Kode: samme filer.
+- [x] **Intervaller og svarmuligheder** (løst 2026-11-10 uden at kende
+  partnernes prisgrupper): fine intervaller kan altid lægges sammen til
+  grove, men grove kan aldrig deles. Derfor: **beløb** hvor brugeren kender
+  tallet (bådens og campingvognens værdi, livsforsikringssum, salgspris),
+  og **finere intervaller** hvor brugeren gætter (kørsel om året i trin af
+  5.000 km op til 30.000, så 30-40.000 og over 40.000; indboets værdi i
+  trin op til over 1,5 mio. kr.). Bruger en partner andre grupper, kan vi
+  oversætte ved levering. Kode: `src/config/forms/steps/`.
 - [x] **Listen over forsikringsselskaber** i "Nuværende selskab": udvidet til
   46 selskaber efter Findforsikrings liste (2026-11-10). Codan og
   Topdanmark er bevaret, fordi mange stadig kender deres police under det
