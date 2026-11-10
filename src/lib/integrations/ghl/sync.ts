@@ -33,8 +33,9 @@ export async function syncLeadsToGhl(
   let query = supabase
     .from("leads")
     .select(
-      "id, created_at, first_name, last_name, email, phone, " +
-        "lead_insurances (insurance_type), consents (consent_type, granted)",
+      "id, created_at, first_name, last_name, email, phone, street_address, " +
+        "postal_code, city, birth_year, rki_status, " +
+        "lead_insurances (insurance_type, answers), consents (consent_type, granted)",
     )
     .is("ghl_synced_at", null)
     .is("answers_purged_at", null)
@@ -57,7 +58,12 @@ export async function syncLeadsToGhl(
     last_name: string;
     email: string;
     phone: string;
-    lead_insurances: { insurance_type: string }[];
+    street_address: string | null;
+    postal_code: string | null;
+    city: string | null;
+    birth_year: number | null;
+    rki_status: string | null;
+    lead_insurances: { insurance_type: string; answers: unknown }[];
     consents: { consent_type: string; granted: boolean }[];
   };
   let sent = 0;
@@ -65,7 +71,7 @@ export async function syncLeadsToGhl(
   for (const lead of (data ?? []) as unknown as Row[]) {
     const payload = buildGhlContactPayload({
       ...lead,
-      insurance_types: lead.lead_insurances.map((row) => row.insurance_type),
+      insurances: lead.lead_insurances,
       marketing_consent: lead.consents.some(
         (row) => row.consent_type === "marketing" && row.granted,
       ),
