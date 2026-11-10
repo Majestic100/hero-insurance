@@ -6,6 +6,7 @@ import { INSURANCE_ICONS } from "@/components/insurance-icons";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { FaqList } from "@/components/marketing/faq-list";
 import { HowItWorks } from "@/components/marketing/how-it-works";
+import { SavingsHighlight } from "@/components/marketing/savings-highlight";
 import { UspList } from "@/components/marketing/usp-list";
 import { Button } from "@/components/ui/button";
 import { INSURANCE_TYPE_INFO } from "@/config/forms/insurance-types";
@@ -37,6 +38,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
             <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
               {page.heading}
             </h1>
+            <SavingsHighlight />
             <p className="text-lg text-muted-foreground">{page.intro}</p>
           </div>
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-10">

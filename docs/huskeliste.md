@@ -101,10 +101,11 @@ rigtige leads.
   hos Simply.com. Den står på alle de juridiske sider og på "Bliv partner",
   og folk skal kunne skrive for at få indsigt eller slette deres data.
 - [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
-  året"** (vises på forsiden og siderne pr. forsikringstype). Send den, så
-  tjekker vi, at ordlyden passer: er 3.300 kr. et gennemsnit ("i
-  gennemsnit") eller det højeste ("op til")? Kode: `SAVINGS_CLAIM` i
-  `src/config/site.ts`.
+  året":** du har den og sender den, når den er klar. Teksten står
+  allerede tydeligt øverst på forsiden og siderne pr. forsikringstype.
+  Når dokumentationen kommer, tjekker vi, at ordlyden passer: er 3.300 kr.
+  et gennemsnit ("i gennemsnit") eller det højeste ("op til")? Kode:
+  `SAVINGS_CLAIM` i `src/config/site.ts`.
 - [ ] **Forsiden og siderne pr. forsikringstype** (`/bilforsikring`,
   `/indboforsikring`, `/husforsikring`, `/ulykkesforsikring`): gennemgå
   overskrifter, tekster og spørgsmål og svar. Kode: `src/app/page.tsx` og

@@ -5,6 +5,7 @@ import { INSURANCE_ICONS } from "@/components/insurance-icons";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { FaqList, type FaqItem } from "@/components/marketing/faq-list";
 import { HowItWorks } from "@/components/marketing/how-it-works";
+import { SavingsHighlight } from "@/components/marketing/savings-highlight";
 import { UspList } from "@/components/marketing/usp-list";
 import { Button } from "@/components/ui/button";
 import {
@@ -54,6 +55,7 @@ export default function HomePage() {
             <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               Få tilbud på dine forsikringer. Udfyld kun én formular.
             </h1>
+            <SavingsHighlight />
             <p className="text-lg text-muted-foreground">
               Vælg de forsikringer, du vil have tilbud på, og lad
               forsikringsselskaberne give dig et bud.

@@ -24,7 +24,8 @@ export const COMPANY: {
 };
 
 /**
- * The savings claim shown on the homepage and landing pages. The owner has
+ * The savings claim, shown prominently in the hero of the homepage and the
+ * landing pages (owner, 2026-11-10). The owner has
  * documentation for it (2026-11-10). The wording must match what the
  * documentation shows (average or maximum, per year), see
  * docs/huskeliste.md.
