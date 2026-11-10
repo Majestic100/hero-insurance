@@ -3,6 +3,7 @@ import { after } from "next/server";
 import { z } from "zod";
 
 import { processDeliveries } from "@/lib/delivery/deliver";
+import { syncLeadsToGhl } from "@/lib/integrations/ghl/sync";
 import { submitLead } from "@/lib/leads/submit-lead";
 import { CONSENT_COOKIE, parseConsent, readCookie } from "@/lib/tracking/consent";
 import { sendMetaLeadEvent } from "@/lib/tracking/meta-capi";
@@ -75,6 +76,8 @@ export async function POST(request: Request) {
     if (result.ok) {
       // Delivered to the partners after the response; the cron job retries.
       after(() => processDeliveries({ leadId: result.leadId }));
+      // The follow-up survey (module 9); the cron retries if this fails.
+      after(() => syncLeadsToGhl({ leadId: result.leadId }));
       if (tracking.consent) {
         // Sent after the response, so Meta never slows down the user.
         after(() =>

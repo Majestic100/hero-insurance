@@ -68,7 +68,9 @@ src/
       health/route.ts         Supabase health check
       leads/route.ts          POST: validates and saves a lead, then delivers it
       partners/outcomes/      POST: partners report outcomes (API key)
-      cron/deliver-leads/     GET: Vercel Cron retries deliveries (CRON_SECRET)
+      cron/deliver-leads/     GET: Vercel Cron: retries deliveries and GHL sync,
+                              outcomes to Meta, retention (CRON_SECRET)
+      ghl/feedback/           POST: survey answers from GoHighLevel (?key=)
       postnummer/, adresser/, bbr/, nummerplade/
                               GET: register lookups for the form (BotID)
   components/
@@ -97,6 +99,8 @@ src/
       address/                address search and postal code to city (DAR)
       bbr/                    BBR facts about the home on an address
       license-plate/          vehicle data for a plate (MotorAPI, for now)
+      ghl/                    GoHighLevel: leads to the follow-up workflow,
+                              survey answers back (see its README)
     tracking/                 consent, Meta Pixel and Conversions API (see README)
     utils.ts                  cn() helper for shadcn
 supabase/
@@ -231,6 +235,11 @@ belongs there.
   2026-11-03) protects the cron endpoint. The
   cron runs once a day while Vercel is on Hobby (more often fails to
   deploy); make it every 5 minutes after the Pro upgrade.
+- **GoHighLevel** (module 9): `GHL_INBOUND_WEBHOOK_URL` and
+  `GHL_FEEDBACK_SECRET`, not set yet. Migration
+  `20261110170000_lead_feedback_ghl.sql` applied and tested on dev, not
+  on production (needs the owner's OK; apply it before setting the keys in
+  Production).
 - **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
   team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
   Authentication. The brand domain `nemforsikringstilbud.dk` is bought (2026-11-10),
@@ -254,7 +263,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 6  | Registers and APIs            | done (postal code, address, BBR; plates via MotorAPI until our own DMR copy) |
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
-| 9  | Survey                        |        |
+| 9  | Survey                        | foundation done (leads to GoHighLevel, answers back to `lead_feedback`); GHL workflows and keys to set up |
 | 10 | Testing and launch            |        |
 
 Update the status column when a module is finished.

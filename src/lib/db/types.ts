@@ -105,6 +105,41 @@ export type Database = {
           },
         ]
       }
+      lead_feedback: {
+        Row: {
+          contacted: boolean | null
+          lead_id: string
+          quoted: boolean | null
+          received_at: string
+          satisfaction: number | null
+          source: string
+        }
+        Insert: {
+          contacted?: boolean | null
+          lead_id: string
+          quoted?: boolean | null
+          received_at?: string
+          satisfaction?: number | null
+          source?: string
+        }
+        Update: {
+          contacted?: boolean | null
+          lead_id?: string
+          quoted?: boolean | null
+          received_at?: string
+          satisfaction?: number | null
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lead_feedback_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: true
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lead_insurances: {
         Row: {
           answers: Json
@@ -192,6 +227,7 @@ export type Database = {
           email: string
           fbc: string | null
           fbp: string | null
+          ghl_synced_at: string | null
           first_name: string
           id: string
           last_name: string
@@ -212,6 +248,7 @@ export type Database = {
           email: string
           fbc?: string | null
           fbp?: string | null
+          ghl_synced_at?: string | null
           first_name: string
           id?: string
           last_name: string
@@ -232,6 +269,7 @@ export type Database = {
           email?: string
           fbc?: string | null
           fbp?: string | null
+          ghl_synced_at?: string | null
           first_name?: string
           id?: string
           last_name?: string
