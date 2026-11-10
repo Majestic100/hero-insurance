@@ -276,6 +276,13 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-10: Vi forklarer ikke på forsiden og "Om os", hvordan vi tjener
+  penge. I stedet står vores mission: kunden har ret til at kende sine
+  muligheder og fortjener forsikringer, der passer. Vi skriver aldrig, at
+  vi finder "den rette forsikring" til kunden (det er rådgivning, se
+  Finanstilsynet); kunden vælger selv. Linjen om, at selskaberne betaler
+  os, bliver stående i betingelserne (advokaten vurderer).
+
 - 2026-11-10: Modul 9 bygges med GoHighLevel (ikke Brevo). GHL får hele
   leadet med et læsbart resumé af svarene til opkald (opdateret samme dag;
   først kun kontaktoplysninger); GHL sender et

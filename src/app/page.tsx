@@ -1,17 +1,13 @@
-import { ArrowRightIcon, HandCoinsIcon, MapPinHouseIcon } from "lucide-react";
+import { MapPinHouseIcon, ScaleIcon } from "lucide-react";
 import Link from "next/link";
 
 import { INSURANCE_ICONS } from "@/components/insurance-icons";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { FaqList, type FaqItem } from "@/components/marketing/faq-list";
+import { InsurancePicker } from "@/components/marketing/insurance-picker";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { SavingsHighlight } from "@/components/marketing/savings-highlight";
 import { UspList } from "@/components/marketing/usp-list";
-import { Button } from "@/components/ui/button";
-import {
-  INSURANCE_TYPE_INFO,
-  INSURANCE_TYPES,
-} from "@/config/forms/insurance-types";
 import { SITE } from "@/config/site";
 
 // Copy reviewed by the owner and legal (docs/huskeliste.md). Only claims we
@@ -22,11 +18,6 @@ const FAQ: FaqItem[] = [
     question: "Koster det noget?",
     answer:
       "Nej. Det er gratis for dig og helt uforpligtende. Du bestemmer selv, om du vil tage imod et tilbud.",
-  },
-  {
-    question: "Hvordan tjener I penge?",
-    answer:
-      "Forsikringsselskaberne betaler os for at formidle din forespørgsel.",
   },
   {
     question: "Hvem kontakter mig?",
@@ -48,7 +39,7 @@ const FAQ: FaqItem[] = [
 export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col">
-      {/* Hero: one tap on a type opens the form with it preselected. */}
+      {/* Hero: tick one or more types, then the form opens at the first. */}
       <section className="bg-secondary/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
@@ -62,34 +53,10 @@ export default function HomePage() {
             </p>
           </div>
 
-          <h2 className="mt-8 text-sm font-medium">Hvad vil du have tilbud på?</h2>
-          <nav
-            aria-label="Vælg forsikring"
-            className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-6"
-          >
-            {INSURANCE_TYPES.map((type) => {
-              const info = INSURANCE_TYPE_INFO[type];
-              const Icon = INSURANCE_ICONS[type];
-              return (
-                <Link
-                  key={type}
-                  href={`/tilbud?forsikring=${info.slug}`}
-                  className="flex min-h-22 flex-col items-center justify-center gap-2 rounded-lg border bg-card px-2 py-3 text-center text-xs leading-tight font-medium shadow-xs transition-colors hover:border-brand hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:text-sm"
-                >
-                  <Icon aria-hidden className="size-6 text-brand" />
-                  {info.shortLabel}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
-            <Button asChild size="lg" className="h-12 text-base sm:px-8">
-              <Link href="/tilbud">
-                Få tilbud
-                <ArrowRightIcon aria-hidden />
-              </Link>
-            </Button>
+          <div className="mt-8">
+            <InsurancePicker />
+          </div>
+          <div className="mt-6">
             <UspList />
           </div>
         </div>
@@ -133,20 +100,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Transparency: how we make money. Builds trust, and partners must be
-          named in the consent anyway. */}
+      {/* Mission. Never "we find the right insurance for you": that is
+          advice (CLAUDE.md rule 7). The user chooses. */}
       <section className="mx-auto w-full max-w-5xl px-4 pt-12 sm:pt-16">
         <div className="flex flex-col gap-4 rounded-xl border p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
-          <HandCoinsIcon aria-hidden className="size-8 shrink-0 text-brand" />
+          <ScaleIcon aria-hidden className="size-8 shrink-0 text-brand" />
           <div className="space-y-2">
             <h2 className="font-heading text-xl font-semibold tracking-tight">
-              Gratis for dig. Sådan tjener vi penge.
+              Du har ret til at kende dine muligheder
             </h2>
             <p className="text-muted-foreground">
-              Forsikringsselskaberne betaler os for at formidle din
-              forespørgsel. Derfor er det gratis for dig, og du er aldrig
-              forpligtet til at købe noget. Vi sender kun dine oplysninger
-              til de selskaber, du selv giver samtykke til.{" "}
+              Vi vil ændre den måde, danskerne får tilbud på forsikringer. I
+              dag skal du ringe rundt og fortælle det samme igen og igen, og
+              derfor bliver mange hængende i forsikringer, der ikke længere
+              passer til deres liv. Hos os udfylder du én formular, og
+              selskaberne kommer til dig. Du vælger selv.{" "}
               <Link href="/om-os" className="font-medium underline underline-offset-4">
                 Læs mere om os
               </Link>

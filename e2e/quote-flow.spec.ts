@@ -86,13 +86,13 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
   const bodies = await mockLeadsApi(page);
 
   await page.goto("/");
-  await page
-    .getByRole("navigation", { name: "Vælg forsikring" })
-    .getByRole("link", { name: "Bil", exact: true })
-    .click();
-  await expect(page).toHaveURL(/\/tilbud\?trin=forsikringer/);
-  await expect(page.getByRole("checkbox", { name: "Bil" })).toBeChecked();
-  await next(page);
+  const picker = page.getByRole("form", { name: "Vælg forsikringer" });
+  await picker.getByText("Bil", { exact: true }).click();
+  await expect(picker.getByRole("checkbox", { name: "Bil" })).toBeChecked();
+  await picker.getByRole("button", { name: "Få tilbud" }).click();
+
+  // The homepage choice skips the selection step.
+  await expect(page).toHaveURL(/\/tilbud\?trin=bil$/);
 
   // Required fields are enforced, in Danish.
   await expect(page.getByRole("heading", { name: "Bilforsikring" })).toBeVisible();
@@ -272,4 +272,22 @@ test("an address that is not on the list can be typed by hand", async ({ page })
   await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
   // Not picked from the list, so the contact address is not filled in.
   await expect(page.getByLabel("Adresse", { exact: true })).toHaveValue("");
+});
+
+test("the homepage picker takes several types, or none", async ({ page }) => {
+  await page.goto("/");
+  const picker = page.getByRole("form", { name: "Vælg forsikringer" });
+
+  // Nothing ticked: the form opens on the selection step.
+  await picker.getByRole("button", { name: "Få tilbud" }).click();
+  await expect(page).toHaveURL(/\/tilbud\?trin=forsikringer$/);
+
+  await page.goto("/");
+  await picker.getByText("Rejse", { exact: true }).click();
+  await picker.getByText("Indbo", { exact: true }).click();
+  await picker.getByRole("button", { name: "Få tilbud" }).click();
+
+  // Both are selected, and the form opens at the first of them.
+  await expect(page).toHaveURL(/\/tilbud\?trin=indbo$/);
+  await expect(page.getByRole("heading", { name: "Indboforsikring" })).toBeVisible();
 });
