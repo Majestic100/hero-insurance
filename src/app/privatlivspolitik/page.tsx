@@ -168,9 +168,11 @@ export default function PrivacyPolicyPage() {
           nummerpladen, ikke hvem du er.
         </li>
         <li>
-          <strong>GoHighLevel</strong>: opfølgning på e-mail og SMS. Får dit
-          navn, din e-mail, dit telefonnummer og hvilke forsikringer, du har
-          bedt om tilbud på. Aldrig dine svar i formularen.
+          <strong>GoHighLevel</strong>: vores kundesystem til opfølgning på
+          e-mail, SMS og telefon. Får hele din forespørgsel (kontaktoplysninger,
+          adresse, fødselsår, svaret om RKI og dine svar i formularen), så vi
+          kan hjælpe dig, hvis noget går galt. Slettes efter samme frister som
+          hos os.
         </li>
       </ul>
       <p>

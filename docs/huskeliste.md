@@ -118,6 +118,12 @@ rigtige leads.
   (privatlivspolitikken følger med automatisk).
 - [ ] **Databehandleraftaler** med Supabase, Vercel og GoHighLevel, og
   aftaler med partnerne om, hvem der er dataansvarlig for hvad.
+- [ ] **Hele leadet i GoHighLevel (2026-11-10, dit valg):** GHL får alle
+  data på leadet (også adresse, fødselsår, RKI og svarene), så du kan
+  hjælpe kunden, når du ringer. GHL er amerikansk. Er det i orden efter
+  GDPR's princip om dataminimering, og skal GHL slette efter de samme
+  frister som os (12 måneder / 5 år)? Privatlivspolitikken siger nu, at
+  GHL får hele forespørgslen.
 - [ ] **Opfølgning på e-mail, SMS og telefon (modul 9):** vi kontakter
   brugeren efter et par dage for at høre, om selskaberne har ringet, på
   grundlag af legitim interesse (ikke markedsføring). Privatlivspolitikken
@@ -254,8 +260,9 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
-- 2026-11-10: Modul 9 bygges med GoHighLevel (ikke Brevo): vi sender kun
-  navn, e-mail, telefon, forsikringstyper og lead-id til GHL; GHL sender et
+- 2026-11-10: Modul 9 bygges med GoHighLevel (ikke Brevo). GHL får hele
+  leadet med et læsbart resumé af svarene til opkald (opdateret samme dag;
+  først kun kontaktoplysninger); GHL sender et
   spørgeskema på e-mail/SMS efter 3 dage, beder tilfredse om en
   Trustpilot-anmeldelse og laver en opkaldsopgave, hvis ingen har
   kontaktet kunden. Svarene kommer tilbage og gemmes på leadet. Vi ringer
