@@ -91,8 +91,26 @@ rigtige leads.
 - [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
   skal overholde markedsføringslovens § 10. Kode: samme fil.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
-  Formidling og sammenligning af forsikringer kan være
-  forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
+  Research (2026-11-10, ikke juridisk rådgivning):
+  - **Hverken Findforsikring eller Forsikringsportalen er registreret** i
+    Finanstilsynets register. Samlino er registreret, men de viser priser
+    og sammenligner.
+  - **Loven har en undtagelse, der passer på os:** lov om
+    forsikringsformidling § 1, stk. 3, nr. 3: "levering af data og
+    oplysninger om potentielle forsikringstagere" til forsikringsselskaber
+    er ikke omfattet, så længe vi ikke gør mere for at hjælpe aftalen på
+    plads.
+  - **Vi bliver kun ved med at være undtaget, hvis vi:** ikke rådgiver,
+    ikke viser priser, rangeringer eller sammenligninger, ikke kalder os
+    "sammenligningstjeneste", ikke indhenter eller viser tilbud, og bliver
+    betalt pr. lead (ikke pr. solgt forsikring). Det står nu som en fast
+    regel for udviklingen.
+  - Det gælder også liv og ulykke. Hold pensions- og opsparingsprodukter
+    ude, og spørg aldrig om helbred eller familiens sygdomme.
+  - **Partnerne vil spørge** (de må kun bruge formidlere med tilladelse,
+    § 3, stk. 7). **Anbefaling:** bed Finanstilsynet om en skriftlig
+    bekræftelse af, at modellen ikke kræver tilladelse, eller få advokaten
+    til at skrive et kort notat. Det kan vises til partnerne.
 - [ ] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
   12 måneder efter (svar, adresse, fødselsår, RKI, Meta-id'er), og efter 5
   år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med

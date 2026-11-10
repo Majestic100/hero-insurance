@@ -37,7 +37,8 @@ export default function TermsPage() {
         </li>
         <li>
           Vi sælger ikke forsikringer og giver ikke rådgivning om, hvilken
-          forsikring du skal vælge.
+          forsikring du skal vælge. Vi viser ikke priser og sammenligner ikke
+          selskaber eller produkter. Vi sender kun dine oplysninger videre.
         </li>
         <li>
           Vi får betaling fra forsikringsselskaberne for at formidle
