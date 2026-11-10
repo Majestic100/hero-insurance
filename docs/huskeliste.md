@@ -81,6 +81,13 @@ rigtige leads.
     Vercel og Meta?
   - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
     rådgiver. Passer det med svaret om Finanstilsynet nedenfor?
+- [ ] **Privatlivspolitikken så kort som muligt (dit ønske, 2026-11-10; tages
+  til sidst sammen med advokaten).** Den er indtil videre skrevet udførligt
+  og ændres ikke mere nu. Til sidst kortes den ned, fx med kategorier
+  ("databehandlere i EU og USA") i stedet for leverandørnavne. GDPR art. 13
+  kræver dog stadig: dataansvarlig, formål og retsgrundlag, modtagere,
+  overførsel uden for EU, opbevaringstid, rettigheder og klage til
+  Datatilsynet. Kode: `src/app/privatlivspolitik/page.tsx`.
 - [ ] **[Blokerer lancering] Samtykketeksten** er skrevet om efter
   markedspraksis (2026-11-10): op til 3 selskaber fra partnerlisten (med
   link til `/partnere`), telefon, e-mail og SMS, vores egen opfølgning, og
