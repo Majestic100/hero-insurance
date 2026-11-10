@@ -93,6 +93,14 @@ rigtige leads.
 
 ## Konti og adgang
 
+- [ ] **Nemmere preview (2 minutter i Vercel):** Settings > Git: slå "Pull
+  Request Comments" til, så Vercel skriver et "Visit Preview"-link på hver
+  pull request, som opdateres ved hver ændring. Til folk uden Vercel-konto
+  (partnere, advokat): brug "Share" på en deployment, som laver et link,
+  der virker uden login. Når domænet er koblet på: overvej en fast
+  test-adresse, fx `test.nemforsikringstilbud.dk`, knyttet til en
+  `preview`-branch.
+
 - [ ] **Kobl nemforsikringstilbud.dk på Vercel:** Vercel > projektet >
   Settings > Domains > Add, tilføj både `nemforsikringstilbud.dk` og
   `www.nemforsikringstilbud.dk` (lad www viderestille til uden www, eller

@@ -110,6 +110,11 @@ belongs there.
 - **Finish properly.** A module is done when `lint`, `typecheck` and `build`
   pass, the result is verified in the running app, the module status below
   is updated, and the PR is merged.
+- **Show visible changes.** After pushing a change the owner can see
+  (pages, form, copy, design), send screenshots at 375px and desktop width
+  from the running app, and the link to the Vercel Preview of that commit
+  (the `Vercel` commit status on the PR, via the GitHub tools). The owner
+  reviews mostly from the screenshots, so do this every time.
 - **End with a summary:** what was built, and what the owner must do
   themselves (keys, dashboards, manual steps).
 - **Keep `docs/huskeliste.md` current.** Whenever something needs the
