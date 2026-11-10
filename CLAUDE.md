@@ -154,7 +154,10 @@ belongs there.
   questions, accounts), add it there instead of blocking on it, and move
   settled questions to "Besluttet". It is the one list the owner works
   from, so it is written in Danish (the only Danish doc).
-- **Current mode (owner, 2026-11-01): build the foundation first.** Keep
+- **Current mode (owner, 2026-11-01, confirmed 2026-11-10): build the
+  foundation first.** Build the backend and the website until they run;
+  the practical things (company details, payments, legal review, keys,
+  domain, partners) go in the checklist and are done at the end. Keep
   building module after module without waiting for plan approval, using
   sensible defaults and logging open questions in the checklist. Design,
   layout and copy are reviewed later. Still ask before production
