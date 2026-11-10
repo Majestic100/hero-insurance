@@ -78,7 +78,7 @@ rigtige leads.
 
 ## Dig (forretning og indhold)
 
-- [ ] **Brand:** navnet er Nemforsikringstjek (nemforsikringstjek.dk).
+- [ ] **Brand:** navnet er Nemforsikringstilbud (nemforsikringstilbud.dk).
   Mangler: logo (du laver det), farver, og at domænet kobles på Vercel.
   Navnet kommer på siden, når design og tekster gennemgås.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
@@ -137,8 +137,9 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
-- 2026-11-03: Siden hedder Nemforsikringstjek, på domænet
-  nemforsikringstjek.dk. "Hero Insurance" er kun det interne navn.
+- 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
+  Nemforsikringstjek, som stod her ved en fejl), på domænet
+  nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.
 - 2026-11-02: Levering (modul 8): partnerne og deres forsikringstyper står
   i koden, og modtagerne af et lead lægges fast, når brugeren giver
   samtykke. Leads sendes kun, hvis samtykket til partnerne er givet. Ingen
