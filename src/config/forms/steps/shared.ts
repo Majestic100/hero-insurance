@@ -46,13 +46,17 @@ export const LICENSE_PLATE_PATTERN = "^[A-ZÆØÅ0-9]{2,7}$";
 export const LICENSE_PLATE_MESSAGE =
   "Tjek nummerpladen. Den består af bogstaver og tal.";
 
+/**
+ * Roof types as Findforsikring asks (owner, 2026-11-10): the groups the
+ * insurers price by. BBR's detailed roof material is mapped to these
+ * (src/lib/integrations/bbr/building-parse.ts).
+ */
 export const ROOF_TYPES = [
-  { value: "tiles", label: "Tegl" },
-  { value: "concrete_tiles", label: "Betontagsten" },
-  { value: "fiber_cement", label: "Fibercement eller eternit" },
-  { value: "thatch", label: "Strå" },
-  { value: "felt", label: "Tagpap" },
+  { value: "hard", label: "Hårdt tag", description: "Fx tegl, betontagsten, eternit, skifer eller metal" },
+  { value: "flat", label: "Fladt tag", description: "Fx tagpap" },
+  { value: "thatch", label: "Stråtag" },
   { value: "other", label: "Andet" },
+  { value: "unknown", label: "Ved ikke" },
 ] as const satisfies readonly [ChoiceOption, ...ChoiceOption[]];
 
 /**
