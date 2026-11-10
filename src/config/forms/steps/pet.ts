@@ -41,6 +41,7 @@ export const petFields: readonly FieldConfig[] = [
     options: [
       { value: "illness", label: "Sygdom og dyrlæge" },
       { value: "life", label: "Livsforsikring", description: "Udbetaling, hvis dyret dør" },
+      { value: "loss", label: "Bortkomst", description: "Erstatning, hvis dyret forsvinder" },
     ],
     minSelected: 1,
     minSelectedMessage: "Vælg mindst én dækning.",

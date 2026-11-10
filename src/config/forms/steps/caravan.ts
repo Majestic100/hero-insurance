@@ -31,6 +31,13 @@ export const caravanFields: readonly FieldConfig[] = [
     lookup: "dk-license-plate",
   },
   {
+    type: "text",
+    name: "makeAndModel",
+    label: "Mærke og model",
+    placeholder: "Fx Hobby De Luxe",
+    maxLength: 80,
+  },
+  {
     type: "year",
     name: "modelYear",
     label: "Årgang",

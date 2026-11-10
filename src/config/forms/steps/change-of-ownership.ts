@@ -1,5 +1,5 @@
 import type { FieldConfig } from "../types";
-import { otherInfoField } from "./shared";
+import { otherInfoField, propertyAddressField } from "./shared";
 
 /**
  * No "Nuværende selskab": an ownership change insurance is bought once,
@@ -16,6 +16,7 @@ export const changeOfOwnershipFields: readonly FieldConfig[] = [
       { value: "buyer", label: "Køber" },
     ],
   },
+  propertyAddressField("Boligens adresse"),
   {
     type: "number",
     name: "salePrice",
@@ -31,6 +32,7 @@ export const changeOfOwnershipFields: readonly FieldConfig[] = [
     label: "Byggeår",
     placeholder: "Fx 1975",
     minYear: 1600,
+    autofill: { from: "address", lookup: "bbr-build-year" },
   },
   {
     type: "number",
@@ -40,6 +42,7 @@ export const changeOfOwnershipFields: readonly FieldConfig[] = [
     min: 20,
     max: 2000,
     unit: "m²",
+    autofill: { from: "address", lookup: "bbr-living-area" },
   },
   {
     type: "single-choice",
