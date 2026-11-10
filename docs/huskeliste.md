@@ -90,8 +90,12 @@ rigtige leads.
   år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med
   advokaten. Ændres de, er det én linje: `src/config/retention.ts`
   (privatlivspolitikken følger med automatisk).
-- [ ] **Databehandleraftaler** med Supabase og Vercel, og aftaler med
-  partnerne om, hvem der er dataansvarlig for hvad.
+- [ ] **Databehandleraftaler** med Supabase, Vercel og GoHighLevel, og
+  aftaler med partnerne om, hvem der er dataansvarlig for hvad.
+- [ ] **Opfølgning på e-mail, SMS og telefon (modul 9):** vi kontakter
+  brugeren efter et par dage for at høre, om selskaberne har ringet, på
+  grundlag af legitim interesse (ikke markedsføring). Privatlivspolitikken
+  siger det nu. Er det nok, eller skal det stå i samtykket?
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
   versionen. Er det nok, eller skal IP-adresse også gemmes?
 - [ ] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
@@ -138,6 +142,17 @@ rigtige leads.
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
 ## Konti og adgang
+
+- [ ] **Sæt opfølgningen op i GoHighLevel (modul 9, til sidst):** brugerdefinerede
+  felter, et spørgeskema og to workflows (opfølgning efter 3 dage og
+  svarene tilbage til os), plus to nøgler i Vercel:
+  `GHL_INBOUND_WEBHOOK_URL` og `GHL_FEEDBACK_SECRET`. Trin for trin:
+  `src/lib/integrations/ghl/README.md`. Indtil da er opfølgningen slået fra,
+  og alt andet virker.
+- [ ] **Godkend databaseændringen for opfølgningen i produktion**
+  (`20261110170000_lead_feedback_ghl.sql`, testet på dev 2026-11-10). Skriv
+  "ok", så kører Claude den. Den skal køre, før GHL-nøglerne sættes i
+  Production.
 
 - [x] **Databaseændringen for automatisk sletning er kørt i produktion**
   (2026-11-10, efter test på dev). Sletningen kører hver dag.
@@ -214,6 +229,13 @@ rigtige leads.
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
+
+- 2026-11-10: Modul 9 bygges med GoHighLevel (ikke Brevo): vi sender kun
+  navn, e-mail, telefon, forsikringstyper og lead-id til GHL; GHL sender et
+  spørgeskema på e-mail/SMS efter 3 dage, beder tilfredse om en
+  Trustpilot-anmeldelse og laver en opkaldsopgave, hvis ingen har
+  kontaktet kunden. Svarene kommer tilbage og gemmes på leadet. Vi ringer
+  ikke til alle leads.
 
 - 2026-11-10: Vi bygger backend og hjemmeside færdig først. Det praktiske
   (firmaoplysninger, betalinger, advokat, nøgler, domæne, partnere) står
