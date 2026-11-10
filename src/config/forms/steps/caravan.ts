@@ -45,15 +45,15 @@ export const caravanFields: readonly FieldConfig[] = [
     minYear: 1950,
   },
   {
-    type: "single-choice",
+    // An amount, not a range: fits every insurer's price groups.
+    type: "number",
     name: "value",
     label: "Hvad er den værd?",
-    options: [
-      { value: "under_50000", label: "Under 50.000 kr." },
-      { value: "50000_150000", label: "50.000-150.000 kr." },
-      { value: "150000_400000", label: "150.000-400.000 kr." },
-      { value: "over_400000", label: "Over 400.000 kr." },
-    ],
+    description: "Ca. hvad du ville kunne sælge den for.",
+    placeholder: "Fx 150.000",
+    min: 1000,
+    max: 10000000,
+    unit: "kr.",
   },
   {
     type: "single-choice",

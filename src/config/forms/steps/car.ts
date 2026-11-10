@@ -116,6 +116,8 @@ export const carFields: readonly FieldConfig[] = [
     showIf: { field: "mainDriver", equals: "someone_else" },
   },
   {
+    // Finer than any insurer's price groups, so each partner can merge them
+    // into its own (fine bands can always be merged, coarse ones never split).
     type: "single-choice",
     name: "annualMileage",
     label: "Hvor meget kører bilen om året?",
@@ -124,8 +126,11 @@ export const carFields: readonly FieldConfig[] = [
       { value: "under_10000", label: "Under 10.000 km" },
       { value: "10000_15000", label: "10.000-15.000 km" },
       { value: "15000_20000", label: "15.000-20.000 km" },
-      { value: "20000_30000", label: "20.000-30.000 km" },
-      { value: "over_30000", label: "Over 30.000 km" },
+      { value: "20000_25000", label: "20.000-25.000 km" },
+      { value: "25000_30000", label: "25.000-30.000 km" },
+      { value: "30000_40000", label: "30.000-40.000 km" },
+      { value: "over_40000", label: "Over 40.000 km" },
+      { value: "unknown", label: "Ved ikke" },
     ],
   },
   {
