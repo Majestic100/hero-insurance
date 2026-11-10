@@ -32,6 +32,11 @@ import {
   findFirstInvalidStep,
 } from "@/lib/schemas/build-schema";
 import { progressPercent } from "@/lib/form/progress";
+import {
+  PRESELECT_PARAM,
+  SKIP_SELECTION_STEP,
+  STEP_PARAM,
+} from "@/lib/form/url-params";
 import { CrossSell } from "./cross-sell";
 import { FieldRenderer, fieldPath } from "./field-renderer";
 import { SavingsBanner } from "./savings-banner";
@@ -39,22 +44,18 @@ import { StepNavigation } from "./step-navigation";
 import { StepProgress } from "./step-progress";
 import { useAutofill } from "./use-autofill";
 
-/** Current step id in the URL, so the browser back button works. */
-const STEP_PARAM = "trin";
-/** Preselects insurance types by slug, e.g. ?forsikring=bil,hus */
-const PRESELECT_PARAM = "forsikring";
 
 function getInitialValues(
   config: FormConfig,
-  preselect: string | null,
+  preselect: string[],
 ): FormValues {
   const values: FormValues = {
     ...buildDefaultValues(config),
     ...loadDraft(config.version),
   };
-  if (preselect) {
+  if (preselect.length > 0) {
     const preselected = preselect
-      .split(",")
+      .flatMap((value) => value.split(","))
       .map(insuranceTypeFromSlug)
       .filter((type): type is InsuranceType => type !== undefined);
     values[INSURANCE_SELECTION_FIELD] = getSelectedTypes({
@@ -108,7 +109,7 @@ export function FormWizard(props: FormWizardProps) {
 function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
   const searchParams = useSearchParams();
   const [defaultValues] = useState(() =>
-    getInitialValues(config, searchParams.get(PRESELECT_PARAM)),
+    getInitialValues(config, searchParams.getAll(PRESELECT_PARAM)),
   );
 
   // The resolver validates only the current step. It reads the step from a
@@ -135,10 +136,12 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
   // The requested step, unless an earlier step is invalid (deep link,
   // reload, or browser forward): then the first invalid step is shown.
   const requestedId = searchParams.get(STEP_PARAM);
-  const requestedIndex = Math.max(
-    0,
-    steps.findIndex((step) => step.id === requestedId),
-  );
+  // SKIP_SELECTION_STEP (homepage picker) means the step after the
+  // selection; with nothing selected the check below falls back to it.
+  const requestedIndex =
+    requestedId === SKIP_SELECTION_STEP
+      ? Math.min(1, steps.length - 1)
+      : Math.max(0, steps.findIndex((step) => step.id === requestedId));
   const firstInvalid = findFirstInvalidStep(
     steps.slice(0, requestedIndex),
     values,
