@@ -17,7 +17,7 @@ describe("buildingFacts", () => {
     expect(buildingFacts({ BBR_Bygning: { nodes: [shed, house] } })).toEqual({
       buildYear: 1964,
       livingArea: 124,
-      roofType: "fiber_cement",
+      roofType: "hard",
     });
   });
 

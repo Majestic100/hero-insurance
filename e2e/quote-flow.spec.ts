@@ -40,7 +40,7 @@ test.beforeEach(async ({ context, baseURL }) => {
   );
   await context.route("**/api/bbr/*", (route) =>
     route.request().url().endsWith(EGEVEJ.id)
-      ? route.fulfill({ json: { buildYear: 1964, livingArea: 124, roofType: "fiber_cement" } })
+      ? route.fulfill({ json: { buildYear: 1964, livingArea: 124, roofType: "hard" } })
       : route.fulfill({ status: 404, json: { error: "Ingen bolig fundet i BBR." } }),
   );
 });
@@ -109,7 +109,6 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
   await page.getByRole("radio", { name: "Mig" }).click();
   await page.getByRole("radio", { name: "Under 10.000 km" }).click();
   await page.getByRole("radio", { name: /^Ansvar og kasko/ }).click();
-  await page.getByRole("radio", { name: "6 år eller mere" }).click();
   await next(page);
 
   await fillContact(page);
@@ -231,7 +230,7 @@ test("a house address from the list fills in BBR facts and the contact address",
 
   await expect(page.getByLabel("Boligareal", { exact: true })).toHaveValue("124");
   await expect(page.getByLabel("Byggeår", { exact: true })).toHaveValue("1970");
-  await expect(page.getByRole("radio", { name: "Fibercement eller eternit" })).toBeChecked();
+  await expect(page.getByRole("radio", { name: /^Hårdt tag/ })).toBeChecked();
   await page.getByRole("radio", { name: "Villa eller parcelhus" }).click();
   await next(page);
 
@@ -267,7 +266,7 @@ test("an address that is not on the list can be typed by hand", async ({ page })
   await expect(page.getByText("Vi kan ikke finde adressen")).toBeVisible();
   await page.getByLabel("Boligareal", { exact: true }).fill("150");
   await page.getByLabel("Byggeår", { exact: true }).fill("2024");
-  await page.getByRole("radio", { name: "Tegl" }).click();
+  await page.getByRole("radio", { name: /^Hårdt tag/ }).click();
   await page.getByRole("radio", { name: "Række- eller dobbelthus" }).click();
   await next(page);
   await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();

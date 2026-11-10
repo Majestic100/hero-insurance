@@ -80,7 +80,6 @@ describe("insurance steps accept a realistic answer", () => {
       mainDriver: "me",
       annualMileage: "10000_15000",
       coverage: "comprehensive",
-      claimFreeYears: "6_plus",
     });
     expect(withPlate.success).toBe(true);
     expect(withPlate.data?.car).toMatchObject({ licensePlate: "AB12345" });
@@ -98,7 +97,6 @@ describe("insurance steps accept a realistic answer", () => {
       mainDriverBirthYear: 1990,
       annualMileage: "under_10000",
       coverage: "unknown",
-      claimFreeYears: "0",
       currentInsurer: "tryg",
     });
     expect(withoutPlate.success).toBe(true);
@@ -113,7 +111,6 @@ describe("insurance steps accept a realistic answer", () => {
       mainDriver: "me",
       annualMileage: "under_10000",
       coverage: "unknown",
-      claimFreeYears: "0",
     };
     expect(parse("bil", noFuel).success).toBe(false);
   });
@@ -137,7 +134,7 @@ describe("insurance steps accept a realistic answer", () => {
       houseType: "detached",
       livingArea: 140,
       buildYear: 1975,
-      roofType: "tiles",
+      roofType: "hard",
     });
     expect(result.success).toBe(true);
   });

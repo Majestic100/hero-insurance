@@ -15,7 +15,6 @@ const raw = {
     mainDriver: "me",
     annualMileage: "under_10000",
     coverage: "liability",
-    claimFreeYears: "0",
   },
   // Not selected: must not end up in the payload.
   boat: { boatType: "sailboat" },

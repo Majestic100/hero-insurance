@@ -1,3 +1,5 @@
+import { summarizeVehicle } from "./vehicle-summary";
+
 /**
  * Vehicle data from a license plate lookup. Pure, so it is unit tested.
  */
@@ -73,13 +75,9 @@ export function vehicleFromMotorApi(body: unknown): VehicleFacts | undefined {
   return vehicle.make || vehicle.model ? vehicle : undefined;
 }
 
-/** The model year, or else the year of first registration. */
+/** The model year: from the register, else the VIN, else the first registration. */
 export function vehicleYear(vehicle: VehicleFacts): number | undefined {
-  if (typeof vehicle.modelYear === "number" && vehicle.modelYear > 1900) {
-    return vehicle.modelYear;
-  }
-  const year = Number(String(vehicle.firstRegistration ?? "").slice(0, 4));
-  return year > 1900 ? year : undefined;
+  return summarizeVehicle(vehicle).model_year;
 }
 
 /** One line for the user, e.g. "Toyota Yaris 1.0 (2018)". */

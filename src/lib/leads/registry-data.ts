@@ -7,6 +7,10 @@ import {
   lookupVehicle,
 } from "@/lib/integrations/license-plate/motorapi";
 import type { VehicleFacts } from "@/lib/integrations/license-plate/vehicle-parse";
+import {
+  summarizeVehicle,
+  type VehicleSummary,
+} from "@/lib/integrations/license-plate/vehicle-summary";
 
 /** Short, so a slow register never holds up saving the lead. */
 const LOOKUP_TIMEOUT_MS = 3000;
@@ -14,6 +18,9 @@ const LOOKUP_TIMEOUT_MS = 3000;
 export type RegistryRecord = {
   source: "motorapi";
   fetchedAt: string;
+  /** The same fixed fields for every lead (make, model, model year and its source, fuel, ...). */
+  summary: VehicleSummary;
+  /** Everything the register has. */
   vehicle: VehicleFacts;
 };
 
@@ -53,6 +60,7 @@ export async function addRegistryData(
               registry[field.name] = {
                 source: "motorapi",
                 fetchedAt: new Date().toISOString(),
+                summary: summarizeVehicle(vehicle),
                 vehicle,
               };
             }
