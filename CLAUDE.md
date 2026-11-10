@@ -119,6 +119,14 @@ belongs there.
   writing any code.
 - **Branch and PR.** Work on a feature branch and open a pull request into
   `main`. `main` is the production branch: Vercel deploys it automatically.
+- **Merge without asking (owner, 2026-11-10).** When a piece of work is
+  done, open the PR and merge it yourself (squash) once the GitHub checks
+  are green and the change is verified locally; then bring `preview` up to
+  date. Do not ask first. Exceptions that still need the owner's OK in the
+  conversation: production database migrations or writes, and anything
+  the checklist marks as a launch blocker being switched on (e.g. the
+  brand domain). After a squash merge, bring the work branch up to date
+  with `git merge origin/main` (no force push).
 - **Finish properly.** A module is done when `lint`, `typecheck` and `build`
   pass, the result is verified in the running app, the module status below
   is updated, and the PR is merged.
@@ -150,7 +158,7 @@ belongs there.
   building module after module without waiting for plan approval, using
   sensible defaults and logging open questions in the checklist. Design,
   layout and copy are reviewed later. Still ask before production
-  migrations and merges if the tooling requires it.
+  migrations (merges: see "Merge without asking").
 
 ## Working with the owner
 
