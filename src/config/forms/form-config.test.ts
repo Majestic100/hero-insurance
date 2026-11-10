@@ -134,7 +134,7 @@ describe("insurance steps accept a realistic answer", () => {
       houseType: "detached",
       livingArea: 140,
       buildYear: 1975,
-      roofType: "tiles",
+      roofType: "hard",
     });
     expect(result.success).toBe(true);
   });

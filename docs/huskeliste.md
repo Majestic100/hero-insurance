@@ -31,11 +31,11 @@ rigtige leads.
   registeret, ellers fra stelnummeret (10. tegn, fx hos VW-koncernen),
   ellers fra første indregistrering; feltet `model_year_source` siger
   hvilken.
-- [ ] **Tagtyper** (Findforsikring bruger kun Hårdt tag, Fladt tag, Stråtag,
-  Andet og Ved ikke; vi har flere, fordi BBR giver dem): listen er Tegl, Betontagsten (ny, fordi den er
-  almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
-  Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
-  Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
+- [x] **Tagtyper** (besluttet 2026-11-10, som Findforsikring): Hårdt tag,
+  Fladt tag, Stråtag, Andet og Ved ikke. BBR's tagmateriale oversættes
+  automatisk (tegl, beton, eternit og metal er hårdt tag; tagpap er fladt
+  tag; strå er stråtag). Kode: `ROOF_TYPES` i
+  `src/config/forms/steps/shared.ts`.
 - [x] **Skadefri år eller år med bil i eget navn** (besluttet 2026-11-10,
   som Findforsikring): kun år med bil i eget navn, valgfrit under "Vis
   flere detaljer". Skadefri år er fjernet fra bilforsikringen (MC beholder

@@ -38,14 +38,14 @@ const GONE_STATUS = new Set(["9", "10", "11"]);
 
 /** BBR roof material (byg033) to our ROOF_TYPES values. */
 export const ROOF_TYPE_BY_BBR_CODE: Record<string, string | undefined> = {
-  "1": "felt", // built-up roofing (flat felt)
-  "2": "felt", // roofing felt
-  "3": "fiber_cement", // fibre cement, incl. asbestos
-  "4": "concrete_tiles", // cement / concrete tiles
-  "5": "tiles", // clay tiles
-  "6": "other", // metal
+  "1": "flat", // built-up roofing (flat felt)
+  "2": "flat", // roofing felt
+  "3": "hard", // fibre cement, incl. asbestos
+  "4": "hard", // cement / concrete tiles
+  "5": "hard", // clay tiles
+  "6": "hard", // metal
   "7": "thatch",
-  "10": "fiber_cement", // fibre cement without asbestos
+  "10": "hard", // fibre cement without asbestos
   "11": "other", // PVC
   "12": "other", // glass
   "20": "other", // green roof
