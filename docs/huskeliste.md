@@ -195,23 +195,14 @@ rigtige leads.
 
 ## Konti og adgang
 
-- [ ] **Godkend to databaseændringer i produktion** (testet på dev
-  2026-11-10): `20261110170000_lead_feedback_ghl.sql` (GHL-opfølgningen) og
-  `20261110200000_membership.sql` (medlemskab). Skriv "ok", så kører Claude
-  dem i den rækkefølge. **Medlemskab må ikke merges, før de er kørt**:
-  ellers afviser databasen samtykket til medlemskab, og leadet går tabt.
-
+- [x] **Databaseændringerne for GHL og medlemskab er kørt i produktion**
+  (2026-11-10, efter test på dev).
 - [ ] **Sæt opfølgningen op i GoHighLevel (modul 9, til sidst):** brugerdefinerede
   felter, et spørgeskema og to workflows (opfølgning efter 3 dage og
   svarene tilbage til os), plus to nøgler i Vercel:
   `GHL_INBOUND_WEBHOOK_URL` og `GHL_FEEDBACK_SECRET`. Trin for trin:
   `src/lib/integrations/ghl/README.md`. Indtil da er opfølgningen slået fra,
   og alt andet virker.
-- [ ] **Godkend databaseændringen for opfølgningen i produktion**
-  (`20261110170000_lead_feedback_ghl.sql`, testet på dev 2026-11-10). Skriv
-  "ok", så kører Claude den. Den skal køre, før GHL-nøglerne sættes i
-  Production.
-
 - [x] **Databaseændringen for automatisk sletning er kørt i produktion**
   (2026-11-10, efter test på dev). Sletningen kører hver dag.
 - [x] **Databaseændringen for RKI er kørt** på dev og produktion
