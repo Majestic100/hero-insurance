@@ -44,6 +44,23 @@ export const carFields: readonly FieldConfig[] = [
     showIf: { field: "hasLicensePlate", equals: "no" },
   },
   {
+    // With a plate, the motor register gives the fuel type, so we only ask
+    // when there is no plate.
+    type: "single-choice",
+    name: "fuelType",
+    label: "Drivmiddel",
+    layout: "grid",
+    options: [
+      { value: "petrol", label: "Benzin" },
+      { value: "diesel", label: "Diesel" },
+      { value: "electric", label: "El" },
+      { value: "hybrid_petrol", label: "Hybrid (benzin)" },
+      { value: "hybrid_diesel", label: "Hybrid (diesel)" },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+    showIf: { field: "hasLicensePlate", equals: "no" },
+  },
+  {
     type: "single-choice",
     name: "mainDriver",
     label: "Hvem kører mest i bilen?",

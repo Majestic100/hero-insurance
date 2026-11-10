@@ -81,6 +81,7 @@ describe("insurance steps accept a realistic answer", () => {
       hasLicensePlate: "no",
       makeAndModel: "Toyota Yaris",
       modelYear: 2021,
+      fuelType: "hybrid_petrol",
       mainDriver: "someone_else",
       mainDriverBirthYear: 1990,
       annualMileage: "under_10000",
@@ -89,6 +90,19 @@ describe("insurance steps accept a realistic answer", () => {
       currentInsurer: "tryg",
     });
     expect(withoutPlate.success).toBe(true);
+
+    // Without a plate the fuel type is required (the register gives it
+    // with a plate).
+    const noFuel = {
+      hasLicensePlate: "no",
+      makeAndModel: "Toyota Yaris",
+      modelYear: 2021,
+      mainDriver: "me",
+      annualMileage: "under_10000",
+      coverage: "unknown",
+      claimFreeYears: "0",
+    };
+    expect(parse("bil", noFuel).success).toBe(false);
   });
 
   it("home contents", () => {
