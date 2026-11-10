@@ -34,6 +34,8 @@
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary: var(--primary);
+  --color-brand: var(--brand);
+  --color-cream: var(--cream);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -48,25 +50,30 @@
 }
 
 :root {
+  /* Brand palette (owner, 2026-11-10): colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec
+     navy #00105b, indigo #6061b6, lavender #c9b5e0, cream #fcf9ec. The page background is white
+     (owner); cream is a surface color. */
+  --brand: #6061b6;
+  --cream: #fcf9ec;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --background: #ffffff;
+  --foreground: #00105b;
+  --card: #ffffff;
+  --card-foreground: #00105b;
+  --popover: #ffffff;
+  --popover-foreground: #00105b;
+  --primary: #00105b;
+  --primary-foreground: #fcf9ec;
+  --secondary: #c9b5e0;
+  --secondary-foreground: #00105b;
+  --muted: #f1ebf7;
+  --muted-foreground: #4a4f78;
+  --accent: #ece4f6;
+  --accent-foreground: #00105b;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: #e2d9ee;
+  --input: #d6cbe6;
+  --ring: #6061b6;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

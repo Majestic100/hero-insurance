@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SITE } from "@/config/site";
 import { ConsentProvider } from "@/lib/tracking/consent-context";
 import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
@@ -19,11 +20,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Sammenlign forsikringer",
-    template: "%s | Sammenlign forsikringer",
+    default: `${SITE.name}: få tilbud på dine forsikringer`,
+    template: `%s | ${SITE.name}`,
   },
   description:
-    "Få tilbud på bilforsikring, indboforsikring og husforsikring ét sted.",
+    "Få tilbud på bil-, indbo-, hus- og andre forsikringer. Udfyld én formular, gratis og uforpligtende.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

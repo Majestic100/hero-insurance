@@ -79,8 +79,14 @@ rigtige leads.
 ## Dig (forretning og indhold)
 
 - [ ] **Brand:** navnet er Nemforsikringstilbud, og domænet
-  nemforsikringstilbud.dk er købt. Mangler: logo (du laver det), farver,
-  og at domænet kobles på Vercel (se "Konti og adgang").
+  nemforsikringstilbud.dk er købt. Farverne er valgt. Mangler: logo (du
+  laver det; indtil da står navnet med et skjold-ikon), og at domænet
+  kobles på Vercel (se "Konti og adgang").
+- [ ] **Forsiden (udkast 2026-11-10):** gennemgå overskrift, tekster og de
+  fem spørgsmål og svar. Kode: `src/app/page.tsx`. Vi viser bevidst ingen
+  tal (brugere, besparelser, Trustpilot) og ingen kundeudtalelser, før vi
+  har rigtige tal, der kan dokumenteres (markedsføringsloven). Logoer fra
+  partnerne og "op til X tilbud" kommer på, når partnerne er på plads.
   Navnet kommer på siden, når design og tekster gennemgås.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
@@ -146,6 +152,9 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
+  navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), lavendel
+  #C9B5E0 og creme #FCF9EC (flader). Baggrunden er hvid.
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet
   nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.
