@@ -40,20 +40,19 @@ rigtige leads.
   som Findforsikring): kun år med bil i eget navn, valgfrit under "Vis
   flere detaljer". Skadefri år er fjernet fra bilforsikringen (MC beholder
   det).
-- [ ] **Fri tekst til selskaberne** ("Andre oplysninger"): brugeren kan
-  skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
-  advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til
-  advokaten; både Findforsikring og Forsikringsportalen har et fritekstfelt)
-- [ ] **Medlemskab af fagforening eller organisation (rabat):** Findforsikring
-  spørger om det (3F, FOA, HK, Djøf, FDM, Ældresagen mv.). Vi gør det ikke
-  endnu: fagforeningsmedlemskab er en følsom oplysning (GDPR art. 9) og
-  kræver udtrykkeligt samtykke. Til partnerne: bruger de det til prisen?
-  Til advokaten: kan vi spørge med et separat, frivilligt samtykke, eller
-  kun om ikke-faglige organisationer som FDM og Ældresagen?
-- [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
-  muligt data). Er det nok til prisen? (Findforsikring spørger kun om alder.)
-- [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
-  påkrævet for nogle typer?
+- [x] **Fri tekst til selskaberne** (besluttet 2026-11-10): beholdes, som hos
+  Findforsikring og Forsikringsportalen, med advarslen om helbred i
+  hjælpeteksten.
+- [x] **Medlemskab af fagforening eller forening** (bygget 2026-11-10, som
+  Findforsikring): valgfrit spørgsmål på kontakttrinnet. Vælger brugeren en
+  fagforening, kræves et særskilt, udtrykkeligt samtykke (GDPR art. 9), der
+  gemmes som bevis; FDM, Ældresagen og andre foreninger kræver det ikke.
+  Advokaten skal godkende samtykketeksten (`consentMembership` i
+  `src/config/forms/consents.ts`).
+- [x] **Fødselsår** (besluttet 2026-11-10): vi beholder fødselsåret.
+  Findforsikring spørger kun om alder, så det er mindst lige så godt.
+- [x] **Nummerplade til MC, ATV og knallert** (besluttet 2026-11-10, som
+  Findforsikring): valgfri; brugeren kan fortsætte uden.
 - [ ] **Levering af leads (modul 8):** vi har bygget en standard, som vi
   kan tilbyde alle partnere: hvert lead sendes med det samme som signeret
   JSON til partnerens HTTPS-adresse, og ved fejl prøver vi igen i op til to
@@ -196,17 +195,14 @@ rigtige leads.
 
 ## Konti og adgang
 
+- [x] **Databaseændringerne for GHL og medlemskab er kørt i produktion**
+  (2026-11-10, efter test på dev).
 - [ ] **Sæt opfølgningen op i GoHighLevel (modul 9, til sidst):** brugerdefinerede
   felter, et spørgeskema og to workflows (opfølgning efter 3 dage og
   svarene tilbage til os), plus to nøgler i Vercel:
   `GHL_INBOUND_WEBHOOK_URL` og `GHL_FEEDBACK_SECRET`. Trin for trin:
   `src/lib/integrations/ghl/README.md`. Indtil da er opfølgningen slået fra,
   og alt andet virker.
-- [ ] **Godkend databaseændringen for opfølgningen i produktion**
-  (`20261110170000_lead_feedback_ghl.sql`, testet på dev 2026-11-10). Skriv
-  "ok", så kører Claude den. Den skal køre, før GHL-nøglerne sættes i
-  Production.
-
 - [x] **Databaseændringen for automatisk sletning er kørt i produktion**
   (2026-11-10, efter test på dev). Sletningen kører hver dag.
 - [x] **Databaseændringen for RKI er kørt** på dev og produktion

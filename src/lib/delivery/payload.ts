@@ -25,6 +25,8 @@ export type StoredLead = {
   birth_year: number | null;
   /** no, yes or unknown; null for leads from before the question. */
   rki_status: string | null;
+  /** Union or association code; a union only with the membership consent. */
+  membership: string | null;
   lead_insurances: { insurance_type: string; answers: Json; form_version: string }[];
   consents: {
     consent_type: string;
@@ -51,6 +53,8 @@ export type DeliveryPayload = {
     birth_year: number | null;
     /** Registered in RKI: "no", "yes", "unknown", or null (older leads). */
     rki_status: string | null;
+    /** Code from src/config/forms/steps/membership.ts, or null. */
+    membership: string | null;
   };
   insurances: { type: string; answers: Json; form_version: string }[];
   consent: { text: string; version: string; given_at: string };
@@ -83,6 +87,7 @@ export function buildDeliveryPayload(
       city: lead.city,
       birth_year: lead.birth_year,
       rki_status: lead.rki_status,
+      membership: lead.membership,
     },
     insurances: insuranceTypes.flatMap((type) => {
       const item = lead.lead_insurances.find((row) => row.insurance_type === type);

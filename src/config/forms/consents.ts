@@ -1,3 +1,4 @@
+import { UNION_VALUES } from "./steps/membership";
 import type { FieldConfig } from "./types";
 
 /**
@@ -41,5 +42,23 @@ export const consentFields: readonly FieldConfig[] = [
     text:
       "Ja tak, I må sende mig nyheder og gode tilbud om forsikring på e-mail. " +
       "Jeg kan altid afmelde mig igen.",
+  },
+  {
+    // GDPR art. 9: trade union membership needs explicit consent for this
+    // purpose. Only shown (and required) when a union is picked; without
+    // it, the user picks "Nej" or another answer instead.
+    type: "consent",
+    name: "consentMembership",
+    label: "Samtykke til at dele medlemskab",
+    consentType: "membership",
+    version: "2026-11-10.1",
+    text:
+      "Jeg giver udtrykkeligt samtykke til, at oplysningen om mit medlemskab " +
+      "af en fagforening sendes til forsikringsselskaberne sammen med min " +
+      "forespørgsel, så de kan give mig medlemsrabat. Samtykket er frivilligt, " +
+      "og jeg kan trække det tilbage ved at skrive til kontakt@nemforsikringstilbud.dk.",
+    requiredMessage:
+      "Giv samtykke, eller vælg et andet svar ved medlemskab, hvis du ikke vil dele det.",
+    showIf: { field: "membership", equals: UNION_VALUES },
   },
 ];

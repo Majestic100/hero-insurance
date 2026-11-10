@@ -61,15 +61,35 @@ describe("toLeadPayload", () => {
     expect(car?.form_version).toBe(formConfig.version);
   });
 
-  it("stores every consent with the server's text and version", () => {
+  it("stores the consents the user saw, with the server's text and version", () => {
+    // No union picked, so the membership consent was hidden and is left out.
     expect(payload.consents).toEqual(
-      consentFields.map((field) => ({
+      consentFields.filter((field) => field.name !== "consentMembership").map((field) => ({
         consent_type: field.type === "consent" ? field.consentType : undefined,
         granted: field.name === "consentPartnerContact",
         consent_text: field.type === "consent" ? field.text : undefined,
         consent_version: field.type === "consent" ? field.version : undefined,
       })),
     );
+  });
+});
+
+describe("toLeadPayload membership", () => {
+  it("stores a union only together with the separate consent", () => {
+    const withUnion = { ...raw, membership: "foa", consentMembership: true };
+    const parsed = buildFormSchema(formConfig, withUnion).parse(withUnion);
+    const result = toLeadPayload(formConfig, parsed, "33333333-3333-4333-8333-333333333333");
+    expect(result.membership).toBe("foa");
+    expect(result.consents.find((c) => c.consent_type === "membership")?.granted).toBe(true);
+
+    const noConsent = { ...raw, membership: "foa", consentMembership: false };
+    expect(buildFormSchema(formConfig, noConsent).safeParse(noConsent).success).toBe(false);
+
+    const association = { ...raw, membership: "fdm" };
+    const parsedAssociation = buildFormSchema(formConfig, association).parse(association);
+    const viaAssociation = toLeadPayload(formConfig, parsedAssociation, "44444444-4444-4444-8444-444444444444");
+    expect(viaAssociation.membership).toBe("fdm");
+    expect(viaAssociation.consents.some((c) => c.consent_type === "membership")).toBe(false);
   });
 });
 
