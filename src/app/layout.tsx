@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Bricolage_Grotesque, Figtree, Geist_Mono } from "next/font/google";
 import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -8,14 +8,15 @@ import { ConsentProvider } from "@/lib/tracking/consent-context";
 import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Body text, the form and buttons: friendly and easy to read at small sizes.
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
-// Headings on marketing pages (not in the form, which stays in Geist).
-const sourceSerif = Source_Serif_4({
-  variable: "--font-source-serif",
+// Headings and the logo: a warm grotesque with character.
+const bricolage = Bricolage_Grotesque({
+  variable: "--font-bricolage",
   subsets: ["latin"],
 });
 
@@ -37,7 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="da"
-      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={`${figtree.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <ConsentProvider>
