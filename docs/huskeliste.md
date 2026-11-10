@@ -199,17 +199,10 @@ rigtige leads.
   domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
   fra domænet tælles.
 
-- [ ] **[Blokerer lancering] Opgrader Supabase-produktionsprojektet til Pro**
-  (lige før lancering, ikke nu). Gratis-projekter sættes på pause efter en
-  uges inaktivitet, og så gemmes leads ikke. Dev kan blive på gratis, men
-  Pro gælder hele organisationen, og hvert projekt i den betaler for sin
-  egen server (ca. $10/md ekstra for dev). Flyt derfor dev-projektet
-  ("Hero Insurance Dev") til en separat gratis organisation, før I
-  opgraderer (Supabase > projektets Settings > General > Transfer project).
-  Pris ca. $25 om måneden for daglige backups, før de første rigtige leads.
-  Så kan vi gendanne, hvis data bliver slettet ved en fejl (i koden, i
-  dashboardet eller fra Claudes Supabase-forbindelse, som har fuld adgang).
-  Pro bruges også senere til vores egen kopi af Motorregistret.
+- [x] **Supabase er opgraderet til Pro** (2026-11-10): daglige backups af
+  produktion, ingen automatisk pause. Dev ligger i samme organisation og
+  koster ca. $10/md; det er fint. Sikkerhedsgennemgang af begge projekter
+  kørt: ingen problemer.
 - [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
 - [ ] **Slå "BotID Deep Analysis" til**, når Vercel er på Pro: Vercel >
@@ -233,8 +226,8 @@ rigtige leads.
 - [ ] **Vores egen kopi af Motorregistret** i stedet for MotorAPI, så ingen
   udenfor ser, hvilke nummerplader vi slår op. Ugentligt job, der henter
   Motorstyrelsens statistikudtræk (100+ GB XML), og en tabel i Supabase.
-  Kræver Supabase Pro (ca. $25 om måneden). Besluttet at vente
-  (2026-11-02): MotorAPI først, "bare for at få det til at virke".
+  Supabase Pro er nu på plads (2026-11-10). Anbefaling: byg det efter
+  lanceringen; MotorAPI virker til at starte med.
 - [x] **Meta (modul 7):** Pixel `2223771328169512` og Conversions API-token
   ligger i Vercel (Production og Preview). Preview sender kun test-events
   (`META_TEST_EVENT_CODE`). Lead fra serveren er bekræftet i Events Manager.
