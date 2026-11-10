@@ -320,6 +320,19 @@ identifiers it needs.
    errors, buttons, emails, metadata) is in Danish. Code, identifiers,
    comments, commit messages and docs are in English.
 
+7. **Stay a lead service, not an insurance distributor.** The model fits
+   the exclusion in lov om forsikringsformidling § 1, stk. 3, nr. 3 (mere
+   provision of data on potential policyholders to insurers), so it needs
+   no licence from Finanstilsynet, only as long as we: give no advice or
+   "you should" suggestions, show no prices, rankings or product
+   comparisons, never call ourselves a comparison service
+   ("sammenligningstjeneste"), do not collect or present quotes, do not
+   help fill in insurers' applications, and are paid per lead, not per
+   sale. General information about insurance types is fine. Keep pension
+   and savings products out, and never ask about health or family
+   history. Stop and ask the owner before building anything that crosses
+   this line. Background: `docs/huskeliste.md` (Finanstilsynet).
+
 ## Conventions and gotchas
 
 - **Next.js 16 differs from older versions.** Read the bundled docs in

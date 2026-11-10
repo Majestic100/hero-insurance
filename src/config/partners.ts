@@ -31,4 +31,12 @@ export type PartnerConfig = {
   insuranceTypes: readonly InsuranceType[];
 };
 
+/**
+ * At most this many partners get one lead ("op til 3", the market
+ * standard; the consent text says so). Partners earlier in PARTNERS have
+ * priority.
+ */
+export const MAX_PARTNERS_PER_LEAD = 3;
+
+/** In priority order: earlier partners get a lead first. */
 export const PARTNERS: readonly PartnerConfig[] = [];
