@@ -1,4 +1,4 @@
-import type { AddressField, ChoiceOption, TextField } from "../types";
+import type { AddressField, ChoiceOption, FieldConfig, TextField } from "../types";
 
 /**
  * Option lists used by several insurance types. Values are stored in the
@@ -23,6 +23,23 @@ export const INSURED_PERSONS = [
   { value: "me_and_partner", label: "Mig og min partner" },
   { value: "family", label: "Hele familien med børn" },
 ] as const satisfies readonly [ChoiceOption, ...ChoiceOption[]];
+
+/** How many children, when the whole family is covered (accident, travel). */
+export function childrenCountField(dependsOn: string): FieldConfig {
+  return {
+    type: "single-choice",
+    name: "childrenCount",
+    label: "Hvor mange børn?",
+    layout: "inline",
+    options: [
+      { value: "1", label: "1" },
+      { value: "2", label: "2" },
+      { value: "3", label: "3" },
+      { value: "4_plus", label: "4+" },
+    ],
+    showIf: { field: dependsOn, equals: "family" },
+  };
+}
 
 /** Danish plates: standard (AB12345) and personal plates, 2-7 characters. */
 export const LICENSE_PLATE_PATTERN = "^[A-ZÆØÅ0-9]{2,7}$";

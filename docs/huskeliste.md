@@ -8,8 +8,9 @@ rigtige leads.
 
 ## Med partnerne
 
-- [ ] **Spørgsmålene pr. forsikringstype.** Har partnerne det, de skal bruge
-  til at give en pris? Mangler der noget, eller spørger vi om for meget?
+- [x] **Spørgsmålene pr. forsikringstype** (2026-11-10): vi spørger om det
+  samme som Findforsikring eller mere, så partnerne har det, de plejer at
+  få. De kan stadig bede om ændringer.
   Kode: `src/config/forms/steps/` (én fil pr. type).
 - [ ] **Intervaller og svarmuligheder**, fx kørsel om året, indboets værdi,
   bådens værdi og udbetaling på livsforsikring. Passer de med partnernes
@@ -37,6 +38,12 @@ rigtige leads.
   skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
   advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til
   advokaten; både Findforsikring og Forsikringsportalen har et fritekstfelt)
+- [ ] **Medlemskab af fagforening eller organisation (rabat):** Findforsikring
+  spørger om det (3F, FOA, HK, Djøf, FDM, Ældresagen mv.). Vi gør det ikke
+  endnu: fagforeningsmedlemskab er en følsom oplysning (GDPR art. 9) og
+  kræver udtrykkeligt samtykke. Til partnerne: bruger de det til prisen?
+  Til advokaten: kan vi spørge med et separat, frivilligt samtykke, eller
+  kun om ikke-faglige organisationer som FDM og Ældresagen?
 - [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
   muligt data). Er det nok til prisen? (Findforsikring spørger kun om alder.)
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
@@ -296,6 +303,12 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 - 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
   Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
   og sendes med til partnerne. Gemmes aldrig i kladden i browseren.
+- 2026-11-10: Udgangspunkt for spørgsmålene er Findforsikring (de sender
+  allerede leads til de samme selskaber): vi spørger om det samme eller
+  mere. Tilføjet samme dag: adresse ved ejerskifte (med BBR), mærke og
+  model på camping og båd, topfart på båd, antal børn ved ulykke og rejse
+  for hele familien, bortkomst på dyreforsikring. Partnerne spørges kun om
+  levering, resultater og prisgrupper.
 - 2026-11-10: Spørgsmålene er sammenlignet med Findforsikring
   (`docs/research/findforsikring-forms.md`). Tilføjet: fri tekst på alle
   typer, hustype, fritidshustype, afbestilling (rejse), nummerplade og

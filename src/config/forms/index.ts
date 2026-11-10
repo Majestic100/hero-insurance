@@ -64,7 +64,7 @@ function insuranceStep(type: InsuranceType): StepConfig {
 }
 
 export const formConfig = {
-  version: "2026-11-10.3",
+  version: "2026-11-10.4",
   steps: [
     {
       id: "forsikringer",

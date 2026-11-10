@@ -153,7 +153,13 @@ describe("insurance steps accept a realistic answer", () => {
     ],
     [
       "rejse",
-      { tripType: "annual", area: "worldwide", travellers: "family", cancellation: "yes" },
+      {
+        tripType: "annual",
+        area: "worldwide",
+        travellers: "family",
+        childrenCount: "2",
+        cancellation: "yes",
+      },
     ],
     [
       "fritidshus",
@@ -174,7 +180,9 @@ describe("insurance steps accept a realistic answer", () => {
       "baad",
       {
         boatType: "sailboat",
+        makeAndModel: "Bavaria 32",
         lengthFeet: 28,
+        topSpeed: 7,
         value: "50000_200000",
         engineType: "inboard",
         buildYear: 2005,
@@ -188,6 +196,7 @@ describe("insurance steps accept a realistic answer", () => {
       {
         caravanType: "motorhome",
         licensePlate: "ab 12 345",
+        makeAndModel: "Hobby De Luxe",
         modelYear: 2015,
         value: "over_400000",
         coverage: "comprehensive",
@@ -207,6 +216,7 @@ describe("insurance steps accept a realistic answer", () => {
       "ejerskifte",
       {
         role: "seller",
+        address: { text: "Egevej 5, 4030 Tune" },
         salePrice: 3500000,
         buildYear: 1975,
         livingArea: 140,
