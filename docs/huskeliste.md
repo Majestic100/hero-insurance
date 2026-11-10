@@ -108,9 +108,7 @@ rigtige leads.
 - [ ] **[Blokerer lancering] Firmaoplysninger:** siderne skriver "Hero
   Media". E-handelsloven kræver det fulde firmanavn (fx "Hero Media ApS"),
   CVR-nummer og adresse. Kode: `COMPANY` i `src/config/site.ts`.
-- [ ] **[Blokerer lancering] Opret e-mailen kontakt@nemforsikringstilbud.dk**
-  hos Simply.com. Den står på alle de juridiske sider og på "Bliv partner",
-  og folk skal kunne skrive for at få indsigt eller slette deres data.
+- [x] **E-mailen kontakt@nemforsikringstilbud.dk er oprettet** (2026-11-10).
 - [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
   året":** du har den og sender den, når den er klar. Teksten står
   allerede tydeligt øverst på forsiden og siderne pr. forsikringstype.
@@ -157,7 +155,9 @@ rigtige leads.
   fra domænet tælles.
 
 - [ ] **[Blokerer lancering] Opgrader Supabase-produktionsprojektet til Pro**
-  (ca. $25 om måneden) for daglige backups, før de første rigtige leads.
+  (lige før lancering, ikke nu). Gratis-projekter sættes på pause efter en
+  uges inaktivitet, og så gemmes leads ikke. Dev kan blive på gratis.
+  Pris ca. $25 om måneden for daglige backups, før de første rigtige leads.
   Så kan vi gendanne, hvis data bliver slettet ved en fejl (i koden, i
   dashboardet eller fra Claudes Supabase-forbindelse, som har fuld adgang).
   Pro bruges også senere til vores egen kopi af Motorregistret.
