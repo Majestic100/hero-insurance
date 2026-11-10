@@ -1,9 +1,25 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { propertyAddressField, ROOF_TYPES, YES_NO } from "./shared";
+import {
+  otherInfoField,
+  propertyAddressField,
+  ROOF_TYPES,
+  YES_NO,
+} from "./shared";
 
 export const holidayHomeFields: readonly FieldConfig[] = [
   propertyAddressField("Fritidshusets adresse"),
+  {
+    type: "single-choice",
+    name: "holidayHomeType",
+    label: "Hvilken type?",
+    layout: "grid",
+    options: [
+      { value: "summer_house", label: "Sommerhus" },
+      { value: "allotment_house", label: "Kolonihavehus" },
+      { value: "other", label: "Andet" },
+    ],
+  },
   {
     type: "number",
     name: "livingArea",
@@ -38,4 +54,5 @@ export const holidayHomeFields: readonly FieldConfig[] = [
     options: YES_NO,
   },
   currentInsurerField(),
+  otherInfoField(),
 ];

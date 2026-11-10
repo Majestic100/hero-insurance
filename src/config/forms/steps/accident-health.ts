@@ -1,6 +1,9 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { INSURED_PERSONS } from "./shared";
+import {
+  INSURED_PERSONS,
+  otherInfoField,
+} from "./shared";
 
 /**
  * No health questions on purpose: health data is a special category under
@@ -52,4 +55,5 @@ export const accidentHealthFields: readonly FieldConfig[] = [
     ],
   },
   currentInsurerField(),
+  otherInfoField(),
 ];

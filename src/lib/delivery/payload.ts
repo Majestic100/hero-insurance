@@ -23,6 +23,8 @@ export type StoredLead = {
   postal_code: string | null;
   city: string | null;
   birth_year: number | null;
+  /** no, yes or unknown; null for leads from before the question. */
+  rki_status: string | null;
   lead_insurances: { insurance_type: string; answers: Json; form_version: string }[];
   consents: {
     consent_type: string;
@@ -47,6 +49,8 @@ export type DeliveryPayload = {
     postal_code: string | null;
     city: string | null;
     birth_year: number | null;
+    /** Registered in RKI: "no", "yes", "unknown", or null (older leads). */
+    rki_status: string | null;
   };
   insurances: { type: string; answers: Json; form_version: string }[];
   consent: { text: string; version: string; given_at: string };
@@ -78,6 +82,7 @@ export function buildDeliveryPayload(
       postal_code: lead.postal_code,
       city: lead.city,
       birth_year: lead.birth_year,
+      rki_status: lead.rki_status,
     },
     insurances: insuranceTypes.flatMap((type) => {
       const item = lead.lead_insurances.find((row) => row.insurance_type === type);

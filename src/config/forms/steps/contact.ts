@@ -81,4 +81,20 @@ export const contactFields: readonly FieldConfig[] = [
     autoComplete: "bday-year",
     noDraft: true,
   },
+  {
+    // The partners always ask. Personal data (credit information), so it is
+    // never saved in the draft. Any answer still gets offers.
+    type: "single-choice",
+    name: "rkiRegistered",
+    label: "Er du registreret i RKI?",
+    description:
+      "Selskaberne spørger altid om det. Svarer du ja eller ved ikke, kan du stadig få tilbud.",
+    layout: "grid",
+    options: [
+      { value: "no", label: "Nej" },
+      { value: "yes", label: "Ja" },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+    noDraft: true,
+  },
 ];

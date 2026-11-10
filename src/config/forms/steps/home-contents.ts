@@ -1,6 +1,9 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
-import { propertyAddressField } from "./shared";
+import {
+  otherInfoField,
+  propertyAddressField,
+} from "./shared";
 
 export const homeContentsFields: readonly FieldConfig[] = [
   propertyAddressField("Din adresse"),
@@ -63,4 +66,5 @@ export const homeContentsFields: readonly FieldConfig[] = [
     ],
   },
   currentInsurerField(),
+  otherInfoField(),
 ];

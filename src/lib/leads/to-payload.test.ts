@@ -7,11 +7,11 @@ import { toLeadPayload } from "./to-payload";
 
 const raw = {
   insuranceTypes: ["travel", "car"],
-  travel: { tripType: "annual", area: "europe", travellers: "me" },
+  travel: { tripType: "annual", area: "europe", travellers: "me", cancellation: "no" },
   car: {
     hasLicensePlate: "yes",
     licensePlate: "ab 12 345",
-    makeAndModel: "should be dropped",
+    make: "should be dropped",
     mainDriver: "me",
     annualMileage: "under_10000",
     coverage: "liability",
@@ -27,6 +27,7 @@ const raw = {
   postalCode: "2100",
   city: "København Ø",
   birthYear: 1985,
+  rkiRegistered: "no",
   consentPartnerContact: true,
   consentMarketing: false,
 };
@@ -46,6 +47,7 @@ describe("toLeadPayload", () => {
       postal_code: "2100",
       city: "København Ø",
       birth_year: 1985,
+      rki_status: "no",
     });
   });
 

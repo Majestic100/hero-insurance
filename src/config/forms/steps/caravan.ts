@@ -1,5 +1,10 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
+import {
+  LICENSE_PLATE_MESSAGE,
+  LICENSE_PLATE_PATTERN,
+  otherInfoField,
+} from "./shared";
 
 export const caravanFields: readonly FieldConfig[] = [
   {
@@ -11,6 +16,19 @@ export const caravanFields: readonly FieldConfig[] = [
       { value: "motorhome", label: "Autocamper" },
       { value: "folding", label: "Telt- eller foldevogn" },
     ],
+  },
+  {
+    type: "text",
+    name: "licensePlate",
+    label: "Nummerplade",
+    description: "Så henter vi oplysningerne i Motorregistret. Lad feltet stå tomt, hvis du ikke kender den.",
+    optional: true,
+    placeholder: "AB 12 345",
+    maxLength: 10,
+    normalize: "uppercase-no-spaces",
+    pattern: LICENSE_PLATE_PATTERN,
+    patternMessage: LICENSE_PLATE_MESSAGE,
+    lookup: "dk-license-plate",
   },
   {
     type: "year",
@@ -30,5 +48,24 @@ export const caravanFields: readonly FieldConfig[] = [
       { value: "over_400000", label: "Over 400.000 kr." },
     ],
   },
+  {
+    type: "single-choice",
+    name: "coverage",
+    label: "Hvilken dækning ønsker du?",
+    options: [
+      {
+        value: "liability",
+        label: "Kun ansvar",
+        description: "Skader, du laver på andre og deres ting",
+      },
+      {
+        value: "comprehensive",
+        label: "Ansvar og kasko",
+        description: "Også skader på din egen vogn",
+      },
+      { value: "unknown", label: "Ved ikke" },
+    ],
+  },
   currentInsurerField(),
+  otherInfoField(),
 ];

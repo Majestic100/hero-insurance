@@ -40,7 +40,8 @@ export default function PrivacyPolicyPage() {
       <ul>
         <li>
           <strong>Kontaktoplysninger:</strong> navn, e-mail, telefonnummer,
-          adresse, postnummer, by og fødselsår.
+          adresse, postnummer, by og fødselsår, og om du er registreret i RKI
+          (det spørger selskaberne altid om).
         </li>
         <li>
           <strong>Oplysninger om det, der skal forsikres:</strong> de svar, du

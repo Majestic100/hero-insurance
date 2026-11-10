@@ -15,7 +15,7 @@ const LEASE_SECONDS = 60;
 
 const LEAD_COLUMNS =
   "id, created_at, first_name, last_name, email, phone, street_address, " +
-  "postal_code, city, birth_year, " +
+  "postal_code, city, birth_year, rki_status, " +
   "lead_insurances (insurance_type, answers, form_version), " +
   "consents (consent_type, granted, consent_text, consent_version, recorded_at)";
 

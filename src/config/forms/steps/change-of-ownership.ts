@@ -1,4 +1,5 @@
 import type { FieldConfig } from "../types";
+import { otherInfoField } from "./shared";
 
 /**
  * No "Nuværende selskab": an ownership change insurance is bought once,
@@ -50,4 +51,5 @@ export const changeOfOwnershipFields: readonly FieldConfig[] = [
       { value: "unknown", label: "Ved ikke" },
     ],
   },
+  otherInfoField(),
 ];

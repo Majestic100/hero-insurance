@@ -55,6 +55,7 @@ async function fillContact(page: Page) {
   await page.getByLabel("Postnummer", { exact: true }).fill("2100");
   await page.getByLabel("By", { exact: true }).fill("København Ø");
   await page.getByLabel("Dit fødselsår", { exact: true }).fill("1985");
+  await page.getByRole("radio", { name: "Nej" }).click();
   await next(page);
 }
 
@@ -63,6 +64,7 @@ async function fillTravel(page: Page) {
   await page.getByRole("radio", { name: /^Helårsrejseforsikring/ }).click();
   await page.getByRole("radio", { name: "Europa" }).click();
   await page.getByRole("radio", { name: "Kun mig" }).click();
+  await page.getByRole("radio", { name: "Nej" }).click();
   await next(page);
 }
 
@@ -230,6 +232,7 @@ test("a house address from the list fills in BBR facts and the contact address",
   await expect(page.getByLabel("Boligareal", { exact: true })).toHaveValue("124");
   await expect(page.getByLabel("Byggeår", { exact: true })).toHaveValue("1970");
   await expect(page.getByRole("radio", { name: "Fibercement eller eternit" })).toBeChecked();
+  await page.getByRole("radio", { name: "Villa eller parcelhus" }).click();
   await next(page);
 
   await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
@@ -241,6 +244,7 @@ test("a house address from the list fills in BBR facts and the contact address",
   await page.getByLabel("E-mail", { exact: true }).fill("test@example.dk");
   await page.getByLabel("Telefonnummer", { exact: true }).fill("12345678");
   await page.getByLabel("Dit fødselsår", { exact: true }).fill("1985");
+  await page.getByRole("radio", { name: "Nej" }).click();
   await next(page);
 
   await page.getByRole("checkbox", { name: /blive kontaktet med tilbud/ }).click();
@@ -265,6 +269,7 @@ test("an address that is not on the list can be typed by hand", async ({ page })
   await page.getByLabel("Boligareal", { exact: true }).fill("150");
   await page.getByLabel("Byggeår", { exact: true }).fill("2024");
   await page.getByRole("radio", { name: "Tegl" }).click();
+  await page.getByRole("radio", { name: "Række- eller dobbelthus" }).click();
   await next(page);
   await expect(page.getByRole("heading", { name: "Dine oplysninger" })).toBeVisible();
   // Not picked from the list, so the contact address is not filled in.

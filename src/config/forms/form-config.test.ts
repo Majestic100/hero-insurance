@@ -134,6 +134,7 @@ describe("insurance steps accept a realistic answer", () => {
   it("house", () => {
     const result = parse("hus", {
       address: { text: "Egevej 5, 4030 Tune", id: "0a3f5081-1b18-32b8-e044-0003ba298018" },
+      houseType: "detached",
       livingArea: 140,
       buildYear: 1975,
       roofType: "tiles",
@@ -150,11 +151,15 @@ describe("insurance steps accept a realistic answer", () => {
         occupation: "office",
       },
     ],
-    ["rejse", { tripType: "annual", area: "worldwide", travellers: "family" }],
+    [
+      "rejse",
+      { tripType: "annual", area: "worldwide", travellers: "family", cancellation: "yes" },
+    ],
     [
       "fritidshus",
       {
         address: { text: "Strandvejen 100, Reersø, 4281 Gørlev" },
+        holidayHomeType: "summer_house",
         livingArea: 70,
         buildYear: 1980,
         roofType: "thatch",
@@ -167,11 +172,26 @@ describe("insurance steps accept a realistic answer", () => {
     ],
     [
       "baad",
-      { boatType: "sailboat", lengthFeet: 28, value: "50000_200000" },
+      {
+        boatType: "sailboat",
+        lengthFeet: 28,
+        value: "50000_200000",
+        engineType: "inboard",
+        buildYear: 2005,
+        mooring: "harbour",
+        sailingArea: "danish",
+        coverage: "comprehensive",
+      },
     ],
     [
       "camping",
-      { caravanType: "motorhome", modelYear: 2015, value: "over_400000" },
+      {
+        caravanType: "motorhome",
+        licensePlate: "ab 12 345",
+        modelYear: 2015,
+        value: "over_400000",
+        coverage: "comprehensive",
+      },
     ],
     [
       "dyr",
@@ -182,7 +202,7 @@ describe("insurance steps accept a realistic answer", () => {
         coverageTypes: ["illness"],
       },
     ],
-    ["liv", { payout: "unknown", purpose: "mortgage" }],
+    ["liv", { payout: "unknown", purpose: "mortgage", industry: "education" }],
     [
       "ejerskifte",
       {
@@ -243,6 +263,7 @@ describe("contact and consent steps", () => {
       postalCode: "2100",
       city: "København Ø",
       birthYear: 1985,
+      rkiRegistered: "unknown",
     };
     const result = buildStepSchema(contact, values).safeParse(values);
     expect(result.success).toBe(true);

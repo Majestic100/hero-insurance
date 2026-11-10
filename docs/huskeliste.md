@@ -133,6 +133,13 @@ rigtige leads.
 
 ## Konti og adgang
 
+- [ ] **[Blokerer merge] Kør databaseændringen for RKI** (2026-11-10). Fra
+  din computer i projektmappen, først dev og så produktion:
+  `npm run db:push` og derefter `npm run db:push:prod`. Den tilføjer
+  kolonnen `rki_status` til leads. Indtil den er kørt, bliver RKI-svaret
+  ikke gemt (formularen virker stadig), og leveringen til partnerne fejler
+  i produktion, hvis koden merges først. Sig til, når den er kørt.
+
 - [x] **Fast test-adresse:** `https://test.nemforsikringstilbud.dk` virker
   (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
   `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
@@ -197,6 +204,16 @@ rigtige leads.
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
+
+- 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
+  Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
+  og sendes med til partnerne. Gemmes aldrig i kladden i browseren.
+- 2026-11-10: Spørgsmålene er sammenlignet med Findforsikring
+  (`docs/research/findforsikring-forms.md`). Tilføjet: fri tekst på alle
+  typer, hustype, fritidshustype, afbestilling (rejse), nummerplade og
+  dækning (camping), motortype, byggeår, liggeplads, farvand og dækning
+  (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
+  dyr eller personer i samme forespørgsel.
 
 - 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
   navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), blå #7692FF

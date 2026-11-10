@@ -4,6 +4,7 @@ import {
   CLAIM_FREE_YEARS,
   LICENSE_PLATE_MESSAGE,
   LICENSE_PLATE_PATTERN,
+  otherInfoField,
 } from "./shared";
 
 export const motorcycleAtvMopedFields: readonly FieldConfig[] = [
@@ -58,4 +59,5 @@ export const motorcycleAtvMopedFields: readonly FieldConfig[] = [
     options: CLAIM_FREE_YEARS,
   },
   currentInsurerField(),
+  otherInfoField(),
 ];
