@@ -1,9 +1,10 @@
 -- Whether the user is registered in RKI (the Danish debtor register). The
 -- partners always ask (owner, 2026-11-10). Answers: no, yes, unknown. Null
--- for leads from before this question.
+-- for leads from before this question. Safe to run more than once (also
+-- pasted by hand in the SQL editor), so a later `db push` does not fail.
 
 alter table public.leads
-  add column rki_status text check (rki_status in ('no', 'yes', 'unknown'));
+  add column if not exists rki_status text check (rki_status in ('no', 'yes', 'unknown'));
 
 comment on column public.leads.rki_status is
   'Registered in RKI: no, yes or unknown (asked on the contact step).';

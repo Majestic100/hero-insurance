@@ -133,13 +133,14 @@ rigtige leads.
 
 ## Konti og adgang
 
-- [ ] **[Blokerer merge] Kør databaseændringen for RKI** (2026-11-10). Fra
-  din computer i projektmappen, først dev og så produktion:
-  `npm run db:push` og derefter `npm run db:push:prod`. Den tilføjer
-  kolonnen `rki_status` til leads. Indtil den er kørt, bliver RKI-svaret
-  ikke gemt (formularen virker stadig), og leveringen til partnerne fejler
-  i produktion, hvis koden merges først. Sig til, når den er kørt.
-
+- [ ] **Kør databaseændringen for RKI** (2026-11-10, før første partner).
+  Indtil den er kørt, virker formularen, men RKI-svaret bliver ikke gemt.
+  Nemmeste vej, i browseren: åbn filen
+  `supabase/migrations/20261110120000_add_rki_status.sql` på GitHub, kopier
+  hele indholdet, og gå i Supabase til projektet **Hero Insurance Dev** >
+  SQL Editor > New query > indsæt > Run. Gentag i projektet **Hero
+  Insurance** (produktion). Den kan køres flere gange uden at gå galt.
+  Alternativt fra din computer: `npm run db:push` og `npm run db:push:prod`.
 - [x] **Fast test-adresse:** `https://test.nemforsikringstilbud.dk` virker
   (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
   `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
