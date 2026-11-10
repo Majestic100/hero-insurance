@@ -1,17 +1,13 @@
-import { ArrowRightIcon, HandCoinsIcon, MapPinHouseIcon } from "lucide-react";
+import { HandCoinsIcon, MapPinHouseIcon } from "lucide-react";
 import Link from "next/link";
 
 import { INSURANCE_ICONS } from "@/components/insurance-icons";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { FaqList, type FaqItem } from "@/components/marketing/faq-list";
+import { InsurancePicker } from "@/components/marketing/insurance-picker";
 import { HowItWorks } from "@/components/marketing/how-it-works";
 import { SavingsHighlight } from "@/components/marketing/savings-highlight";
 import { UspList } from "@/components/marketing/usp-list";
-import { Button } from "@/components/ui/button";
-import {
-  INSURANCE_TYPE_INFO,
-  INSURANCE_TYPES,
-} from "@/config/forms/insurance-types";
 import { SITE } from "@/config/site";
 
 // Copy reviewed by the owner and legal (docs/huskeliste.md). Only claims we
@@ -48,7 +44,7 @@ const FAQ: FaqItem[] = [
 export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col">
-      {/* Hero: one tap on a type opens the form with it preselected. */}
+      {/* Hero: tick one or more types, then the form opens at the first. */}
       <section className="bg-secondary/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
@@ -62,34 +58,10 @@ export default function HomePage() {
             </p>
           </div>
 
-          <h2 className="mt-8 text-sm font-medium">Hvad vil du have tilbud på?</h2>
-          <nav
-            aria-label="Vælg forsikring"
-            className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 md:grid-cols-6"
-          >
-            {INSURANCE_TYPES.map((type) => {
-              const info = INSURANCE_TYPE_INFO[type];
-              const Icon = INSURANCE_ICONS[type];
-              return (
-                <Link
-                  key={type}
-                  href={`/tilbud?forsikring=${info.slug}`}
-                  className="flex min-h-22 flex-col items-center justify-center gap-2 rounded-lg border bg-card px-2 py-3 text-center text-xs leading-tight font-medium shadow-xs transition-colors hover:border-brand hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none sm:text-sm"
-                >
-                  <Icon aria-hidden className="size-6 text-brand" />
-                  {info.shortLabel}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
-            <Button asChild size="lg" className="h-12 text-base sm:px-8">
-              <Link href="/tilbud">
-                Få tilbud
-                <ArrowRightIcon aria-hidden />
-              </Link>
-            </Button>
+          <div className="mt-8">
+            <InsurancePicker />
+          </div>
+          <div className="mt-6">
             <UspList />
           </div>
         </div>
