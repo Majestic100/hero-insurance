@@ -151,3 +151,26 @@ export function getMotorApiEnv(): MotorApiEnv | undefined {
   });
   return result.success ? result.data : undefined;
 }
+
+/**
+ * GoHighLevel (follow-up survey, module 9). Optional: without the webhook
+ * URL, leads are not sent to GHL; without the secret, the feedback
+ * endpoint refuses every call.
+ * - GHL_INBOUND_WEBHOOK_URL: the URL of the "Inbound Webhook" trigger of
+ *   the follow-up workflow in GHL. Anyone with it can create contacts, so
+ *   treat it as a secret.
+ * - GHL_FEEDBACK_SECRET: shared secret GHL sends back with the answers
+ *   (`?key=` on /api/ghl/feedback). At least 32 characters.
+ */
+export function getGhlWebhookUrl(): string | undefined {
+  const result = z
+    .url()
+    .refine((value) => value.startsWith("https://"))
+    .safeParse(process.env.GHL_INBOUND_WEBHOOK_URL || undefined);
+  return result.success ? result.data : undefined;
+}
+
+export function getGhlFeedbackSecret(): string | undefined {
+  const secret = process.env.GHL_FEEDBACK_SECRET;
+  return secret && secret.length >= 32 ? secret : undefined;
+}

@@ -111,6 +111,14 @@ export default function PrivacyPolicyPage() {
           forbedre tjenesten (artikel 6, stk. 1, litra f).
         </li>
         <li>
+          <strong>For at følge op på din forespørgsel.</strong> Et par dage
+          efter spørger vi dig på e-mail eller SMS, om selskaberne har
+          kontaktet dig, og hvor tilfreds du er. Svarer du, at ingen har
+          kontaktet dig, kan vi ringe til dig for at hjælpe. Det sker på
+          grundlag af vores legitime interesse i at sikre, at tjenesten
+          virker (artikel 6, stk. 1, litra f). Du kan altid sige fra.
+        </li>
+        <li>
           <strong>For at beskytte siden mod misbrug</strong>, fx automatiske
           forespørgsler fra robotter (artikel 6, stk. 1, litra f).
         </li>
@@ -159,6 +167,11 @@ export default function PrivacyPolicyPage() {
           <strong>MotorAPI</strong>: opslag af nummerplader. MotorAPI ser kun
           nummerpladen, ikke hvem du er.
         </li>
+        <li>
+          <strong>GoHighLevel</strong>: opfølgning på e-mail og SMS. Får dit
+          navn, din e-mail, dit telefonnummer og hvilke forsikringer, du har
+          bedt om tilbud på. Aldrig dine svar i formularen.
+        </li>
       </ul>
       <p>
         Adresser og boligdata slår vi op i de offentlige registre via
@@ -167,7 +180,7 @@ export default function PrivacyPolicyPage() {
 
       <h2>Overførsel til lande uden for EU</h2>
       <p>
-        Vercel og Meta er en del af koncerner med hovedsæde i USA, og
+        Vercel, Meta og GoHighLevel er en del af koncerner med hovedsæde i USA, og
         oplysninger kan derfor blive overført dertil. Overførslen sker på
         grundlag af EU-Kommissionens afgørelse om EU-US Data Privacy Framework
         eller EU-Kommissionens standardkontraktbestemmelser.
