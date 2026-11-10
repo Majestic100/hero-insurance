@@ -22,6 +22,21 @@ describe("routeLead", () => {
     expect(routeLead([], ["car"])).toEqual([]);
   });
 
+  it("sends to at most three partners, covering every type first", () => {
+    const many = [
+      { id: "p1", name: "P1", insuranceTypes: ["car"] as const },
+      { id: "p2", name: "P2", insuranceTypes: ["car"] as const },
+      { id: "p3", name: "P3", insuranceTypes: ["car"] as const },
+      { id: "p4", name: "P4", insuranceTypes: ["boat"] as const },
+      { id: "p5", name: "P5", insuranceTypes: ["car", "boat"] as const },
+    ];
+    // Car only: the first three by priority.
+    expect(routeLead(many, ["car"]).map((d) => d.partner_id)).toEqual(["p1", "p2", "p3"]);
+    // Car and boat: p4 is taken so the boat is covered, then filled by priority.
+    expect(routeLead(many, ["car", "boat"]).map((d) => d.partner_id)).toEqual(["p1", "p2", "p4"]);
+    expect(routeLead(many, ["car"], 1)).toEqual([{ partner_id: "p1", insurance_types: ["car"] }]);
+  });
+
   it("matches the database's partner id rule", () => {
     expect(PARTNER_ID_PATTERN.test("tryg_2")).toBe(true);
     expect(PARTNER_ID_PATTERN.test("Tryg")).toBe(false);
