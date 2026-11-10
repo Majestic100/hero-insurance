@@ -75,7 +75,7 @@ const FAQ = [
 export default function BecomePartnerPage() {
   return (
     <main className="flex flex-1 flex-col">
-      <section className="bg-secondary/40">
+      <section className="bg-secondary">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
             <p className="text-sm font-medium">For forsikringsselskaber</p>
@@ -88,7 +88,7 @@ export default function BecomePartnerPage() {
               forespørgslerne med det samme, med samtykke og komplette data.
             </p>
           </div>
-          <Button asChild size="lg" className="mt-8 h-12 text-base sm:px-8">
+          <Button asChild size="lg" variant="cta" className="mt-8 h-12 text-base sm:px-8">
             <a href={MAILTO}>
               Kontakt os
               <ArrowRightIcon aria-hidden />

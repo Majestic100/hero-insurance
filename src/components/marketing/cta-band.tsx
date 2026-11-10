@@ -24,7 +24,7 @@ export function CtaBand({
           </h2>
           <p className="opacity-90">{text}</p>
         </div>
-        <Button asChild size="lg" variant="secondary" className="h-12 text-base sm:px-8">
+        <Button asChild size="lg" variant="cta" className="h-12 text-base sm:px-8">
           <Link href={href}>
             {label}
             <ArrowRightIcon aria-hidden />

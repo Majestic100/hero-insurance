@@ -37,6 +37,8 @@
   --color-primary: var(--primary);
   --color-brand: var(--brand);
   --color-cream: var(--cream);
+  --color-cta: var(--cta);
+  --color-cta-foreground: var(--cta-foreground);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
@@ -51,31 +53,34 @@
 }
 
 :root {
-  /* Brand palette (owner, 2026-11-10): colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec
-     navy #00105b, indigo #6061b6, cream #fcf9ec; the lavender was replaced by
-     periwinkle #7692ff (owner, 2026-11-10). The page background is white
-     (owner); cream is a surface color. */
-  --brand: #6061b6;
-  --cream: #fcf9ec;
+  /* Brand palette (owner, 2026-11-10): "Modern & Human", trust blue with one
+     warm accent, by the 60-30-10 rule. White page and light blue surfaces
+     (60%), navy and blue for text, structure and icons (30%), amber only for
+     the main call to action on each page (10%). Replaces the colorhunt
+     indigo/periwinkle palette; cream stays as a warm surface. */
+  --brand: #1d5bd8;
+  --cream: #fbf7ee;
+  --cta: #ffb020;
+  --cta-foreground: #10213f;
   --radius: 0.625rem;
   --background: #ffffff;
-  --foreground: #00105b;
+  --foreground: #10213f;
   --card: #ffffff;
-  --card-foreground: #00105b;
+  --card-foreground: #10213f;
   --popover: #ffffff;
-  --popover-foreground: #00105b;
-  --primary: #00105b;
-  --primary-foreground: #fcf9ec;
-  --secondary: #7692ff;
-  --secondary-foreground: #00105b;
-  --muted: #f0f3ff;
-  --muted-foreground: #4a4f78;
-  --accent: #e6ebff;
-  --accent-foreground: #00105b;
+  --popover-foreground: #10213f;
+  --primary: #0b1f4f;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf1fc;
+  --secondary-foreground: #0b1f4f;
+  --muted: #f3f6fb;
+  --muted-foreground: #4a5874;
+  --accent: #e6efff;
+  --accent-foreground: #0b1f4f;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #dde3f7;
-  --input: #cdd6f5;
-  --ring: #6061b6;
+  --border: #dce4f0;
+  --input: #c6d2e4;
+  --ring: #1d5bd8;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);

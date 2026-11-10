@@ -22,7 +22,7 @@ export function SiteHeader() {
           {SITE.name}
         </Link>
         {!inForm && (
-          <Button asChild size="sm" className="hidden h-10 sm:inline-flex">
+          <Button asChild size="sm" variant="cta" className="hidden h-10 sm:inline-flex">
             <Link href="/tilbud">Få tilbud</Link>
           </Button>
         )}
