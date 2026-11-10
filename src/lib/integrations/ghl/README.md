@@ -12,14 +12,13 @@ Our side is two small pieces, both off until their env var is set:
   the contact to the GHL **Inbound Webhook** of the follow-up workflow.
   Env: `GHL_INBOUND_WEBHOOK_URL`. Payload (`payload.ts`):
 
-  ```json
-  { "lead_id": "...", "submitted_at": "...", "first_name": "...",
-    "last_name": "...", "email": "...", "phone": "+4512345678",
-    "insurance_types": "Bil, Hus", "insurance_type_codes": "car,house",
-    "marketing_consent": false, "source": "nemforsikringstilbud" }
-  ```
-
-  Never the form answers, the address, the birth year or RKI.
+  The whole lead (owner, 2026-11-10), so whoever calls the customer from
+  GHL sees the request: `lead_id`, `submitted_at`, `first_name`,
+  `last_name`, `email`, `phone` (E.164), `address`, `postal_code`, `city`,
+  `birth_year`, `rki` ("Nej"/"Ja"/"Ved ikke"), `insurance_types` ("Bil,
+  Hus"), `insurance_type_codes` ("car,house"), `answers_summary` (readable
+  Danish text, one block per insurance, incl. motor register data),
+  `answers_json` (all answers as codes), `marketing_consent`, `source`.
   `marketing_consent: true` is the only permission to send newsletters.
 
 - **Answers back** (`/api/ghl/feedback`): the workflow posts the answers to
@@ -30,8 +29,10 @@ Our side is two small pieces, both off until their env var is set:
 
 ## Setting it up in GHL (owner)
 
-1. **Custom fields** on the contact: `lead_id` (text), `insurance_types`
-   (text), `marketing_consent` (checkbox or text).
+1. **Custom fields** on the contact: `lead_id`, `insurance_types`,
+   `birth_year`, `rki` (text), `answers_summary` (large text, shown when
+   calling), `marketing_consent` (checkbox or text). Address, postal code
+   and city map to GHL's own address fields. `answers_json` is optional.
 2. **Survey** in GHL (Sites > Surveys) with three questions: "Er du blevet
    kontaktet af et forsikringsselskab?" (Ja/Nej), "Har du fået et tilbud?"
    (Ja/Nej), "Hvor tilfreds er du?" (1-5), plus a hidden `lead_id` field
