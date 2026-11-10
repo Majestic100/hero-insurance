@@ -114,6 +114,13 @@ belongs there.
   (pages, form, copy, design), give the link to the Vercel Preview of that
   commit (the `Vercel` commit status on the PR, via the GitHub tools). No
   screenshots (owner, 2026-11-10).
+- **Fixed preview address.** `test.nemforsikringstilbud.dk` is a Vercel
+  Preview domain bound to the `preview` branch. After pushing a visible
+  change, also push it there (`git push origin HEAD:preview`, owner's
+  permission 2026-11-10), so the address always shows the latest work.
+  If the push is rejected because `preview` has other history (another
+  session's branch), ask the owner before force-pushing. `preview` is
+  never merged; `main` stays the production branch.
 - **End with a summary:** what was built, and what the owner must do
   themselves (keys, dashboards, manual steps).
 - **Keep `docs/huskeliste.md` current.** Whenever something needs the
@@ -175,8 +182,8 @@ belongs there.
   deploy); make it every 5 minutes after the Pro upgrade.
 - **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
   team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
-  Authentication. The brand domain `nemforsikringstilbud.dk` is bought (2026-11-10) but
-  not connected yet. The Vercel CLI is logged in locally and the folder is linked
+  Authentication. The brand domain `nemforsikringstilbud.dk` is bought (2026-11-10),
+  DNS at Simply.com, not connected to Production yet (wait until launch). The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
