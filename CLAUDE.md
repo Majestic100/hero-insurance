@@ -171,8 +171,8 @@ belongs there.
   deploy); make it every 5 minutes after the Pro upgrade.
 - **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
   team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
-  Authentication. The brand domain `nemforsikringstilbud.dk` is not connected
-  yet. The Vercel CLI is logged in locally and the folder is linked
+  Authentication. The brand domain `nemforsikringstilbud.dk` is bought (2026-11-10) but
+  not connected yet. The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.

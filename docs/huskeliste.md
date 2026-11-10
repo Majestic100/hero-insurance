@@ -78,13 +78,22 @@ rigtige leads.
 
 ## Dig (forretning og indhold)
 
-- [ ] **Brand:** navnet er Nemforsikringstilbud (nemforsikringstilbud.dk).
-  Mangler: logo (du laver det), farver, og at domænet kobles på Vercel.
+- [ ] **Brand:** navnet er Nemforsikringstilbud, og domænet
+  nemforsikringstilbud.dk er købt. Mangler: logo (du laver det), farver,
+  og at domænet kobles på Vercel (se "Konti og adgang").
   Navnet kommer på siden, når design og tekster gennemgås.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
 ## Konti og adgang
+
+- [ ] **Kobl nemforsikringstilbud.dk på Vercel:** Vercel > projektet >
+  Settings > Domains > Add, tilføj både `nemforsikringstilbud.dk` og
+  `www.nemforsikringstilbud.dk` (lad www viderestille til uden www, eller
+  omvendt). Sæt derefter de DNS-poster, Vercel viser, hos den udbyder, hvor
+  domænet er købt. Kobles kun på Production. Meta: tilføj og verificer
+  domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
+  fra domænet tælles.
 
 - [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
