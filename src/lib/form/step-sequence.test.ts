@@ -26,7 +26,7 @@ describe("getActiveSteps", () => {
     getActiveSteps(formConfig, selected).map((step) => step.id);
 
   it("shows only general steps when nothing is selected", () => {
-    expect(ids([])).toEqual(["forsikringer", "kontakt", "afslut"]);
+    expect(ids([])).toEqual(["forsikringer", "kontakt"]);
   });
 
   it("adds a step per selected type, in config order", () => {
@@ -35,7 +35,6 @@ describe("getActiveSteps", () => {
       "bil",
       "hus",
       "kontakt",
-      "afslut",
     ]);
     expect(ids(["boat", "car", "pet"])).toEqual([
       "forsikringer",
@@ -43,7 +42,6 @@ describe("getActiveSteps", () => {
       "baad",
       "dyr",
       "kontakt",
-      "afslut",
     ]);
   });
 
@@ -54,20 +52,18 @@ describe("getActiveSteps", () => {
       "hus",
       "indbo",
       "kontakt",
-      "afslut",
     ]);
     // Only selected types count.
     expect(getActiveSteps(formConfig, ["car"], ["house"]).map((step) => step.id)).toEqual([
       "forsikringer",
       "bil",
       "kontakt",
-      "afslut",
     ]);
   });
 
   it("has one step per insurance type, with unique ids", () => {
     const all = getActiveSteps(formConfig, INSURANCE_TYPES);
-    expect(all).toHaveLength(INSURANCE_TYPES.length + 3);
+    expect(all).toHaveLength(INSURANCE_TYPES.length + 2);
     expect(new Set(all.map((step) => step.id)).size).toBe(all.length);
   });
 });

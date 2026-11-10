@@ -205,6 +205,15 @@ rigtige leads.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-10: Formularen: kontaktoplysninger og samtykke er ét trin
+  ("Dine oplysninger"), fornavn og efternavn samt postnummer og by står
+  ved siden af hinanden, og telefonnummeret har teksten "Deles kun med de
+  selskaber, der skal give dig tilbud. Ingen spam." I formularen og på
+  takkesiden er footeren lille (firma, privatlivspolitik, betingelser,
+  cookies, åbner i ny fane), og "Få tilbud" er skjult i toppen. Takkesiden
+  forklarer de næste skridt, beder brugeren tage telefonen (også fra
+  ukendte numre) og tilbyder flere forsikringer.
+
 - 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
   Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
   og sendes med til partnerne. Gemmes aldrig i kladden i browseren.

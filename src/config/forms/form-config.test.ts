@@ -264,6 +264,8 @@ describe("contact and consent steps", () => {
       city: "København Ø",
       birthYear: 1985,
       rkiRegistered: "unknown",
+      consentPartnerContact: true,
+      consentMarketing: false,
     };
     const result = buildStepSchema(contact, values).safeParse(values);
     expect(result.success).toBe(true);
@@ -274,12 +276,24 @@ describe("contact and consent steps", () => {
   });
 
   it("requires the partner consent but not marketing", () => {
-    const consent = stepById("afslut");
-    const declined = { consentPartnerContact: false, consentMarketing: false };
+    // Consent sits on the contact step.
+    const consent = stepById("kontakt");
+    const contact = {
+      firstName: "Test",
+      lastName: "Testesen",
+      email: "test@example.dk",
+      phone: "12345678",
+      streetAddress: "Testvej 1",
+      postalCode: "2100",
+      city: "København Ø",
+      birthYear: 1985,
+      rkiRegistered: "no",
+    };
+    const declined = { ...contact, consentPartnerContact: false, consentMarketing: false };
     expect(buildStepSchema(consent, declined).safeParse(declined).success).toBe(
       false,
     );
-    const given = { consentPartnerContact: true, consentMarketing: false };
+    const given = { ...contact, consentPartnerContact: true, consentMarketing: false };
     expect(buildStepSchema(consent, given).safeParse(given).success).toBe(true);
   });
 });

@@ -56,7 +56,7 @@ async function fillContact(page: Page) {
   await page.getByLabel("By", { exact: true }).fill("København Ø");
   await page.getByLabel("Dit fødselsår", { exact: true }).fill("1985");
   await page.getByRole("radio", { name: "Nej" }).click();
-  await next(page);
+  // The consent is on the same step: the caller ticks it and sends.
 }
 
 async function fillTravel(page: Page) {
@@ -114,8 +114,8 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
 
   await fillContact(page);
 
-  await expect(page.getByRole("heading", { name: "Send din forespørgsel" })).toBeVisible();
-  await expect(page.getByText("Bilforsikring")).toBeVisible();
+  await expect(page.getByText("Du får tilbud på:")).toBeVisible();
+  await expect(page.getByText("Du får tilbud på:").locator("..")).toContainText("Bil");
   await page.getByRole("checkbox", { name: /blive kontaktet med tilbud/ }).click();
   await page.getByRole("button", { name: /Send forespørgsel/ }).click();
 
@@ -158,7 +158,7 @@ test("consent is required and server errors are shown", async ({ page }) => {
   await expect(page.locator("form").getByRole("alert")).toHaveText(
     "Vi kunne ikke sende din forespørgsel. Prøv igen om lidt.",
   );
-  await expect(page).toHaveURL(/trin=afslut/);
+  await expect(page).toHaveURL(/trin=kontakt/);
 });
 
 test("browser back works, and a reload keeps answers but not contact data", async ({
@@ -245,7 +245,6 @@ test("a house address from the list fills in BBR facts and the contact address",
   await page.getByLabel("Telefonnummer", { exact: true }).fill("12345678");
   await page.getByLabel("Dit fødselsår", { exact: true }).fill("1985");
   await page.getByRole("radio", { name: "Nej" }).click();
-  await next(page);
 
   await page.getByRole("checkbox", { name: /blive kontaktet med tilbud/ }).click();
   await page.getByRole("button", { name: /Send forespørgsel/ }).click();

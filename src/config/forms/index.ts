@@ -64,7 +64,7 @@ function insuranceStep(type: InsuranceType): StepConfig {
 }
 
 export const formConfig = {
-  version: "2026-11-10.2",
+  version: "2026-11-10.3",
   steps: [
     {
       id: "forsikringer",
@@ -85,16 +85,12 @@ export const formConfig = {
     },
     ...INSURANCE_TYPES.map(insuranceStep),
     {
+      // Contact details and consent on one step: one step less, and the
+      // consent sits right under the phone and e-mail it is about.
       id: "kontakt",
       title: "Dine oplysninger",
       description: "Så forsikringsselskaberne kan sende dig deres tilbud.",
-      fields: contactFields,
-    },
-    {
-      id: "afslut",
-      title: "Send din forespørgsel",
-      description: "Tjek dine valg, og giv samtykke til at modtage tilbud.",
-      fields: consentFields,
+      fields: [...contactFields, ...consentFields],
     },
   ],
 } satisfies FormConfig;

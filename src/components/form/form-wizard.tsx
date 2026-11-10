@@ -9,7 +9,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon, ShieldCheckIcon } from "lucide-react";
 import { useForm, useWatch, type Control, type Resolver } from "react-hook-form";
 
 import { INSURANCE_SELECTION_FIELD } from "@/config/forms";
@@ -153,7 +153,11 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
 
   const visibleFields = getVisibleFields(step, values);
   useAutofill(step, visibleFields, values, form);
-  const mainFields = visibleFields.filter((field) => !field.advanced);
+  // Consents get their own group at the end of the step.
+  const mainFields = visibleFields.filter(
+    (field) => !field.advanced && field.type !== "consent",
+  );
+  const consentFieldsShown = visibleFields.filter((field) => field.type === "consent");
   const advancedFields = visibleFields.filter((field) => field.advanced);
 
   // The bar never moves back while the user moves forward, also when a
@@ -277,6 +281,17 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
               </div>
             </details>
           )}
+          {consentFieldsShown.length > 0 && (
+            <div className="space-y-4 border-t pt-6">
+              <h2 className="font-semibold">Sidste skridt: dit samtykke</h2>
+              <FieldGrid step={step} fields={consentFieldsShown} control={form.control} />
+              <p className="flex items-start gap-2 text-sm text-muted-foreground">
+                <ShieldCheckIcon aria-hidden className="mt-0.5 size-4 shrink-0 text-brand" />
+                Gratis og uforpligtende. Dine oplysninger deles kun med de
+                selskaber, der skal give dig tilbud.
+              </p>
+            </div>
+          )}
           {step.insuranceType && (
             <CrossSell
               current={step.insuranceType}
@@ -333,16 +348,15 @@ function FieldGrid({
   );
 }
 
+/** One line on the last step: what the user is asking for offers on. */
 function SelectedSummary({ types }: { types: InsuranceType[] }) {
   return (
-    <div className="rounded-lg border bg-muted/50 p-4">
-      <p className="text-sm text-muted-foreground">Du har valgt</p>
-      <ul className="mt-2 space-y-1 font-medium">
-        {types.map((type) => (
-          <li key={type}>{INSURANCE_TYPE_INFO[type].label}</li>
-        ))}
-      </ul>
-    </div>
+    <p className="rounded-lg bg-accent px-4 py-3 text-sm">
+      <span className="text-muted-foreground">Du får tilbud på: </span>
+      <span className="font-medium">
+        {types.map((type) => INSURANCE_TYPE_INFO[type].shortLabel).join(", ")}
+      </span>
+    </p>
   );
 }
 

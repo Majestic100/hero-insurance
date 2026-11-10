@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { LANDING_PAGE_LIST } from "@/config/landing-pages";
 import { INSURANCE_TYPE_INFO } from "@/config/forms/insurance-types";
@@ -31,7 +34,21 @@ function FooterGroup({ title, children }: { title: string; children: React.React
   );
 }
 
+/** The form (and its thank-you page) gets a small footer without exits. */
+function isFunnel(pathname: string): boolean {
+  return pathname === "/tilbud" || pathname.startsWith("/tilbud/");
+}
+
+/**
+ * In the form: only what must be there (company, privacy, terms, cookie
+ * settings), opened in a new tab so the form is not lost. Everywhere else:
+ * links to every page.
+ */
 export function SiteFooter() {
+  const pathname = usePathname();
+  if (isFunnel(pathname)) {
+    return <FunnelFooter />;
+  }
   return (
     <footer className="border-t bg-cream">
       <div className="mx-auto w-full max-w-5xl px-4 py-10 text-sm text-muted-foreground">
@@ -84,6 +101,33 @@ export function SiteFooter() {
             {SITE.email}
           </a>
         </p>
+      </div>
+    </footer>
+  );
+}
+
+function FunnelFooter() {
+  return (
+    <footer className="border-t">
+      <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 px-4 py-4 text-sm text-muted-foreground">
+        <p className="w-full sm:w-auto">
+          © {SITE.name} · Drevet af {COMPANY.name}
+        </p>
+        {[
+          { href: "/privatlivspolitik", label: "Privatlivspolitik" },
+          { href: "/betingelser", label: "Betingelser" },
+        ].map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener"
+            className="flex min-h-11 items-center underline-offset-4 hover:underline"
+          >
+            {link.label}
+          </a>
+        ))}
+        <ConsentSettingsButton />
       </div>
     </footer>
   );
