@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Serif_4 } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -8,14 +8,11 @@ import { ConsentProvider } from "@/lib/tracking/consent-context";
 import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-// Headings on marketing pages (not in the form, which stays in Geist).
-const sourceSerif = Source_Serif_4({
-  variable: "--font-source-serif",
+// One family for everything (headings, text, form): IBM Plex Sans, the
+// font of the Danish public design system (borger.dk), chosen for
+// legibility and clear æ, ø and å.
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
 });
 
@@ -37,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="da"
-      className={`${geistSans.variable} ${geistMono.variable} ${sourceSerif.variable} h-full antialiased`}
+      className={`${plexSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <ConsentProvider>
