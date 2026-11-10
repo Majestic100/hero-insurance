@@ -127,8 +127,12 @@ belongs there.
   form, copy, design), also push it there (`git push origin HEAD:preview`,
   owner's permission 2026-11-10) and point the owner to that address. No
   screenshots (owner, 2026-11-10). If the push is rejected because
-  `preview` has other history (another session's branch), ask the owner
-  before force-pushing. `preview` is never merged; `main` stays the
+  `preview` has other history (e.g. after a squash merge, or another
+  session's branch), the owner allows replacing its content (2026-11-10).
+  Do it without a force push: add a commit on top of `origin/preview`
+  with the tree of `HEAD`
+  (`git commit-tree HEAD^{tree} -p origin/preview -p HEAD -m "..."`) and
+  push that commit to `preview` normally. `preview` is never merged; `main` stays the
   production branch.
 - **Vercel only builds `main` and `preview`.** `vercel.json` disables
   deployments for `claude/**` branches (owner, 2026-11-10), because builds
