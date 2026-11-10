@@ -168,9 +168,17 @@ belongs there.
   - Tables `leads`, `lead_insurances` and `consents` (module 1) and
     `lead_deliveries` and `lead_outcomes` (module 8) exist in both. Apply
     new migrations to dev first, then to production.
+  - **Supabase connector** (claude.ai, added 2026-11-10): cloud sessions
+    can query and migrate both projects with the `mcp__Supabase__*`
+    tools; no CLI or direct Postgres from the cloud container (only
+    HTTPS). Rules (owner): on **dev**, run migrations (`apply_migration`)
+    and test queries freely, rolling back or deleting test data; on
+    **production**, read-only checks only, and any write or migration
+    needs the owner's explicit OK in the conversation, after dev.
   - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`)
     was applied by the owner in the SQL editor on dev and production
-    (2026-11-10). The migration is idempotent, so a later `db push` that
+    (2026-11-10), and verified through the connector (a test lead on dev
+    stored `rki_status`, rolled back). The migration is idempotent, so a later `db push` that
     records it in the migration history does not fail.
 - **Vercel:** project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
