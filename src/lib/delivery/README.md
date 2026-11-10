@@ -84,6 +84,9 @@ X-Lead-Signature: t=1793633295,v1=5f0c...e9
 - `contact.rki_status`: whether the user says they are registered in RKI:
   `no`, `yes` or `unknown` (`null` for leads from before 2026-11-10).
   Added without a new schema version: ignore fields you do not know.
+- `contact.membership`: union or association for member discounts (codes
+  in `src/config/forms/steps/membership.ts`), or `null`. A trade union is
+  only sent when the user gave the separate membership consent.
 - Vehicles looked up by license plate: `answers.registry.<field>.summary`
   has fixed fields (`make`, `model`, `variant`, `model_year`,
   `model_year_source` = `register` | `vin` | `first_registration`,

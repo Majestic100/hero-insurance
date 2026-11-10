@@ -19,6 +19,7 @@ const CONTACT_COLUMNS = {
   city: "city",
   birthYear: "birth_year",
   rkiRegistered: "rki_status",
+  membership: "membership",
 } as const;
 
 export type LeadTracking = {
@@ -88,7 +89,10 @@ export function toLeadPayload(
 
   // The consent text comes from the server's config, never from the
   // client, so the stored proof is exactly what the form showed.
-  payload.consents = consentFields(config).map((field) => ({
+  // Only the consents the user saw (a hidden one is dropped by the schema).
+  payload.consents = consentFields(config)
+    .filter((field) => field.consentType === "partner_contact" || field.name in parsed)
+    .map((field) => ({
     consent_type: field.consentType,
     granted: parsed[field.name] === true,
     consent_text: field.text,

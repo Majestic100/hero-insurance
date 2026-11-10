@@ -34,7 +34,7 @@ export async function syncLeadsToGhl(
     .from("leads")
     .select(
       "id, created_at, first_name, last_name, email, phone, street_address, " +
-        "postal_code, city, birth_year, rki_status, " +
+        "postal_code, city, birth_year, rki_status, membership, " +
         "lead_insurances (insurance_type, answers), consents (consent_type, granted)",
     )
     .is("ghl_synced_at", null)
@@ -63,6 +63,7 @@ export async function syncLeadsToGhl(
     city: string | null;
     birth_year: number | null;
     rki_status: string | null;
+    membership: string | null;
     lead_insurances: { insurance_type: string; answers: unknown }[];
     consents: { consent_type: string; granted: boolean }[];
   };

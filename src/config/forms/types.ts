@@ -173,7 +173,7 @@ export type AddressField = BaseField & {
   placeholder?: string;
 };
 
-export type ConsentType = "partner_contact" | "marketing";
+export type ConsentType = "partner_contact" | "marketing" | "membership";
 
 /**
  * A consent checkbox. The exact `text` and `version` are stored with the

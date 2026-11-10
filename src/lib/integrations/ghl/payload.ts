@@ -2,6 +2,7 @@ import {
   INSURANCE_TYPE_INFO,
   isInsuranceType,
 } from "@/config/forms/insurance-types";
+import { MEMBERSHIP_OPTIONS } from "@/config/forms/steps/membership";
 import { buildAnswersSummary, type StoredInsurance } from "./summary";
 
 /**
@@ -27,6 +28,7 @@ export type GhlLeadInput = {
   city: string | null;
   birth_year: number | null;
   rki_status: string | null;
+  membership: string | null;
   insurances: readonly StoredInsurance[];
   marketing_consent: boolean;
 };
@@ -51,6 +53,8 @@ export type GhlContactPayload = {
   birth_year: string;
   /** "Nej", "Ja", "Ved ikke" or "". */
   rki: string;
+  /** Union or association, e.g. "FOA", or "". */
+  membership: string;
   /** Readable Danish summary of all answers, one block per insurance. */
   answers_summary: string;
   /** All answers as JSON text (codes), per insurance type. */
@@ -77,6 +81,9 @@ export function buildGhlContactPayload(lead: GhlLeadInput): GhlContactPayload {
     city: lead.city ?? "",
     birth_year: lead.birth_year ? String(lead.birth_year) : "",
     rki: lead.rki_status ? (RKI_LABELS[lead.rki_status] ?? lead.rki_status) : "",
+    membership: lead.membership
+      ? (MEMBERSHIP_OPTIONS.find((option) => option.value === lead.membership)?.label ?? lead.membership)
+      : "",
     answers_summary: buildAnswersSummary(lead.insurances),
     answers_json: JSON.stringify(
       Object.fromEntries(lead.insurances.map((row) => [row.insurance_type, row.answers])),

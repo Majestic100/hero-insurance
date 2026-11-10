@@ -92,6 +92,7 @@ describe("buildDeliveryPayload", () => {
     city: "København Ø",
     birth_year: 1980,
     rki_status: "no",
+    membership: null,
     lead_insurances: [
       { insurance_type: "car", answers: { plate: "AB12345" }, form_version: "v1" },
       { insurance_type: "life", answers: { payout: "1m" }, form_version: "v1" },
