@@ -26,7 +26,8 @@ type SingleChoiceCardsProps = {
 
 /**
  * One choice as large cards (radio buttons). "list" shows full-width rows;
- * "grid" shows 2 per row, for short labels like Ja/Nej.
+ * "grid" shows 2 per row, for short labels like Ja/Nej; "inline" shows
+ * small buttons in a row, for numbers like 0-10+.
  */
 export function SingleChoiceCards({
   field,
@@ -38,6 +39,7 @@ export function SingleChoiceCards({
   error,
 }: SingleChoiceCardsProps) {
   const isGrid = field.layout === "grid";
+  const isInline = field.layout === "inline";
 
   return (
     <fieldset className="space-y-2">
@@ -46,7 +48,12 @@ export function SingleChoiceCards({
       <RadioGroup
         value={value ?? ""}
         onValueChange={onChange}
-        className={cn("gap-3", isGrid && "grid-cols-2")}
+        className={cn(
+          "gap-3",
+          isGrid && "grid-cols-2",
+          // As many 44px columns as fit: 0-10+ gives two rows of six on a phone.
+          isInline && "grid-cols-[repeat(auto-fit,minmax(2.75rem,1fr))] gap-2",
+        )}
         {...describedBy(field, ids, error)}
       >
         {field.options.map((option, index) => {
@@ -56,7 +63,12 @@ export function SingleChoiceCards({
             <label
               key={option.value}
               htmlFor={optionId}
-              className="flex min-h-14 cursor-pointer items-center gap-4 rounded-lg border bg-card px-4 py-3 transition-colors hover:bg-accent has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-accent has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50"
+              className={cn(
+                "flex cursor-pointer items-center rounded-lg border bg-card transition-colors hover:bg-accent has-[[data-state=checked]]:border-primary has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50",
+                isInline
+                  ? "min-h-11 justify-center px-2 font-medium has-[[data-state=checked]]:bg-primary has-[[data-state=checked]]:text-primary-foreground"
+                  : "min-h-14 gap-4 px-4 py-3 has-[[data-state=checked]]:bg-accent",
+              )}
             >
               <RadioGroupItem
                 ref={index === 0 ? inputRef : undefined}
@@ -64,7 +76,7 @@ export function SingleChoiceCards({
                 value={option.value}
                 onBlur={onBlur}
                 aria-invalid={error ? true : undefined}
-                className="size-5"
+                className={isInline ? "sr-only" : "size-5"}
               />
               {Icon && (
                 <Icon aria-hidden className="size-5 shrink-0 text-muted-foreground" />

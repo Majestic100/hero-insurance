@@ -78,7 +78,7 @@ export default function BecomePartnerPage() {
       <section className="bg-secondary/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
-            <p className="text-sm font-medium text-brand">For forsikringsselskaber</p>
+            <p className="text-sm font-medium">For forsikringsselskaber</p>
             <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
               Få kunder, der selv har bedt om et tilbud
             </h1>

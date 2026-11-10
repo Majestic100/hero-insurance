@@ -1,17 +1,29 @@
+import { CAR_MAKES } from "../car-brands";
 import { currentInsurerField } from "../insurers";
-import type { FieldConfig } from "../types";
+import type { ChoiceOption, FieldConfig } from "../types";
 import {
   CLAIM_FREE_YEARS,
   LICENSE_PLATE_MESSAGE,
   LICENSE_PLATE_PATTERN,
+  otherInfoField,
   YES_NO,
 } from "./shared";
+
+/** 0, 1, ..., 10, 10+ */
+const OWN_CAR_YEARS: readonly [ChoiceOption, ...ChoiceOption[]] = [
+  { value: "0", label: "0" },
+  ...Array.from({ length: 10 }, (_, i) => ({ value: String(i + 1), label: String(i + 1) })),
+  { value: "10_plus", label: "10+" },
+];
+
+/** Shown only without a plate: with one, the motor register has the car. */
+const NO_PLATE = { field: "hasLicensePlate", equals: "no" } as const;
 
 export const carFields: readonly FieldConfig[] = [
   {
     type: "single-choice",
     name: "hasLicensePlate",
-    label: "Har bilen nummerplade?",
+    label: "Kender du nummerpladen?",
     layout: "grid",
     options: YES_NO,
   },
@@ -19,6 +31,7 @@ export const carFields: readonly FieldConfig[] = [
     type: "text",
     name: "licensePlate",
     label: "Nummerplade",
+    description: "Så henter vi bilens mærke, model og motor i Motorregistret.",
     placeholder: "AB 12 345",
     maxLength: 10,
     normalize: "uppercase-no-spaces",
@@ -28,28 +41,28 @@ export const carFields: readonly FieldConfig[] = [
     showIf: { field: "hasLicensePlate", equals: "yes" },
   },
   {
+    type: "select",
+    name: "make",
+    label: "Mærke",
+    placeholder: "Vælg mærke",
+    options: CAR_MAKES,
+    width: "half",
+    showIf: NO_PLATE,
+  },
+  {
     type: "text",
-    name: "makeAndModel",
-    label: "Mærke og model",
-    placeholder: "Fx Toyota Yaris",
-    maxLength: 80,
-    showIf: { field: "hasLicensePlate", equals: "no" },
+    name: "model",
+    label: "Model",
+    placeholder: "Fx Yaris",
+    maxLength: 60,
+    width: "half",
+    showIf: NO_PLATE,
   },
   {
-    type: "year",
-    name: "modelYear",
-    label: "Årgang",
-    placeholder: "Fx 2021",
-    minYear: 1950,
-    showIf: { field: "hasLicensePlate", equals: "no" },
-  },
-  {
-    // With a plate, the motor register gives the fuel type, so we only ask
-    // when there is no plate.
-    type: "single-choice",
+    type: "select",
     name: "fuelType",
     label: "Drivmiddel",
-    layout: "grid",
+    placeholder: "Vælg",
     options: [
       { value: "petrol", label: "Benzin" },
       { value: "diesel", label: "Diesel" },
@@ -58,7 +71,30 @@ export const carFields: readonly FieldConfig[] = [
       { value: "hybrid_diesel", label: "Hybrid (diesel)" },
       { value: "unknown", label: "Ved ikke" },
     ],
-    showIf: { field: "hasLicensePlate", equals: "no" },
+    width: "half",
+    showIf: NO_PLATE,
+  },
+  {
+    type: "year",
+    name: "modelYear",
+    label: "Årgang",
+    placeholder: "Fx 2021",
+    minYear: 1950,
+    width: "half",
+    showIf: NO_PLATE,
+  },
+  {
+    type: "text",
+    name: "engineSize",
+    label: "Motorstørrelse",
+    description: "I liter, fx 1,6. Står på registreringsattesten.",
+    placeholder: "Fx 1,6",
+    inputMode: "decimal",
+    maxLength: 4,
+    pattern: "^\\d{1,2}([.,]\\d)?$",
+    patternMessage: "Skriv motorstørrelsen i liter, fx 1,6.",
+    optional: true,
+    showIf: NO_PLATE,
   },
   {
     type: "single-choice",
@@ -83,6 +119,7 @@ export const carFields: readonly FieldConfig[] = [
     type: "single-choice",
     name: "annualMileage",
     label: "Hvor meget kører bilen om året?",
+    layout: "grid",
     options: [
       { value: "under_10000", label: "Under 10.000 km" },
       { value: "10000_15000", label: "10.000-15.000 km" },
@@ -99,7 +136,7 @@ export const carFields: readonly FieldConfig[] = [
       {
         value: "liability",
         label: "Ansvar",
-        description: "Det lovpligtige: skader du gør på andre",
+        description: "Lovpligtig. Dækker skader, du laver på andre og deres ting.",
       },
       {
         value: "partial",
@@ -122,4 +159,14 @@ export const carFields: readonly FieldConfig[] = [
     options: CLAIM_FREE_YEARS,
   },
   currentInsurerField(),
+  {
+    type: "single-choice",
+    name: "ownCarYears",
+    label: "Hvor mange år har du haft bil i eget navn?",
+    layout: "inline",
+    options: OWN_CAR_YEARS,
+    optional: true,
+    advanced: true,
+  },
+  otherInfoField(),
 ];

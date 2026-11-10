@@ -31,7 +31,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
       <section className="bg-secondary/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
-            <p className="flex items-center gap-2 text-sm font-medium text-brand">
+            <p className="flex items-center gap-2 text-sm font-medium">
               <Icon aria-hidden className="size-5" />
               {info.label}
             </p>

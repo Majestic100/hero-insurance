@@ -9,7 +9,8 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
-import { useForm, useWatch, type Resolver } from "react-hook-form";
+import { ChevronDownIcon } from "lucide-react";
+import { useForm, useWatch, type Control, type Resolver } from "react-hook-form";
 
 import { INSURANCE_SELECTION_FIELD } from "@/config/forms";
 import {
@@ -17,7 +18,7 @@ import {
   insuranceTypeFromSlug,
   type InsuranceType,
 } from "@/config/forms/insurance-types";
-import type { FormConfig, StepConfig } from "@/config/forms/types";
+import type { FieldConfig, FormConfig, StepConfig } from "@/config/forms/types";
 import { draftableValues, loadDraft, saveDraft } from "@/lib/form/draft";
 import { getVisibleFields } from "@/lib/form/visibility";
 import {
@@ -30,7 +31,10 @@ import {
   buildStepSchema,
   findFirstInvalidStep,
 } from "@/lib/schemas/build-schema";
+import { progressPercent } from "@/lib/form/progress";
+import { CrossSell } from "./cross-sell";
 import { FieldRenderer, fieldPath } from "./field-renderer";
+import { SavingsBanner } from "./savings-banner";
 import { StepNavigation } from "./step-navigation";
 import { StepProgress } from "./step-progress";
 import { useAutofill } from "./use-autofill";
@@ -124,7 +128,9 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
   const values = useWatch({ control: form.control }) as FormValues;
 
   const selected = getSelectedTypes(values);
-  const steps = getActiveSteps(config, selected);
+  // Types added from a suggestion on an insurance step come after it.
+  const [addedLater, setAddedLater] = useState<InsuranceType[]>([]);
+  const steps = getActiveSteps(config, selected, addedLater);
 
   // The requested step, unless an earlier step is invalid (deep link,
   // reload, or browser forward): then the first invalid step is shown.
@@ -147,6 +153,29 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
 
   const visibleFields = getVisibleFields(step, values);
   useAutofill(step, visibleFields, values, form);
+  const mainFields = visibleFields.filter((field) => !field.advanced);
+  const advancedFields = visibleFields.filter((field) => field.advanced);
+
+  // The bar never moves back while the user moves forward, also when a
+  // suggestion adds steps: keep the highest value shown on this step.
+  const progress = progressPercent(index, steps.length, selected.length > 0);
+  const [shownProgress, setShownProgress] = useState({ index, value: progress });
+  const progressChanged = index !== shownProgress.index || progress > shownProgress.value;
+  if (progressChanged) {
+    // Adjusting state while rendering, as React recommends for derived state.
+    setShownProgress({ index, value: progress });
+  }
+  const progressValue = progressChanged ? progress : shownProgress.value;
+
+  function setInsuranceAdded(type: InsuranceType, added: boolean) {
+    const next = added ? [...selected, type] : selected.filter((t) => t !== type);
+    form.setValue(INSURANCE_SELECTION_FIELD, getSelectedTypes({ [INSURANCE_SELECTION_FIELD]: next }), {
+      shouldDirty: true,
+    });
+    setAddedLater((current) =>
+      added ? [...current.filter((t) => t !== type), type] : current.filter((t) => t !== type),
+    );
+  }
 
   const stepUrl = useCallback(
     (stepId: string) => {
@@ -214,11 +243,7 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-1 flex-col">
-      <StepProgress
-        index={index}
-        total={steps.length}
-        hasSelection={selected.length > 0}
-      />
+      <StepProgress index={index} total={steps.length} value={progressValue} />
 
       <div className="flex-1">
         <div className="mt-6 space-y-2">
@@ -232,18 +257,34 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
           {step.description && (
             <p className="text-muted-foreground">{step.description}</p>
           )}
+          {step.insuranceType && <SavingsBanner />}
         </div>
 
         <div className="mt-6 space-y-6">
           {isLast && <SelectedSummary types={selected} />}
-          {visibleFields.map((field) => (
-            <FieldRenderer
-              key={fieldPath(step, field)}
-              step={step}
-              field={field}
-              control={form.control}
+          <FieldGrid step={step} fields={mainFields} control={form.control} />
+          {advancedFields.length > 0 && (
+            <details className="group rounded-lg border">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-4 px-4 font-medium [&::-webkit-details-marker]:hidden">
+                Vis flere detaljer (valgfrit)
+                <ChevronDownIcon
+                  aria-hidden
+                  className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                />
+              </summary>
+              <div className="border-t p-4">
+                <FieldGrid step={step} fields={advancedFields} control={form.control} />
+              </div>
+            </details>
+          )}
+          {step.insuranceType && (
+            <CrossSell
+              current={step.insuranceType}
+              selected={selected}
+              addedLater={addedLater}
+              onChange={setInsuranceAdded}
             />
-          ))}
+          )}
           {completeError && (
             <p
               role="alert"
@@ -262,6 +303,33 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
         busy={form.formState.isSubmitting}
       />
     </form>
+  );
+}
+
+/**
+ * The fields of a step in two columns: "half" fields share a row, all
+ * others take the full row.
+ */
+function FieldGrid({
+  step,
+  fields,
+  control,
+}: {
+  step: StepConfig;
+  fields: readonly FieldConfig[];
+  control: Control<FormValues>;
+}) {
+  return (
+    <div className="grid grid-cols-2 gap-x-3 gap-y-6">
+      {fields.map((field) => (
+        <div
+          key={fieldPath(step, field)}
+          className={field.width === "half" ? "col-span-1 min-w-0" : "col-span-2 min-w-0"}
+        >
+          <FieldRenderer step={step} field={field} control={control} />
+        </div>
+      ))}
+    </div>
   );
 }
 

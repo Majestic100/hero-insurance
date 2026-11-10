@@ -47,6 +47,24 @@ describe("getActiveSteps", () => {
     ]);
   });
 
+  it("puts types added later after the other insurance steps", () => {
+    expect(getActiveSteps(formConfig, ["car", "home_contents", "house"], ["home_contents"]).map((step) => step.id)).toEqual([
+      "forsikringer",
+      "bil",
+      "hus",
+      "indbo",
+      "kontakt",
+      "afslut",
+    ]);
+    // Only selected types count.
+    expect(getActiveSteps(formConfig, ["car"], ["house"]).map((step) => step.id)).toEqual([
+      "forsikringer",
+      "bil",
+      "kontakt",
+      "afslut",
+    ]);
+  });
+
   it("has one step per insurance type, with unique ids", () => {
     const all = getActiveSteps(formConfig, INSURANCE_TYPES);
     expect(all).toHaveLength(INSURANCE_TYPES.length + 3);

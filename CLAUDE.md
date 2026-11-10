@@ -104,6 +104,8 @@ supabase/
 docs/
   huskeliste.md               owner's checklist: open questions for partners,
                               legal and the owner, plus decisions made
+  research/                   competitor research (e.g. Findforsikring's
+                              questions per insurance type)
 ```
 
 Folders that a later module fills contain a `README.md` describing what

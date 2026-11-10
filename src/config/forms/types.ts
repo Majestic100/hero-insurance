@@ -28,6 +28,16 @@ type BaseField = {
   description?: string;
   /** Fields are required unless set to true. Shown as "(valgfri)". */
   optional?: boolean;
+  /**
+   * "half": half the row, next to the following half field (e.g. make and
+   * model). Default: the full row.
+   */
+  width?: "half";
+  /**
+   * Shown under "Vis flere detaljer (valgfrit)", collapsed by default, to
+   * keep the step short. Only for optional fields (checked by a test).
+   */
+  advanced?: boolean;
   /** Danish error shown when a required field is empty. */
   requiredMessage?: string;
   showIf?: FieldCondition;
@@ -77,8 +87,11 @@ export type MultiChoiceField = BaseField & {
 export type SingleChoiceField = BaseField & {
   type: "single-choice";
   options: ChoiceOptions;
-  /** "list": full-width rows (default). "grid": 2 per row, for short labels. */
-  layout?: "list" | "grid";
+  /**
+   * "list": full-width rows (default). "grid": 2 per row, for short
+   * labels. "inline": small buttons in a row, for numbers like 0-10+.
+   */
+  layout?: "list" | "grid" | "inline";
 };
 
 /** A dropdown, for long lists of options. */
@@ -120,6 +133,10 @@ export type TextField = BaseField & {
   placeholder?: string;
   /** Defaults to 100. */
   maxLength?: number;
+  /** A multi-line text box, for free text such as "other information". */
+  multiline?: boolean;
+  /** "decimal": numeric keyboard with a decimal separator (e.g. engine size). */
+  inputMode?: "decimal";
   format?: TextFormat;
   /** Uppercases and removes spaces before validating (license plates). */
   normalize?: "uppercase-no-spaces";

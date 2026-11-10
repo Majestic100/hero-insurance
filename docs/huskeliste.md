@@ -25,6 +25,15 @@ rigtige leads.
   almindelig i BBR), Fibercement eller eternit, Strå, Tagpap og Andet.
   Passer det med partnernes prisgrupper, fx "hårdt" og "blødt" tag?
   Kode: `ROOF_TYPES` i `src/config/forms/steps/shared.ts`.
+- [ ] **Bilforsikring (opdateret 2026-11-10 efter Findforsikring):** uden
+  nummerplade spørger vi nu om mærke, model, drivmiddel, årgang og
+  motorstørrelse; og under "Vis flere detaljer" om år med bil i eget navn
+  og fri tekst. Vi spørger både om **skadefri år** og **år med bil i eget
+  navn**. Bruger partnerne begge, eller kan vi droppe det ene?
+- [ ] **Fri tekst til selskaberne** ("Andre oplysninger"): brugeren kan
+  skrive hvad som helst, også ting vi ikke bør have (fx helbred). Vi
+  advarer i hjælpeteksten. Er det nok, eller skal feltet væk? (også til
+  advokaten)
 - [ ] **Fødselsår eller fødselsdato?** Vi spørger kun om fødselsår (mindst
   muligt data). Er det nok til prisen?
 - [ ] **Nummerplade til MC, ATV og knallert** er valgfri. Skal den være
@@ -190,8 +199,9 @@ rigtige leads.
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
 - 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
-  navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), lavendel
-  #C9B5E0 og creme #FCF9EC (flader). Baggrunden er hvid. Overskrifter på
+  navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), blå #7692FF
+  (flader og valgte felter, afløste lavendel #C9B5E0) og creme #FCF9EC.
+  Baggrunden er hvid. Overskrifter på
   forsiden i Source Serif 4, al anden tekst og formularen i Geist.
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet

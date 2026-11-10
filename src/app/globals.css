@@ -52,7 +52,8 @@
 
 :root {
   /* Brand palette (owner, 2026-11-10): colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec
-     navy #00105b, indigo #6061b6, lavender #c9b5e0, cream #fcf9ec. The page background is white
+     navy #00105b, indigo #6061b6, cream #fcf9ec; the lavender was replaced by
+     periwinkle #7692ff (owner, 2026-11-10). The page background is white
      (owner); cream is a surface color. */
   --brand: #6061b6;
   --cream: #fcf9ec;
@@ -65,15 +66,15 @@
   --popover-foreground: #00105b;
   --primary: #00105b;
   --primary-foreground: #fcf9ec;
-  --secondary: #c9b5e0;
+  --secondary: #7692ff;
   --secondary-foreground: #00105b;
-  --muted: #f1ebf7;
+  --muted: #f0f3ff;
   --muted-foreground: #4a4f78;
-  --accent: #ece4f6;
+  --accent: #e6ebff;
   --accent-foreground: #00105b;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2d9ee;
-  --input: #d6cbe6;
+  --border: #dde3f7;
+  --input: #cdd6f5;
   --ring: #6061b6;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);

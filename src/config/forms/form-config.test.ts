@@ -28,6 +28,14 @@ describe("form config integrity", () => {
     }
   });
 
+  it("only hides optional fields under \"Vis flere detaljer\"", () => {
+    for (const step of steps) {
+      for (const field of step.fields.filter((candidate) => candidate.advanced)) {
+        expect(field.optional, `${step.id}.${field.name}`).toBe(true);
+      }
+    }
+  });
+
   it("only uses showIf on earlier choice fields with real option values", () => {
     for (const step of steps) {
       step.fields.forEach((field, index) => {
@@ -79,9 +87,13 @@ describe("insurance steps accept a realistic answer", () => {
 
     const withoutPlate = parse("bil", {
       hasLicensePlate: "no",
-      makeAndModel: "Toyota Yaris",
+      make: "toyota",
+      model: "Yaris",
       modelYear: 2021,
       fuelType: "hybrid_petrol",
+      engineSize: "1,5",
+      ownCarYears: "10_plus",
+      otherInfo: "Bilen har anhængertræk.",
       mainDriver: "someone_else",
       mainDriverBirthYear: 1990,
       annualMileage: "under_10000",
@@ -95,7 +107,8 @@ describe("insurance steps accept a realistic answer", () => {
     // with a plate).
     const noFuel = {
       hasLicensePlate: "no",
-      makeAndModel: "Toyota Yaris",
+      make: "toyota",
+      model: "Yaris",
       modelYear: 2021,
       mainDriver: "me",
       annualMileage: "under_10000",
