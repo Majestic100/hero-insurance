@@ -138,11 +138,8 @@ rigtige leads.
 
 ## Konti og adgang
 
-- [ ] **Godkend databaseændringen for automatisk sletning i produktion**
-  (2026-11-10). Den er kørt og testet på dev. Skriv "ok" til Claude, så
-  kører Claude den i produktion via Supabase-forbindelsen. Indtil da
-  virker alt andet, men den daglige sletning springes over i produktion.
-
+- [x] **Databaseændringen for automatisk sletning er kørt i produktion**
+  (2026-11-10, efter test på dev). Sletningen kører hver dag.
 - [x] **Databaseændringen for RKI er kørt** på dev og produktion
   (2026-11-10). RKI-svaret gemmes nu på leadet og sendes med til partnerne.
 - [x] **Fast test-adresse:** `https://test.nemforsikringstilbud.dk` virker
