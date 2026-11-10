@@ -214,7 +214,11 @@ function WizardForm({ config, onComplete, onStepChange }: FormWizardProps) {
 
   return (
     <form onSubmit={onSubmit} noValidate className="flex flex-1 flex-col">
-      <StepProgress current={index + 1} total={steps.length} />
+      <StepProgress
+        index={index}
+        total={steps.length}
+        hasSelection={selected.length > 0}
+      />
 
       <div className="flex-1">
         <div className="mt-6 space-y-2">
