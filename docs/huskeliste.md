@@ -149,6 +149,11 @@ rigtige leads.
   domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
   fra domænet tælles.
 
+- [ ] **[Blokerer lancering] Opgrader Supabase-produktionsprojektet til Pro**
+  (ca. $25 om måneden) for daglige backups, før de første rigtige leads.
+  Så kan vi gendanne, hvis data bliver slettet ved en fejl (i koden, i
+  dashboardet eller fra Claudes Supabase-forbindelse, som har fuld adgang).
+  Pro bruges også senere til vores egen kopi af Motorregistret.
 - [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
 - [ ] **Slå "BotID Deep Analysis" til**, når Vercel er på Pro: Vercel >
@@ -209,6 +214,11 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   forklarer de næste skridt, beder brugeren tage telefonen (også fra
   ukendte numre) og tilbyder flere forsikringer.
 
+- 2026-11-10: Claude har fuld adgang til begge Supabase-projekter via
+  connectoren, så arbejdet ikke bremses. Sikkerheden er faste regler (i
+  produktion kun læsning uden personoplysninger; ændringer kun via
+  migrationer testet på dev og efter godkendelse) og daglige backups med
+  Supabase Pro før lancering.
 - 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
   Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
   og sendes med til partnerne. Gemmes aldrig i kladden i browseren.

@@ -173,8 +173,12 @@ belongs there.
     tools; no CLI or direct Postgres from the cloud container (only
     HTTPS). Rules (owner): on **dev**, run migrations (`apply_migration`)
     and test queries freely, rolling back or deleting test data; on
-    **production**, read-only checks only, and any write or migration
-    needs the owner's explicit OK in the conversation, after dev.
+    **production**, read-only checks only (structure and counts, never
+    personal data such as names, e-mails or phone numbers), and any write
+    or migration needs the owner's explicit OK in the conversation, after
+    dev. The owner chose full access over a read-only connector
+    (2026-11-10); the safety net is daily backups (Supabase Pro, before
+    launch).
   - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`)
     was applied by the owner in the SQL editor on dev and production
     (2026-11-10), and verified through the connector (a test lead on dev
