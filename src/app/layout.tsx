@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Figtree, Geist_Mono } from "next/font/google";
+import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -8,15 +8,11 @@ import { ConsentProvider } from "@/lib/tracking/consent-context";
 import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
 
-// Body text, the form and buttons: friendly and easy to read at small sizes.
-const figtree = Figtree({
-  variable: "--font-figtree",
-  subsets: ["latin"],
-});
-
-// Headings and the logo: a warm grotesque with character.
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+// One family for everything (headings, text, form): IBM Plex Sans, the
+// font of the Danish public design system (borger.dk), chosen for
+// legibility and clear æ, ø and å.
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
 });
 
@@ -38,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="da"
-      className={`${figtree.variable} ${geistMono.variable} ${bricolage.variable} h-full antialiased`}
+      className={`${plexSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <ConsentProvider>
