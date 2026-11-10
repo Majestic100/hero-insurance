@@ -18,6 +18,7 @@ describe("buildGhlContactPayload", () => {
       city: "København Ø",
       birth_year: 1985,
       rki_status: "no",
+      membership: "fdm",
       insurances: [
         {
           insurance_type: "car",
@@ -48,6 +49,7 @@ describe("buildGhlContactPayload", () => {
       city: "København Ø",
       birth_year: "1985",
       rki: "Nej",
+      membership: "FDM",
       marketing_consent: false,
       source: "nemforsikringstilbud",
     });

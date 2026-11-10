@@ -1,4 +1,5 @@
 import type { FieldConfig } from "../types";
+import { MEMBERSHIP_OPTIONS } from "./membership";
 
 /**
  * Contact details, asked once for the whole lead and stored in the `leads`
@@ -84,6 +85,18 @@ export const contactFields: readonly FieldConfig[] = [
     minYear: 1920,
     maxYearsAgo: 18,
     autoComplete: "bday-year",
+    noDraft: true,
+  },
+  {
+    // Member discounts. Optional; a union needs the separate consent
+    // "consentMembership" (GDPR art. 9), shown when one is picked.
+    type: "select",
+    name: "membership",
+    label: "Er du medlem af en fagforening eller forening?",
+    description: "Mange selskaber giver rabat til medlemmer.",
+    optional: true,
+    placeholder: "Vælg",
+    options: MEMBERSHIP_OPTIONS,
     noDraft: true,
   },
   {

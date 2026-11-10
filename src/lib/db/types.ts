@@ -231,6 +231,7 @@ export type Database = {
           first_name: string
           id: string
           last_name: string
+          membership: string | null
           phone: string
           postal_code: string | null
           street_address: string | null
@@ -252,6 +253,7 @@ export type Database = {
           first_name: string
           id?: string
           last_name: string
+          membership: string | null
           phone: string
           postal_code?: string | null
           street_address?: string | null
@@ -273,6 +275,7 @@ export type Database = {
           first_name?: string
           id?: string
           last_name?: string
+          membership?: string | null
           phone?: string
           postal_code?: string | null
           street_address?: string | null
