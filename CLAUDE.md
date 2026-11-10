@@ -119,17 +119,19 @@ belongs there.
 - **Finish properly.** A module is done when `lint`, `typecheck` and `build`
   pass, the result is verified in the running app, the module status below
   is updated, and the PR is merged.
-- **Show visible changes.** After pushing a change the owner can see
-  (pages, form, copy, design), give the link to the Vercel Preview of that
-  commit (the `Vercel` commit status on the PR, via the GitHub tools). No
-  screenshots (owner, 2026-11-10).
-- **Fixed preview address.** `test.nemforsikringstilbud.dk` is a Vercel
-  Preview domain bound to the `preview` branch. After pushing a visible
-  change, also push it there (`git push origin HEAD:preview`, owner's
-  permission 2026-11-10), so the address always shows the latest work.
-  If the push is rejected because `preview` has other history (another
-  session's branch), ask the owner before force-pushing. `preview` is
-  never merged; `main` stays the production branch.
+- **Show visible changes on the fixed preview address.**
+  `https://test.nemforsikringstilbud.dk` is a Vercel Preview domain bound
+  to the `preview` branch. After pushing a change the owner can see (pages,
+  form, copy, design), also push it there (`git push origin HEAD:preview`,
+  owner's permission 2026-11-10) and point the owner to that address. No
+  screenshots (owner, 2026-11-10). If the push is rejected because
+  `preview` has other history (another session's branch), ask the owner
+  before force-pushing. `preview` is never merged; `main` stays the
+  production branch.
+- **Vercel only builds `main` and `preview`.** `vercel.json` disables
+  deployments for `claude/**` branches (owner, 2026-11-10), because builds
+  queue one at a time on Hobby. GitHub Actions still runs every check on
+  pull requests.
 - **End with a summary:** what was built, and what the owner must do
   themselves (keys, dashboards, manual steps).
 - **Keep `docs/huskeliste.md` current.** Whenever something needs the
@@ -164,7 +166,8 @@ belongs there.
   - Tables `leads`, `lead_insurances` and `consents` (module 1) and
     `lead_deliveries` and `lead_outcomes` (module 8) exist in both. Apply
     new migrations to dev first, then to production.
-- **Vercel:** project connected to the repo, functions in `fra1`.
+- **Vercel:** project connected to the repo, functions in `fra1`. Builds
+  `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
   Production (production project) and Preview (dev project). The Supabase
   Vercel integration is deliberately not installed (it uses different
