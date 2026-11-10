@@ -154,7 +154,8 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
 - 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
   navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), lavendel
-  #C9B5E0 og creme #FCF9EC (flader). Baggrunden er hvid.
+  #C9B5E0 og creme #FCF9EC (flader). Baggrunden er hvid. Overskrifter på
+  forsiden i Source Serif 4, al anden tekst og formularen i Geist.
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet
   nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.

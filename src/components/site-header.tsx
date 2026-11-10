@@ -11,7 +11,7 @@ export function SiteHeader() {
         {/* Placeholder wordmark until the logo is ready. */}
         <Link
           href="/"
-          className="flex min-h-11 items-center gap-2 font-semibold tracking-tight"
+          className="flex min-h-11 items-center gap-2 font-heading text-lg font-semibold"
         >
           <ShieldCheckIcon aria-hidden className="size-5 text-brand" />
           {SITE.name}

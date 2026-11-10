@@ -84,7 +84,7 @@ export default function HomePage() {
       <section className="bg-secondary/40">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
-            <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+            <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               Få tilbud på dine forsikringer. Udfyld kun én formular.
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -135,7 +135,7 @@ export default function HomePage() {
 
       {/* How it works */}
       <section className="mx-auto w-full max-w-5xl px-4 py-12 sm:py-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
           Sådan virker det
         </h2>
         <ol className="mt-8 grid gap-6 sm:grid-cols-3">
@@ -159,7 +159,7 @@ export default function HomePage() {
       <section className="border-y bg-cream">
         <div className="mx-auto grid w-full max-w-5xl gap-8 px-4 py-12 sm:grid-cols-2 sm:py-16">
           <div className="space-y-3">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
               Vi udfylder det kedelige for dig
             </h2>
             <p className="text-muted-foreground">
@@ -197,7 +197,7 @@ export default function HomePage() {
         <div className="flex flex-col gap-4 rounded-xl border p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
           <HandCoinsIcon aria-hidden className="size-8 shrink-0 text-brand" />
           <div className="space-y-2">
-            <h2 className="text-xl font-semibold tracking-tight">
+            <h2 className="font-heading text-xl font-semibold tracking-tight">
               Gratis for dig. Sådan tjener vi penge.
             </h2>
             <p className="text-muted-foreground">
@@ -212,7 +212,7 @@ export default function HomePage() {
 
       {/* FAQ: native <details>, works without JavaScript. */}
       <section className="mx-auto w-full max-w-3xl px-4 pb-12 sm:pb-16">
-        <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+        <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
           Spørgsmål og svar
         </h2>
         <div className="mt-6 divide-y rounded-lg border">
@@ -235,7 +235,7 @@ export default function HomePage() {
       <section className="bg-primary text-primary-foreground">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-14">
           <div className="space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
               Klar til at tjekke dine forsikringer?
             </h2>
             <p className="opacity-90">
