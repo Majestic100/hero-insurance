@@ -28,7 +28,7 @@ export function InsurancePicker() {
             return (
               <label
                 key={type}
-                className="group relative flex min-h-22 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border bg-card px-2 py-3 text-center text-xs leading-tight font-medium shadow-xs transition-colors select-none hover:border-brand hover:bg-accent has-checked:border-brand has-checked:bg-accent has-checked:ring-2 has-checked:ring-brand/30 has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50 sm:text-sm"
+                className="group relative flex min-h-22 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border bg-card px-2 py-3 text-center text-xs leading-tight font-medium shadow-xs transition-colors select-none hover:border-brand hover:bg-accent has-checked:border-brand has-checked:bg-accent has-checked:ring-2 has-checked:ring-brand has-focus-visible:ring-[3px] has-focus-visible:ring-ring/50 sm:text-sm"
               >
                 <input
                   type="checkbox"
@@ -50,7 +50,7 @@ export function InsurancePicker() {
         </div>
       </fieldset>
       <input type="hidden" name={STEP_PARAM} value={SKIP_SELECTION_STEP} />
-      <Button type="submit" size="lg" className="mt-6 h-12 w-full text-base sm:w-auto sm:px-8">
+      <Button type="submit" size="lg" variant="cta" className="mt-6 h-12 w-full text-base sm:w-auto sm:px-8">
         Få tilbud
         <ArrowRightIcon aria-hidden />
       </Button>

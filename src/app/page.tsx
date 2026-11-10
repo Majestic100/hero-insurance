@@ -40,7 +40,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-1 flex-col">
       {/* Hero: tick one or more types, then the form opens at the first. */}
-      <section className="bg-secondary/40">
+      <section className="bg-secondary">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
             <h1 className="font-heading text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
