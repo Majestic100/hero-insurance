@@ -54,14 +54,20 @@ export const homeContentsFields: readonly FieldConfig[] = [
     ],
   },
   {
+    // Finer than the insurers' sums, so each partner can merge them into its
+    // own groups. Most people only know it roughly, so no exact number.
     type: "single-choice",
     name: "sumInsured",
     label: "Hvor meget er dit indbo værd?",
-    description: "Et skøn er nok. Tænk på, hvad det koster at købe alt nyt.",
+    description: "Hvad ville det koste at købe alt nyt: møbler, tøj, elektronik osv.",
+    layout: "grid",
     options: [
-      { value: "under_500000", label: "Under 500.000 kr." },
-      { value: "500000_1000000", label: "500.000-1.000.000 kr." },
-      { value: "over_1000000", label: "Over 1.000.000 kr." },
+      { value: "under_250000", label: "Under 250.000 kr." },
+      { value: "250000_500000", label: "250.000-500.000 kr." },
+      { value: "500000_750000", label: "500.000-750.000 kr." },
+      { value: "750000_1000000", label: "750.000-1 mio. kr." },
+      { value: "1000000_1500000", label: "1-1,5 mio. kr." },
+      { value: "over_1500000", label: "Over 1,5 mio. kr." },
       { value: "unknown", label: "Ved ikke" },
     ],
   },
