@@ -201,7 +201,11 @@ rigtige leads.
 
 - [ ] **[Blokerer lancering] Opgrader Supabase-produktionsprojektet til Pro**
   (lige før lancering, ikke nu). Gratis-projekter sættes på pause efter en
-  uges inaktivitet, og så gemmes leads ikke. Dev kan blive på gratis.
+  uges inaktivitet, og så gemmes leads ikke. Dev kan blive på gratis, men
+  Pro gælder hele organisationen, og hvert projekt i den betaler for sin
+  egen server (ca. $10/md ekstra for dev). Flyt derfor dev-projektet
+  ("Hero Insurance Dev") til en separat gratis organisation, før I
+  opgraderer (Supabase > projektets Settings > General > Transfer project).
   Pris ca. $25 om måneden for daglige backups, før de første rigtige leads.
   Så kan vi gendanne, hvis data bliver slettet ved en fejl (i koden, i
   dashboardet eller fra Claudes Supabase-forbindelse, som har fuld adgang).
