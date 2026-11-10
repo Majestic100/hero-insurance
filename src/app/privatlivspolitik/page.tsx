@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { CompanyDetails } from "@/components/marketing/company-details";
 import { ContentPage } from "@/components/marketing/content-page";
+import { RETENTION } from "@/config/retention";
 import { COMPANY, SITE } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -173,18 +174,21 @@ export default function PrivacyPolicyPage() {
       </p>
 
       <h2>Hvor længe vi gemmer oplysningerne</h2>
+      <p>Vi sletter automatisk, hver dag:</p>
       <ul>
         <li>
-          Din forespørgsel og dine svar sletter vi senest 12 måneder efter, at
-          du sendte den.
+          Din forespørgsel sletter vi {RETENTION.answersMonths} måneder efter,
+          at du sendte den: dine svar, din adresse, dit fødselsår, dit svar om
+          RKI og Metas cookie-id&apos;er.
         </li>
         <li>
-          Dokumentation for dine samtykker gemmer vi, så længe vi kan have
-          brug for at dokumentere dem, og højst i 5 år.
+          Dit navn, din e-mail og dit telefonnummer gemmer vi sammen med dine
+          samtykker som dokumentation for, hvem der har givet samtykke til
+          hvad. Det sletter vi efter {RETENTION.consentProofYears} år.
         </li>
         <li>
-          Har du sagt ja til nyheder på e-mail, gemmer vi din e-mail, indtil du
-          afmelder dig.
+          Har du sagt ja til nyheder på e-mail, bruger vi din e-mail til det,
+          indtil du afmelder dig, dog højst i {RETENTION.consentProofYears} år.
         </li>
       </ul>
 

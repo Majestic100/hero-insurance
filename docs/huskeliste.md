@@ -65,10 +65,10 @@ rigtige leads.
   `/betingelser`, `/om-os`, `/kontakt` og `/partnere` (kan ses på
   test.nemforsikringstilbud.dk). Skrevet ud fra, hvad siden faktisk gør i
   dag. Særlige spørgsmål til advokaten:
-  - Privatlivspolitikken lover sletning af leads efter **12 måneder** og
-    samtykkebevis efter højst **5 år**. Er det de rigtige frister? Den
-    automatiske sletning er ikke bygget endnu og skal bygges før lancering,
-    ellers holder vi ikke vores eget løfte.
+  - Privatlivspolitikken lover sletning af forespørgslen efter **12
+    måneder** og af samtykkebevis (navn, e-mail, telefon og samtykker)
+    efter **5 år**. Er det de rigtige frister? Sletningen er bygget og kører
+    hver dag.
   - Er vi **fælles dataansvarlige med Meta** for Pixel og Conversions API
     (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
     Vercel og Meta?
@@ -85,9 +85,11 @@ rigtige leads.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Formidling og sammenligning af forsikringer kan være
   forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
-- [ ] **Opbevaringstid:** privatlivspolitikken siger 12 måneder for leads og
-  højst 5 år for samtykkebevis (se ovenfor). Bekræft, så bygger vi den
-  automatiske sletning.
+- [ ] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
+  12 måneder efter (svar, adresse, fødselsår, RKI, Meta-id'er), og efter 5
+  år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med
+  advokaten. Ændres de, er det én linje: `src/config/retention.ts`
+  (privatlivspolitikken følger med automatisk).
 - [ ] **Databehandleraftaler** med Supabase og Vercel, og aftaler med
   partnerne om, hvem der er dataansvarlig for hvad.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
@@ -132,6 +134,11 @@ rigtige leads.
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
 ## Konti og adgang
+
+- [ ] **Godkend databaseændringen for automatisk sletning i produktion**
+  (2026-11-10). Den er kørt og testet på dev. Skriv "ok" til Claude, så
+  kører Claude den i produktion via Supabase-forbindelsen. Indtil da
+  virker alt andet, men den daglige sletning springes over i produktion.
 
 - [x] **Databaseændringen for RKI er kørt** på dev og produktion
   (2026-11-10). RKI-svaret gemmes nu på leadet og sendes med til partnerne.
@@ -245,8 +252,9 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 - 2026-11-02: Gode leads skal sendes tilbage til Meta, så annoncerne
   optimeres efter kvalitet (Pixel og Conversions API i modul 7, partnernes
   resultat pr. lead i modul 8).
-- 2026-11-02: Venter med: intern oversigt over leads, automatisk sletning af
-  gamle leads og e-mail til os ved nye leads.
+- 2026-11-02: Venter med: intern oversigt over leads og e-mail til os ved
+  nye leads. (Automatisk sletning blev bygget 2026-11-10, fordi
+  privatlivspolitikken lover den.)
 - 2026-11-02: Spam-beskyttelse med Vercel BotID (usynlig, ingen ny
   leverandør eller nøgler). Turnstile er alternativet, hvis vi forlader
   Vercel. Ingen rate limiting pr. IP-adresse (det kræver, at vi gemmer

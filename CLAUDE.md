@@ -83,6 +83,7 @@ src/
     partners.ts               partners and which insurance types each gets
     site.ts                   brand, company details, savings claim
     landing-pages.ts          content of the landing pages per type
+    retention.ts              how long leads are kept (privacy policy, cron)
   lib/
     db/                       Supabase server client, queries, generated DB types
     env/server.ts             zod-validated server env vars (server-only)
@@ -188,6 +189,10 @@ belongs there.
     (2026-11-10), and verified through the connector (a test lead on dev
     stored `rki_status`, rolled back). The migration is idempotent, so a later `db push` that
     records it in the migration history does not fail.
+  - Retention (`20261110150000_lead_retention.sql`: `leads.answers_purged_at`
+    and `purge_old_leads`) is applied and tested on dev (2026-11-10), not
+    yet on production (needs the owner's OK). The daily cron calls it; if
+    the function is missing, the cron logs `retention_failed` and goes on.
 - **Vercel:** project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
