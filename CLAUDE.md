@@ -178,7 +178,10 @@ belongs there.
 ## Infrastructure status
 
 - **GitHub:** `Majestic100/hero-insurance`, default branch `main`.
-- **Supabase:** two projects in Central EU (Frankfurt, `eu-central-1`),
+- **Supabase:** organization "Majestic100's Org" on the **Pro** plan
+  (2026-11-10: daily backups, no pausing). It also holds `hm-internal`
+  (`kinoqyuctdlimxaorbeu`), which is not part of this site: never touch it.
+  Our two projects, in Central EU (Frankfurt, `eu-central-1`),
   both on the new key format (`sb_secret_...`) and managed with the
   Supabase CLI:
   - **Production** `obxdwfiwvaaqvcgetiwm` ("Hero Insurance"): used only by
