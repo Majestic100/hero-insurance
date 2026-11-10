@@ -43,14 +43,18 @@ function displayValue(field: FieldConfig, value: unknown): string | undefined {
 function describeRegistry(registry: unknown): string[] {
   if (!registry || typeof registry !== "object") return [];
   return Object.values(registry as Record<string, unknown>).flatMap((record) => {
-    const vehicle = (record as { vehicle?: Record<string, unknown> } | null)?.vehicle;
+    const item = record as { summary?: Record<string, unknown>; vehicle?: Record<string, unknown> } | null;
+    const vehicle = item?.summary ?? item?.vehicle;
     if (!vehicle) return [];
     const name = [vehicle.make, vehicle.model, vehicle.variant].filter(Boolean).join(" ");
+    const year = vehicle.model_year ?? vehicle.modelYear;
+    const fuel = vehicle.fuel_type ?? vehicle.fuelType;
+    const firstRegistration = vehicle.first_registration ?? vehicle.firstRegistration;
     const details = [
-      vehicle.modelYear ? `årgang ${vehicle.modelYear}` : undefined,
-      vehicle.fuelType ? String(vehicle.fuelType) : undefined,
-      typeof vehicle.firstRegistration === "string"
-        ? `1. indregistrering ${vehicle.firstRegistration.slice(0, 10)}`
+      year ? `årgang ${year}` : undefined,
+      fuel ? String(fuel) : undefined,
+      typeof firstRegistration === "string"
+        ? `1. indregistrering ${firstRegistration.slice(0, 10)}`
         : undefined,
     ].filter(Boolean);
     return name ? [`Fra Motorregistret: ${name}${details.length ? ` (${details.join(", ")})` : ""}`] : [];

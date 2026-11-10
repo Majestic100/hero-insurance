@@ -109,7 +109,6 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
   await page.getByRole("radio", { name: "Mig" }).click();
   await page.getByRole("radio", { name: "Under 10.000 km" }).click();
   await page.getByRole("radio", { name: /^Ansvar og kasko/ }).click();
-  await page.getByRole("radio", { name: "6 år eller mere" }).click();
   await next(page);
 
   await fillContact(page);
