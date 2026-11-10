@@ -325,11 +325,13 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
-- 2026-11-10: Farver fra colorhunt.co/palette/00105b6061b6c9b5e0fcf9ec:
-  navy #00105B (knapper og tekst), indigo #6061B6 (ikoner), blå #7692FF
-  (flader og valgte felter, afløste lavendel #C9B5E0) og creme #FCF9EC.
-  Baggrunden er hvid. Overskrifter på
-  forsiden i Source Serif 4, al anden tekst og formularen i Geist.
+- 2026-11-10: Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
+  med én varm accent), afløste colorhunt-paletten samme dag: hvid baggrund
+  og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå
+  #1D5BD8 (ikoner, links, valgte felter) (30%), og rav #FFB020 med navy
+  tekst kun til hovedknappen på hver side (10%). Creme #FBF7EE er varm
+  flade. Overskrifter på forsiden i Source Serif 4, al anden tekst og
+  formularen i Geist.
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet
   nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.

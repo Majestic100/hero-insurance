@@ -37,6 +37,7 @@ export function StepNavigation({
       )}
       <Button
         type="submit"
+        variant="cta"
         className="h-11 flex-1 sm:ml-auto sm:flex-none"
         disabled={busy}
       >

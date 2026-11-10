@@ -33,7 +33,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
 
   return (
     <main className="flex flex-1 flex-col">
-      <section className="bg-secondary/40">
+      <section className="bg-secondary">
         <div className="mx-auto w-full max-w-5xl px-4 py-10 sm:py-16">
           <div className="max-w-2xl space-y-4">
             <p className="flex items-center gap-2 text-sm font-medium">
@@ -47,7 +47,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
             <p className="text-lg text-muted-foreground">{page.intro}</p>
           </div>
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-10">
-            <Button asChild size="lg" className="h-12 text-base sm:px-8">
+            <Button asChild size="lg" variant="cta" className="h-12 text-base sm:px-8">
               <Link href={formHref}>
                 Få tilbud nu
                 <ArrowRightIcon aria-hidden />
