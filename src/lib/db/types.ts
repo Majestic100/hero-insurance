@@ -184,6 +184,7 @@ export type Database = {
       leads: {
         Row: {
           address_id: string | null
+          answers_purged_at: string | null
           birth_year: number | null
           rki_status: string | null
           city: string | null
@@ -203,6 +204,7 @@ export type Database = {
         }
         Insert: {
           address_id?: string | null
+          answers_purged_at?: string | null
           birth_year?: number | null
           rki_status?: string | null
           city?: string | null
@@ -222,6 +224,7 @@ export type Database = {
         }
         Update: {
           address_id?: string | null
+          answers_purged_at?: string | null
           birth_year?: number | null
           rki_status?: string | null
           city?: string | null
@@ -270,6 +273,10 @@ export type Database = {
         }
       }
       create_lead: { Args: { payload: Json }; Returns: string }
+      purge_old_leads: {
+        Args: { answers_after: string; delete_after: string }
+        Returns: Json
+      }
     }
     Enums: {
       [_ in never]: never

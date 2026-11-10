@@ -62,7 +62,7 @@ src/
     om-os/, kontakt/, partnere/, bliv-partner/
                               about, contact, partner list (from
                               config/partners.ts), page for new partners
-    bilforsikring/, indboforsikring/, husforsikring/, ulykkesforsikring/
+    bilforsikring/, indboforsikring/, ... (one per insurance type, 12)
                               landing pages per type (config/landing-pages.ts)
     api/                      server endpoints (route handlers)
       health/route.ts         Supabase health check
@@ -83,6 +83,7 @@ src/
     partners.ts               partners and which insurance types each gets
     site.ts                   brand, company details, savings claim
     landing-pages.ts          content of the landing pages per type
+    retention.ts              how long leads are kept (privacy policy, cron)
   lib/
     db/                       Supabase server client, queries, generated DB types
     env/server.ts             zod-validated server env vars (server-only)
@@ -127,8 +128,12 @@ belongs there.
   form, copy, design), also push it there (`git push origin HEAD:preview`,
   owner's permission 2026-11-10) and point the owner to that address. No
   screenshots (owner, 2026-11-10). If the push is rejected because
-  `preview` has other history (another session's branch), ask the owner
-  before force-pushing. `preview` is never merged; `main` stays the
+  `preview` has other history (e.g. after a squash merge, or another
+  session's branch), the owner allows replacing its content (2026-11-10).
+  Do it without a force push: add a commit on top of `origin/preview`
+  with the tree of `HEAD`
+  (`git commit-tree HEAD^{tree} -p origin/preview -p HEAD -m "..."`) and
+  push that commit to `preview` normally. `preview` is never merged; `main` stays the
   production branch.
 - **Vercel only builds `main` and `preview`.** `vercel.json` disables
   deployments for `claude/**` branches (owner, 2026-11-10), because builds
@@ -168,11 +173,27 @@ belongs there.
   - Tables `leads`, `lead_insurances` and `consents` (module 1) and
     `lead_deliveries` and `lead_outcomes` (module 8) exist in both. Apply
     new migrations to dev first, then to production.
-  - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`) is
-    written but not applied yet: the owner runs it (SQL editor or
-    `db:push`), as this environment has no Supabase access. Until then
-    the RKI answer is dropped by `create_lead`; nothing breaks while there
-    are no partners (deliveries read the column).
+  - **Supabase connector** (claude.ai, added 2026-11-10): cloud sessions
+    can query and migrate both projects with the `mcp__Supabase__*`
+    tools; no CLI or direct Postgres from the cloud container (only
+    HTTPS). Rules (owner): on **dev**, run migrations (`apply_migration`)
+    and test queries freely, rolling back or deleting test data; on
+    **production**, read-only checks only (structure and counts, never
+    personal data such as names, e-mails or phone numbers), and any write
+    or migration needs the owner's explicit OK in the conversation, after
+    dev. The owner chose full access over a read-only connector
+    (2026-11-10); the safety net is daily backups (Supabase Pro, before
+    launch).
+  - `leads.rki_status` (migration `20261110120000_add_rki_status.sql`)
+    was applied by the owner in the SQL editor on dev and production
+    (2026-11-10), and verified through the connector (a test lead on dev
+    stored `rki_status`, rolled back). The migration is idempotent, so a later `db push` that
+    records it in the migration history does not fail.
+  - Retention (`20261110150000_lead_retention.sql`: `leads.answers_purged_at`
+    and `purge_old_leads`) is applied on dev (tested) and on production
+    (owner's OK, 2026-11-10, through the connector; only `service_role`
+    may run it). The daily cron calls it; on an error it logs
+    `retention_failed` and goes on.
 - **Vercel:** project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for

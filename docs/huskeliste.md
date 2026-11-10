@@ -65,10 +65,10 @@ rigtige leads.
   `/betingelser`, `/om-os`, `/kontakt` og `/partnere` (kan ses på
   test.nemforsikringstilbud.dk). Skrevet ud fra, hvad siden faktisk gør i
   dag. Særlige spørgsmål til advokaten:
-  - Privatlivspolitikken lover sletning af leads efter **12 måneder** og
-    samtykkebevis efter højst **5 år**. Er det de rigtige frister? Den
-    automatiske sletning er ikke bygget endnu og skal bygges før lancering,
-    ellers holder vi ikke vores eget løfte.
+  - Privatlivspolitikken lover sletning af forespørgslen efter **12
+    måneder** og af samtykkebevis (navn, e-mail, telefon og samtykker)
+    efter **5 år**. Er det de rigtige frister? Sletningen er bygget og kører
+    hver dag.
   - Er vi **fælles dataansvarlige med Meta** for Pixel og Conversions API
     (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
     Vercel og Meta?
@@ -85,9 +85,11 @@ rigtige leads.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Formidling og sammenligning af forsikringer kan være
   forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
-- [ ] **Opbevaringstid:** privatlivspolitikken siger 12 måneder for leads og
-  højst 5 år for samtykkebevis (se ovenfor). Bekræft, så bygger vi den
-  automatiske sletning.
+- [ ] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
+  12 måneder efter (svar, adresse, fødselsår, RKI, Meta-id'er), og efter 5
+  år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med
+  advokaten. Ændres de, er det én linje: `src/config/retention.ts`
+  (privatlivspolitikken følger med automatisk).
 - [ ] **Databehandleraftaler** med Supabase og Vercel, og aftaler med
   partnerne om, hvem der er dataansvarlig for hvad.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
@@ -121,9 +123,12 @@ rigtige leads.
   `src/config/landing-pages.ts`. Ingen brugertal, Trustpilot eller
   kundeudtalelser, før vi har rigtige tal. Logoer fra partnerne kommer på,
   når partnerne er på plads.
-- [ ] **Flere sider pr. forsikringstype?** Vi har de 4 store. Resten (rejse,
-  fritidshus, MC, båd, camping, dyr, liv, ejerskifte) laves, når vi ved,
-  hvilke typer der annonceres for.
+- [ ] **Siderne pr. forsikringstype (alle 12, 2026-11-10):** de 8 nye
+  (`/rejseforsikring`, `/fritidshusforsikring`, `/mc-forsikring`,
+  `/baadforsikring`, `/campingforsikring`, `/dyreforsikring`,
+  `/livsforsikring`, `/ejerskifteforsikring`) skal også gennemgås.
+  Teksterne er generelle fakta om forsikringerne; tjek især dem om
+  lovkrav (ansvar for hunde, knallerter og både, ejerskifte).
 - [ ] **Trustpilot:** opret en profil. Undersøgelsen i modul 9 kan bede
   tilfredse brugere om en anmeldelse, så vi senere kan vise rigtige tal.
 - [ ] **Bliv partner** (`/bliv-partner`): gennemgå teksten. Henvendelser går
@@ -133,14 +138,10 @@ rigtige leads.
 
 ## Konti og adgang
 
-- [ ] **Kør databaseændringen for RKI** (2026-11-10, før første partner).
-  Indtil den er kørt, virker formularen, men RKI-svaret bliver ikke gemt.
-  Nemmeste vej, i browseren: åbn filen
-  `supabase/migrations/20261110120000_add_rki_status.sql` på GitHub, kopier
-  hele indholdet, og gå i Supabase til projektet **Hero Insurance Dev** >
-  SQL Editor > New query > indsæt > Run. Gentag i projektet **Hero
-  Insurance** (produktion). Den kan køres flere gange uden at gå galt.
-  Alternativt fra din computer: `npm run db:push` og `npm run db:push:prod`.
+- [x] **Databaseændringen for automatisk sletning er kørt i produktion**
+  (2026-11-10, efter test på dev). Sletningen kører hver dag.
+- [x] **Databaseændringen for RKI er kørt** på dev og produktion
+  (2026-11-10). RKI-svaret gemmes nu på leadet og sendes med til partnerne.
 - [x] **Fast test-adresse:** `https://test.nemforsikringstilbud.dk` virker
   (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
   `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
@@ -155,6 +156,11 @@ rigtige leads.
   domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
   fra domænet tælles.
 
+- [ ] **[Blokerer lancering] Opgrader Supabase-produktionsprojektet til Pro**
+  (ca. $25 om måneden) for daglige backups, før de første rigtige leads.
+  Så kan vi gendanne, hvis data bliver slettet ved en fejl (i koden, i
+  dashboardet eller fra Claudes Supabase-forbindelse, som har fuld adgang).
+  Pro bruges også senere til vores egen kopi af Motorregistret.
 - [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
 - [ ] **Slå "BotID Deep Analysis" til**, når Vercel er på Pro: Vercel >
@@ -215,6 +221,11 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   forklarer de næste skridt, beder brugeren tage telefonen (også fra
   ukendte numre) og tilbyder flere forsikringer.
 
+- 2026-11-10: Claude har fuld adgang til begge Supabase-projekter via
+  connectoren, så arbejdet ikke bremses. Sikkerheden er faste regler (i
+  produktion kun læsning uden personoplysninger; ændringer kun via
+  migrationer testet på dev og efter godkendelse) og daglige backups med
+  Supabase Pro før lancering.
 - 2026-11-10: Kontakttrinnet spørger "Er du registreret i RKI?" (Nej, Ja,
   Ved ikke), fordi partnerne bruger det. Gemmes på leadet (`rki_status`)
   og sendes med til partnerne. Gemmes aldrig i kladden i browseren.
@@ -241,8 +252,9 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 - 2026-11-02: Gode leads skal sendes tilbage til Meta, så annoncerne
   optimeres efter kvalitet (Pixel og Conversions API i modul 7, partnernes
   resultat pr. lead i modul 8).
-- 2026-11-02: Venter med: intern oversigt over leads, automatisk sletning af
-  gamle leads og e-mail til os ved nye leads.
+- 2026-11-02: Venter med: intern oversigt over leads og e-mail til os ved
+  nye leads. (Automatisk sletning blev bygget 2026-11-10, fordi
+  privatlivspolitikken lover den.)
 - 2026-11-02: Spam-beskyttelse med Vercel BotID (usynlig, ingen ny
   leverandør eller nøgler). Turnstile er alternativet, hvis vi forlader
   Vercel. Ingen rate limiting pr. IP-adresse (det kræver, at vi gemmer
