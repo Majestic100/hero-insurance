@@ -239,10 +239,9 @@ belongs there.
   cron runs once a day while Vercel is on Hobby (more often fails to
   deploy); make it every 5 minutes after the Pro upgrade.
 - **GoHighLevel** (module 9): `GHL_INBOUND_WEBHOOK_URL` and
-  `GHL_FEEDBACK_SECRET`, not set yet. Migration
-  `20261110170000_lead_feedback_ghl.sql` applied and tested on dev, not
-  on production (needs the owner's OK; apply it before setting the keys in
-  Production).
+  `GHL_FEEDBACK_SECRET`, not set yet. Migrations
+  `20261110170000_lead_feedback_ghl.sql` and `20261110200000_membership.sql`
+  are applied on dev (tested) and production (owner's OK, 2026-11-10).
 - **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
   team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
   Authentication. The brand domain `nemforsikringstilbud.dk` is bought (2026-11-10),
