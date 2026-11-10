@@ -29,7 +29,7 @@ export function ConsentBanner() {
           Vi vil gerne bruge cookies til at måle og forbedre vores annoncer på
           Facebook og Instagram (Meta). Det kræver dit samtykke. Cookies, som
           siden skal bruge for at virke, bruges altid.{" "}
-          <Link href="/privatlivspolitik" className="underline underline-offset-4">
+          <Link href="/cookiepolitik" className="underline underline-offset-4">
             Læs mere
           </Link>
         </p>

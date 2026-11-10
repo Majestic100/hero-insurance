@@ -84,7 +84,10 @@ test("a car lead from the homepage to the thank-you page", async ({ page }) => {
   const bodies = await mockLeadsApi(page);
 
   await page.goto("/");
-  await page.getByRole("link", { name: "Bil", exact: true }).click();
+  await page
+    .getByRole("navigation", { name: "Vælg forsikring" })
+    .getByRole("link", { name: "Bil", exact: true })
+    .click();
   await expect(page).toHaveURL(/\/tilbud\?trin=forsikringer/);
   await expect(page.getByRole("checkbox", { name: "Bil" })).toBeChecked();
   await next(page);

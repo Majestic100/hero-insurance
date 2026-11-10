@@ -1,19 +1,11 @@
-import {
-  ArrowRightIcon,
-  BadgeCheckIcon,
-  ChevronDownIcon,
-  ClipboardListIcon,
-  HandCoinsIcon,
-  type LucideIcon,
-  MapPinHouseIcon,
-  MousePointerClickIcon,
-  PhoneCallIcon,
-  ShieldCheckIcon,
-  TimerIcon,
-} from "lucide-react";
+import { ArrowRightIcon, HandCoinsIcon, MapPinHouseIcon } from "lucide-react";
 import Link from "next/link";
 
 import { INSURANCE_ICONS } from "@/components/insurance-icons";
+import { CtaBand } from "@/components/marketing/cta-band";
+import { FaqList, type FaqItem } from "@/components/marketing/faq-list";
+import { HowItWorks } from "@/components/marketing/how-it-works";
+import { UspList } from "@/components/marketing/usp-list";
 import { Button } from "@/components/ui/button";
 import {
   INSURANCE_TYPE_INFO,
@@ -21,35 +13,10 @@ import {
 } from "@/config/forms/insurance-types";
 import { SITE } from "@/config/site";
 
-// Draft copy (2026-11-10). Wording, claims and FAQ answers are reviewed by
-// the owner and legal before launch (docs/huskeliste.md). Never add numbers
-// (users, savings, ratings) or testimonials we cannot document.
+// Copy reviewed by the owner and legal (docs/huskeliste.md). Only claims we
+// can document: no invented numbers, ratings or testimonials.
 
-const USPS: { icon: LucideIcon; text: string }[] = [
-  { icon: BadgeCheckIcon, text: "Gratis og uforpligtende" },
-  { icon: TimerIcon, text: "Tager få minutter" },
-  { icon: ShieldCheckIcon, text: "Du vælger selv" },
-];
-
-const STEPS: { icon: LucideIcon; title: string; text: string }[] = [
-  {
-    icon: MousePointerClickIcon,
-    title: "Vælg forsikringer",
-    text: "Vælg de forsikringer, du vil have tilbud på. Du kan vælge flere på én gang.",
-  },
-  {
-    icon: ClipboardListIcon,
-    title: "Svar på få spørgsmål",
-    text: "Én formular for det hele. Vi udfylder meget af det for dig ud fra din adresse og nummerplade.",
-  },
-  {
-    icon: PhoneCallIcon,
-    title: "Modtag tilbud",
-    text: "Forsikringsselskaberne kontakter dig med et tilbud. Du vælger selv, om du vil tage imod det.",
-  },
-];
-
-const FAQ: { question: string; answer: string }[] = [
+const FAQ: FaqItem[] = [
   {
     question: "Koster det noget?",
     answer:
@@ -114,46 +81,19 @@ export default function HomePage() {
             })}
           </nav>
 
-          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-8">
+          <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-10">
             <Button asChild size="lg" className="h-12 text-base sm:px-8">
               <Link href="/tilbud">
                 Få tilbud
                 <ArrowRightIcon aria-hidden />
               </Link>
             </Button>
-            <ul className="flex flex-col gap-2 text-sm sm:flex-row sm:gap-6">
-              {USPS.map(({ icon: Icon, text }) => (
-                <li key={text} className="flex items-center gap-2">
-                  <Icon aria-hidden className="size-4 text-brand" />
-                  {text}
-                </li>
-              ))}
-            </ul>
+            <UspList />
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-12 sm:py-16">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-          Sådan virker det
-        </h2>
-        <ol className="mt-8 grid gap-6 sm:grid-cols-3">
-          {STEPS.map(({ icon: Icon, title, text }, index) => (
-            <li key={title} className="flex gap-4 sm:flex-col">
-              <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
-                <Icon aria-hidden className="size-5" />
-              </span>
-              <div className="space-y-1">
-                <h3 className="font-semibold">
-                  {index + 1}. {title}
-                </h3>
-                <p className="text-muted-foreground">{text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <HowItWorks />
 
       {/* What sets us apart: register lookups fill in the boring parts. */}
       <section className="border-y bg-cream">
@@ -193,7 +133,7 @@ export default function HomePage() {
 
       {/* Transparency: how we make money. Builds trust, and partners must be
           named in the consent anyway. */}
-      <section className="mx-auto w-full max-w-5xl px-4 py-12 sm:py-16">
+      <section className="mx-auto w-full max-w-5xl px-4 pt-12 sm:pt-16">
         <div className="flex flex-col gap-4 rounded-xl border p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
           <HandCoinsIcon aria-hidden className="size-8 shrink-0 text-brand" />
           <div className="space-y-2">
@@ -204,58 +144,21 @@ export default function HomePage() {
               Forsikringsselskaberne betaler os for at formidle din
               forespørgsel. Derfor er det gratis for dig, og du er aldrig
               forpligtet til at købe noget. Vi sender kun dine oplysninger
-              til de selskaber, du selv giver samtykke til.
+              til de selskaber, du selv giver samtykke til.{" "}
+              <Link href="/om-os" className="font-medium underline underline-offset-4">
+                Læs mere om os
+              </Link>
             </p>
           </div>
         </div>
       </section>
 
-      {/* FAQ: native <details>, works without JavaScript. */}
-      <section className="mx-auto w-full max-w-3xl px-4 pb-12 sm:pb-16">
-        <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-          Spørgsmål og svar
-        </h2>
-        <div className="mt-6 divide-y rounded-lg border">
-          {FAQ.map(({ question, answer }) => (
-            <details key={question} className="group">
-              <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 px-4 font-medium [&::-webkit-details-marker]:hidden">
-                {question}
-                <ChevronDownIcon
-                  aria-hidden
-                  className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
-                />
-              </summary>
-              <p className="px-4 pb-4 text-muted-foreground">{answer}</p>
-            </details>
-          ))}
-        </div>
-      </section>
+      <FaqList items={FAQ} />
 
-      {/* Closing call to action */}
-      <section className="bg-primary text-primary-foreground">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-12 sm:flex-row sm:items-center sm:justify-between sm:py-14">
-          <div className="space-y-2">
-            <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
-              Klar til at tjekke dine forsikringer?
-            </h2>
-            <p className="opacity-90">
-              Det tager få minutter, og det er gratis at bruge{" "}
-              {SITE.name}.
-            </p>
-          </div>
-          <Button
-            asChild
-            size="lg"
-            variant="secondary"
-            className="h-12 text-base sm:px-8"
-          >
-            <Link href="/tilbud">
-              Få tilbud
-              <ArrowRightIcon aria-hidden />
-            </Link>
-          </Button>
-        </div>
-      </section>
+      <CtaBand
+        title="Klar til at tjekke dine forsikringer?"
+        text={`Det tager få minutter, og det er gratis at bruge ${SITE.name}.`}
+      />
     </main>
   );
 }

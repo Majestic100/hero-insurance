@@ -51,22 +51,34 @@ rigtige leads.
 
 ## Juridisk (advokat eller GDPR-rådgiver)
 
+- [ ] **[Blokerer lancering] Gennemgå de juridiske sider (skrevet
+  2026-11-10):** `/privatlivspolitik`, `/samtykke`, `/cookiepolitik`,
+  `/betingelser`, `/om-os`, `/kontakt` og `/partnere` (kan ses på
+  test.nemforsikringstilbud.dk). Skrevet ud fra, hvad siden faktisk gør i
+  dag. Særlige spørgsmål til advokaten:
+  - Privatlivspolitikken lover sletning af leads efter **12 måneder** og
+    samtykkebevis efter højst **5 år**. Er det de rigtige frister? Den
+    automatiske sletning er ikke bygget endnu og skal bygges før lancering,
+    ellers holder vi ikke vores eget løfte.
+  - Er vi **fælles dataansvarlige med Meta** for Pixel og Conversions API
+    (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
+    Vercel og Meta?
+  - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
+    rådgiver. Passer det med svaret om Finanstilsynet nedenfor?
 - [ ] **[Blokerer lancering] Samtykketeksten** til at sende oplysningerne
   videre til forsikringsselskaber. Den skal nævne modtagerne (navne eller
-  en klar kategori) og formålet. Kode: `src/config/forms/consents.ts`.
+  en klar kategori) og formålet. Vi har nu `/partnere`, der viser
+  modtagerne automatisk fra listen i koden; teksten kunne henvise dertil.
+  Kode: `src/config/forms/consents.ts` (`/samtykke` viser altid den
+  aktuelle tekst).
 - [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
   skal overholde markedsføringslovens § 10. Kode: samme fil.
-- [ ] **Underleverandører i privatlivspolitikken:** MotorAPI (nummerplader)
-  og Datafordeler (adresser, BBR) skal nævnes. MotorAPI ser
-  nummerpladerne, men ikke hvem brugeren er.
-- [ ] **[Blokerer lancering] Privatlivspolitik.** Siden
-  `/privatlivspolitik` er en pladsholder. Kode:
-  `src/app/privatlivspolitik/page.tsx`.
 - [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Formidling og sammenligning af forsikringer kan være
   forsikringsdistribution. Særligt Liv og Ulykke og sundhed.
-- [ ] **Opbevaringstid:** hvor længe må vi gemme et lead, og hvornår slettes
-  det automatisk?
+- [ ] **Opbevaringstid:** privatlivspolitikken siger 12 måneder for leads og
+  højst 5 år for samtykkebevis (se ovenfor). Bekræft, så bygger vi den
+  automatiske sletning.
 - [ ] **Databehandleraftaler** med Supabase og Vercel, og aftaler med
   partnerne om, hvem der er dataansvarlig for hvad.
 - [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
@@ -82,12 +94,30 @@ rigtige leads.
   nemforsikringstilbud.dk er købt. Farverne er valgt. Mangler: logo (du
   laver det; indtil da står navnet med et skjold-ikon), og at domænet
   kobles på Vercel (se "Konti og adgang").
-- [ ] **Forsiden (udkast 2026-11-10):** gennemgå overskrift, tekster og de
-  fem spørgsmål og svar. Kode: `src/app/page.tsx`. Vi viser bevidst ingen
-  tal (brugere, besparelser, Trustpilot) og ingen kundeudtalelser, før vi
-  har rigtige tal, der kan dokumenteres (markedsføringsloven). Logoer fra
-  partnerne og "op til X tilbud" kommer på, når partnerne er på plads.
-  Navnet kommer på siden, når design og tekster gennemgås.
+- [ ] **[Blokerer lancering] Firmaoplysninger:** siderne skriver "Hero
+  Media". E-handelsloven kræver det fulde firmanavn (fx "Hero Media ApS"),
+  CVR-nummer og adresse. Kode: `COMPANY` i `src/config/site.ts`.
+- [ ] **[Blokerer lancering] Opret e-mailen kontakt@nemforsikringstilbud.dk**
+  hos Simply.com. Den står på alle de juridiske sider og på "Bliv partner",
+  og folk skal kunne skrive for at få indsigt eller slette deres data.
+- [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
+  året"** (vises på forsiden og siderne pr. forsikringstype). Send den, så
+  tjekker vi, at ordlyden passer: er 3.300 kr. et gennemsnit ("i
+  gennemsnit") eller det højeste ("op til")? Kode: `SAVINGS_CLAIM` i
+  `src/config/site.ts`.
+- [ ] **Forsiden og siderne pr. forsikringstype** (`/bilforsikring`,
+  `/indboforsikring`, `/husforsikring`, `/ulykkesforsikring`): gennemgå
+  overskrifter, tekster og spørgsmål og svar. Kode: `src/app/page.tsx` og
+  `src/config/landing-pages.ts`. Ingen brugertal, Trustpilot eller
+  kundeudtalelser, før vi har rigtige tal. Logoer fra partnerne kommer på,
+  når partnerne er på plads.
+- [ ] **Flere sider pr. forsikringstype?** Vi har de 4 store. Resten (rejse,
+  fritidshus, MC, båd, camping, dyr, liv, ejerskifte) laves, når vi ved,
+  hvilke typer der annonceres for.
+- [ ] **Trustpilot:** opret en profil. Undersøgelsen i modul 9 kan bede
+  tilfredse brugere om en anmeldelse, så vi senere kan vise rigtige tal.
+- [ ] **Bliv partner** (`/bliv-partner`): gennemgå teksten. Henvendelser går
+  til kontakt-e-mailen.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
 - [ ] **Afsender-e-mail** til kvitteringer, hvis vi skal sende dem.
 
