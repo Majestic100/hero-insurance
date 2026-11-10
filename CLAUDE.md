@@ -333,7 +333,8 @@ identifiers it needs.
    help fill in insurers' applications, and are paid per lead, not per
    sale. General information about insurance types is fine. Keep pension
    and savings products out, and never ask about health or family
-   history. Stop and ask the owner before building anything that crosses
+   history, or any other special category under GDPR art. 9 (e.g. trade
+   union membership), even if a competitor does. Stop and ask the owner before building anything that crosses
    this line. Background: `docs/huskeliste.md` (Finanstilsynet).
 
 ## Conventions and gotchas

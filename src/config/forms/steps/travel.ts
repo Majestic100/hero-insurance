@@ -1,6 +1,7 @@
 import { currentInsurerField } from "../insurers";
 import type { FieldConfig } from "../types";
 import {
+  childrenCountField,
   INSURED_PERSONS,
   otherInfoField,
   YES_NO,
@@ -39,6 +40,7 @@ export const travelFields: readonly FieldConfig[] = [
     label: "Hvem skal være dækket?",
     options: INSURED_PERSONS,
   },
+  childrenCountField("travellers"),
   {
     type: "single-choice",
     name: "cancellation",

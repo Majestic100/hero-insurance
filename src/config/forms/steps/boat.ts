@@ -17,6 +17,13 @@ export const boatFields: readonly FieldConfig[] = [
     ],
   },
   {
+    type: "text",
+    name: "makeAndModel",
+    label: "Bådens mærke og model",
+    placeholder: "Fx Bavaria 32",
+    maxLength: 80,
+  },
+  {
     type: "number",
     name: "lengthFeet",
     label: "Bådens længde",
@@ -46,6 +53,17 @@ export const boatFields: readonly FieldConfig[] = [
     min: 1,
     max: 2000,
     unit: "hk",
+  },
+  {
+    type: "number",
+    name: "topSpeed",
+    label: "Ca. topfart",
+    description: "Hurtige både kræver lovpligtig ansvarsforsikring.",
+    optional: true,
+    placeholder: "Fx 20",
+    min: 1,
+    max: 120,
+    unit: "knob",
   },
   {
     type: "select",
