@@ -12,6 +12,11 @@ import { Button } from "@/components/ui/button";
 import { INSURANCE_TYPE_INFO } from "@/config/forms/insurance-types";
 import type { LandingPageContent } from "@/config/landing-pages";
 
+/** "Bilforsikring" -> "bilforsikring"; keeps "MC, ATV" as it is. */
+function lowerFirst(text: string): string {
+  return text.charAt(0).toLowerCase() + text.slice(1);
+}
+
 export function landingPageMetadata(page: LandingPageContent): Metadata {
   return {
     title: page.metaTitle,
@@ -44,7 +49,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
           <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-10">
             <Button asChild size="lg" className="h-12 text-base sm:px-8">
               <Link href={formHref}>
-                Få tilbud på {info.shortLabel.toLowerCase()}
+                Få tilbud nu
                 <ArrowRightIcon aria-hidden />
               </Link>
             </Button>
@@ -93,7 +98,7 @@ export function LandingPage({ page }: { page: LandingPageContent }) {
       <FaqList items={page.faq} />
 
       <CtaBand
-        title={`Få tilbud på din ${info.label.toLowerCase()}`}
+        title={`Få tilbud på din ${lowerFirst(info.label)}`}
         text="Det tager få minutter, og det er gratis og uforpligtende."
         href={formHref}
       />

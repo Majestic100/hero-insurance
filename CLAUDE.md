@@ -62,7 +62,7 @@ src/
     om-os/, kontakt/, partnere/, bliv-partner/
                               about, contact, partner list (from
                               config/partners.ts), page for new partners
-    bilforsikring/, indboforsikring/, husforsikring/, ulykkesforsikring/
+    bilforsikring/, indboforsikring/, ... (one per insurance type, 12)
                               landing pages per type (config/landing-pages.ts)
     api/                      server endpoints (route handlers)
       health/route.ts         Supabase health check

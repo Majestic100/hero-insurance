@@ -123,9 +123,12 @@ rigtige leads.
   `src/config/landing-pages.ts`. Ingen brugertal, Trustpilot eller
   kundeudtalelser, før vi har rigtige tal. Logoer fra partnerne kommer på,
   når partnerne er på plads.
-- [ ] **Flere sider pr. forsikringstype?** Vi har de 4 store. Resten (rejse,
-  fritidshus, MC, båd, camping, dyr, liv, ejerskifte) laves, når vi ved,
-  hvilke typer der annonceres for.
+- [ ] **Siderne pr. forsikringstype (alle 12, 2026-11-10):** de 8 nye
+  (`/rejseforsikring`, `/fritidshusforsikring`, `/mc-forsikring`,
+  `/baadforsikring`, `/campingforsikring`, `/dyreforsikring`,
+  `/livsforsikring`, `/ejerskifteforsikring`) skal også gennemgås.
+  Teksterne er generelle fakta om forsikringerne; tjek især dem om
+  lovkrav (ansvar for hunde, knallerter og både, ejerskifte).
 - [ ] **Trustpilot:** opret en profil. Undersøgelsen i modul 9 kan bede
   tilfredse brugere om en anmeldelse, så vi senere kan vise rigtige tal.
 - [ ] **Bliv partner** (`/bliv-partner`): gennemgå teksten. Henvendelser går
