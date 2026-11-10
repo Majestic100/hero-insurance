@@ -7,7 +7,7 @@ import { COMPANY, SITE } from "@/config/site";
 
 export const metadata: Metadata = {
   title: "Om os",
-  description: `Hvem står bag ${SITE.name}, og hvordan tjener vi penge?`,
+  description: `Hvem står bag ${SITE.name}, og hvad vil vi?`,
 };
 
 export default function AboutPage() {
@@ -21,21 +21,22 @@ export default function AboutPage() {
         </p>
       }
     >
-      <h2>Hvorfor vi findes</h2>
+      <h2>Vores mission</h2>
       <p>
-        Mange betaler for meget for deres forsikringer, fordi det tager tid at
-        ringe rundt og udfylde de samme oplysninger igen og igen. Hos os
-        udfylder du det hele én gang, og vi henter så meget som muligt i de
-        offentlige registre for dig: boligens data i BBR og bilens data i
-        Motorregistret.
+        Vi vil ændre den måde, danskerne får tilbud på forsikringer. Du har
+        ret til at kende dine muligheder, og du fortjener forsikringer, der
+        passer til dit liv, som det ser ud i dag.
       </p>
-
-      <h2>Sådan tjener vi penge</h2>
       <p>
-        Det er gratis for dig at bruge {SITE.name}. Forsikringsselskaberne
-        betaler os for at formidle din forespørgsel. Vi sælger ikke
-        forsikringer selv og giver ikke rådgivning, og du er aldrig forpligtet
-        til at tage imod et tilbud.
+        Alligevel bliver mange hængende i den samme forsikring i årevis,
+        fordi det tager tid at ringe rundt og udfylde de samme oplysninger
+        igen og igen. Hos os udfylder du det hele én gang, og vi henter så
+        meget som muligt i de offentlige registre for dig: boligens data i
+        BBR og bilens data i Motorregistret. Så kommer selskaberne til dig.
+      </p>
+      <p>
+        Det er gratis og uforpligtende. Vi sælger ikke forsikringer og
+        giver ikke rådgivning: du får tilbuddene, og du vælger selv.
       </p>
 
       <h2>Dine oplysninger</h2>

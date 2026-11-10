@@ -1,4 +1,4 @@
-import { HandCoinsIcon, MapPinHouseIcon } from "lucide-react";
+import { MapPinHouseIcon, ScaleIcon } from "lucide-react";
 import Link from "next/link";
 
 import { INSURANCE_ICONS } from "@/components/insurance-icons";
@@ -18,11 +18,6 @@ const FAQ: FaqItem[] = [
     question: "Koster det noget?",
     answer:
       "Nej. Det er gratis for dig og helt uforpligtende. Du bestemmer selv, om du vil tage imod et tilbud.",
-  },
-  {
-    question: "Hvordan tjener I penge?",
-    answer:
-      "Forsikringsselskaberne betaler os for at formidle din forespørgsel.",
   },
   {
     question: "Hvem kontakter mig?",
@@ -105,20 +100,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Transparency: how we make money. Builds trust, and partners must be
-          named in the consent anyway. */}
+      {/* Mission. Never "we find the right insurance for you": that is
+          advice (CLAUDE.md rule 7). The user chooses. */}
       <section className="mx-auto w-full max-w-5xl px-4 pt-12 sm:pt-16">
         <div className="flex flex-col gap-4 rounded-xl border p-6 sm:flex-row sm:items-start sm:gap-6 sm:p-8">
-          <HandCoinsIcon aria-hidden className="size-8 shrink-0 text-brand" />
+          <ScaleIcon aria-hidden className="size-8 shrink-0 text-brand" />
           <div className="space-y-2">
             <h2 className="font-heading text-xl font-semibold tracking-tight">
-              Gratis for dig. Sådan tjener vi penge.
+              Du har ret til at kende dine muligheder
             </h2>
             <p className="text-muted-foreground">
-              Forsikringsselskaberne betaler os for at formidle din
-              forespørgsel. Derfor er det gratis for dig, og du er aldrig
-              forpligtet til at købe noget. Vi sender kun dine oplysninger
-              til de selskaber, du selv giver samtykke til.{" "}
+              Vi vil ændre den måde, danskerne får tilbud på forsikringer. I
+              dag skal du ringe rundt og fortælle det samme igen og igen, og
+              derfor bliver mange hængende i forsikringer, der ikke længere
+              passer til deres liv. Hos os udfylder du én formular, og
+              selskaberne kommer til dig. Du vælger selv.{" "}
               <Link href="/om-os" className="font-medium underline underline-offset-4">
                 Læs mere om os
               </Link>
