@@ -330,8 +330,12 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå
   #1D5BD8 (ikoner, links, valgte felter) (30%), og rav #FFB020 med navy
   tekst kun til hovedknappen på hver side (10%). Creme #FBF7EE er varm
-  flade. Overskrifter på forsiden i Source Serif 4, al anden tekst og
-  formularen i Geist.
+  flade.
+- 2026-11-10: Fonte: IBM Plex Sans til alt (overskrifter, tekst og
+  formularen), samme skrift som Det Fælles Designsystem (borger.dk),
+  valgt for læsbarhed og tydelige æ, ø og å. Afløser Source Serif 4 og
+  Geist. Bricolage Grotesque og Figtree blev prøvet og fravalgt (for
+  svære at læse).
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet
   nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.
