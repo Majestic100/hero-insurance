@@ -325,7 +325,12 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
-- 2026-11-10: Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
+- 2026-11-13: Farver: navy #0F1B3D som baggrund og hvid #FFFFFF som
+  tekst på alle sider. Kort, felter og sektioner i lidt lysere navy, lyseblå
+  #7CB3FF til ikoner, links og valgte felter, og rav #FFB020 med navy tekst
+  kun til hovedknappen. Nummerpladen er altid hvid med sort tekst som en
+  rigtig plade. Afløser den lyse palet herunder.
+- 2026-11-10 (afløst 2026-11-13): Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
   med én varm accent), afløste colorhunt-paletten samme dag: hvid baggrund
   og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå
   #1D5BD8 (ikoner, links, valgte felter) (30%), og rav #FFB020 med navy
