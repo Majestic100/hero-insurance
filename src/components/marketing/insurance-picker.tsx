@@ -38,7 +38,7 @@ export function InsurancePicker() {
                 />
                 <span
                   aria-hidden
-                  className="absolute -top-2 -right-2 hidden size-5 items-center justify-center rounded-full bg-brand text-white group-has-checked:flex"
+                  className="absolute -top-2 -right-2 hidden size-5 items-center justify-center rounded-full bg-brand text-background group-has-checked:flex"
                 >
                   <CheckIcon className="size-3.5" strokeWidth={3} />
                 </span>

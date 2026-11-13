@@ -71,14 +71,15 @@ export function TextInput({
       <FieldDescription field={field} ids={ids} />
       {isPlate ? (
         // Looks like a Danish plate: the EU band on the left. The box shows
-        // focus and errors; the input inside has no border of its own.
-        <div className="flex max-w-sm overflow-hidden rounded-md border-2 border-foreground/80 bg-white shadow-xs focus-within:ring-[3px] focus-within:ring-ring/50 has-[[aria-invalid=true]]:border-destructive">
+        // focus and errors; the input inside has no border of its own. Always
+        // white with black text, like a real plate, whatever the page colors.
+        <div className="flex max-w-sm overflow-hidden rounded-md border-2 border-black/80 bg-white text-black shadow-xs focus-within:ring-[3px] focus-within:ring-ring/50 has-[[aria-invalid=true]]:border-destructive">
           <EuPlateBand />
           <input
             {...inputProps}
             ref={inputRef}
             type={input.type}
-            className="h-14 w-full min-w-0 bg-transparent px-4 text-2xl font-bold tracking-[0.12em] uppercase outline-none placeholder:font-semibold placeholder:text-muted-foreground/40 sm:text-3xl"
+            className="h-14 w-full min-w-0 bg-transparent px-4 text-2xl font-bold tracking-[0.12em] uppercase outline-none placeholder:font-semibold placeholder:text-black/30 sm:text-3xl"
           />
         </div>
       ) : field.multiline ? (
