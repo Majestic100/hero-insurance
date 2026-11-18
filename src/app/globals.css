@@ -53,34 +53,35 @@
 }
 
 :root {
-  /* Brand palette (owner, 2026-11-18, chosen after three trials): #FAFAFA
-     (page), #E8F1F5 (surfaces), #005691 (blue), #004A7C (deep blue). Deep
-     blue for headings, structure and buttons (white text 9.3:1); blue for
-     the main call to action (white text 7.7:1), icons, links, selected
-     fields and focus; #E8F1F5 for the hero, footer and hover surfaces. */
-  --brand: #005691;
-  --cream: #e8f1f5;
-  --cta: #005691;
+  /* Brand palette (owner, 2026-11-18, final): #F9F7F7 (page), #DBE2EF
+     (surfaces), #3F72AF (blue), #112D4E (navy). Navy for text, headings,
+     structure and buttons (white text 13.9:1); blue for the main call to
+     action (white text 5.0:1, WCAG AA), icons, selected fields and focus;
+     #DBE2EF for the hero, footer and hover surfaces; white cards on the
+     #F9F7F7 page. Blue is not used for small text on #DBE2EF (3.8:1). */
+  --brand: #3f72af;
+  --cream: #dbe2ef;
+  --cta: #3f72af;
   --cta-foreground: #ffffff;
   --radius: 0.625rem;
-  --background: #fafafa;
-  --foreground: #0f2233;
+  --background: #f9f7f7;
+  --foreground: #112d4e;
   --card: #ffffff;
-  --card-foreground: #0f2233;
+  --card-foreground: #112d4e;
   --popover: #ffffff;
-  --popover-foreground: #0f2233;
-  --primary: #004a7c;
+  --popover-foreground: #112d4e;
+  --primary: #112d4e;
   --primary-foreground: #ffffff;
-  --secondary: #e8f1f5;
-  --secondary-foreground: #004a7c;
-  --muted: #f1f6f8;
-  --muted-foreground: #475a6b;
-  --accent: #e8f1f5;
-  --accent-foreground: #004a7c;
+  --secondary: #dbe2ef;
+  --secondary-foreground: #112d4e;
+  --muted: #eef1f7;
+  --muted-foreground: #3f4d63;
+  --accent: #dbe2ef;
+  --accent-foreground: #112d4e;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #d3e3ea;
-  --input: #9fbccb;
-  --ring: #005691;
+  --border: #cfd8e9;
+  --input: #9db2d4;
+  --ring: #3f72af;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
