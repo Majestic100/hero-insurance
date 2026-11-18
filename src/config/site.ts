@@ -23,10 +23,17 @@ export const SITE = {
 export const SITE_URL = `https://${SITE.domain}`;
 
 /**
- * Only Vercel Production may be indexed by search engines. Preview (the
- * test address) and local builds answer "noindex" and disallow crawling.
+ * Only Vercel Production on the brand domain may be indexed by search
+ * engines. Preview (the test address), local builds, and Production while it
+ * still runs on *.vercel.app (before launch) answer "noindex" and disallow
+ * crawling. Vercel sets VERCEL_PROJECT_PRODUCTION_URL to the production
+ * custom domain once one is added, so this switches on with the first
+ * deploy after blivgodtforsikret.dk is connected.
  */
-export const IS_INDEXABLE = process.env.VERCEL_ENV === "production";
+export const IS_INDEXABLE =
+  process.env.VERCEL_ENV === "production" &&
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL === SITE.domain ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL === `www.${SITE.domain}`);
 
 /**
  * The company behind the site (data controller). E-handelsloven § 7

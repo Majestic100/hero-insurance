@@ -3,9 +3,10 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { LANDING_PAGE_LIST } from "@/config/landing-pages";
 
 /** robots.ts and sitemap.ts read VERCEL_ENV at import, so import fresh. */
-async function load(vercelEnv: string | undefined) {
+async function load(vercelEnv: string | undefined, productionUrl = "blivgodtforsikret.dk") {
   vi.resetModules();
   vi.stubEnv("VERCEL_ENV", vercelEnv);
+  vi.stubEnv("VERCEL_PROJECT_PRODUCTION_URL", productionUrl);
   const robots = (await import("./robots")).default;
   const sitemap = (await import("./sitemap")).default;
   return { robots: robots(), sitemap: sitemap() };
@@ -22,6 +23,11 @@ describe("robots.txt", () => {
       expect(robots.rules).toEqual({ userAgent: "*", disallow: "/" });
       expect(robots.sitemap).toBeUndefined();
     }
+  });
+
+  it("keeps them out of production while it runs on vercel.app (before launch)", async () => {
+    const { robots } = await load("production", "hero-insurance-rho.vercel.app");
+    expect(robots.rules).toEqual({ userAgent: "*", disallow: "/" });
   });
 
   it("lets them into production, except the API and the thank-you page", async () => {

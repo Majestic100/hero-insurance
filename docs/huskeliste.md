@@ -59,6 +59,12 @@ rigtige leads.
   døgn. Beskrivelsen til partnerne står i `src/lib/delivery/README.md`.
   Kan de tage imod det, eller kræver nogen e-mail eller fil? Svarene sendes
   som koder (fx `annual`, `europe`); vil de hellere have teksterne?
+- [ ] **Første partner: forsikringsformidler hos Tryg (aftale indgået,
+  2026-11-18).** Claude mangler for at sætte dem op: det navn, der skal stå
+  på partnerlisten, deres registrering hos Finanstilsynet, hvilke af de 12
+  forsikringstyper de vil have, og hvordan de vil modtage leads. Vi har
+  bygget levering som signeret JSON til en HTTPS-adresse; kan de ikke tage
+  imod det, skal vi vælge e-mail eller GoHighLevel (skal bygges).
 - [x] **Fordeling (markedspraksis, 2026-11-10):** op til 3 partnere pr. lead,
   ligesom Findforsikring og Forsikringsportalen. Partnerne prioriteres i
   den rækkefølge, de står i `src/config/partners.ts`; først så hver valgt
@@ -210,12 +216,10 @@ rigtige leads.
   være firmaets adresse fra CVR-registret. Tages til sidst, før
   lancering. Kode: `COMPANY` i `src/config/site.ts`.
 - [x] **E-mailen kontakt@nemforsikringstilbud.dk er oprettet** (2026-11-10).
-- [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
-  året":** du har den og sender den, når den er klar. Teksten står
-  allerede tydeligt øverst på forsiden og siderne pr. forsikringstype.
-  Når dokumentationen kommer, tjekker vi, at ordlyden passer: er 3.300 kr.
-  et gennemsnit ("i gennemsnit") eller det højeste ("op til")? Kode:
-  `SAVINGS_CLAIM` i `src/config/site.ts`.
+- [x] **Dokumentation for "Spar op til 3.300 kr. om året"** (2026-11-18):
+  I har den, og den ligger hos jer. Ordlyden på siden skal passe til
+  dokumentationen ("op til" = det højeste, "i gennemsnit" = gennemsnittet).
+  Kode: `SAVINGS_CLAIM` i `src/config/site.ts`.
 - [ ] **Forsiden og siderne pr. forsikringstype** (`/bilforsikring`,
   `/indboforsikring`, `/husforsikring`, `/ulykkesforsikring`): gennemgå
   overskrifter, tekster og spørgsmål og svar. Kode: `src/app/page.tsx` og
@@ -332,8 +336,9 @@ lancering]** er løst.
    Production** og sæt DNS-posterne (se "Konti og adgang").
 4. [ ] **Åbn https://blivgodtforsikret.dk/api/health**: både `supabase` og
    `database` skal sige `ok`.
-5. [ ] **Søgemaskiner:** åbn https://blivgodtforsikret.dk/robots.txt (skal
-   sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
+5. [ ] **Søgemaskiner:** Google holdes ude, indtil produktionen kører på
+   blivgodtforsikret.dk. Lav en **Redeploy** i Vercel efter punkt 3, og åbn
+   så https://blivgodtforsikret.dk/robots.txt (skal sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
    https://blivgodtforsikret.dk/sitemap.xml. Test-adressen holdes uden for
    Google automatisk.
 6. [ ] **Meta:** verificer domænet i Business Manager (Brand Safety >
@@ -408,6 +413,12 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
+- 2026-11-18: Nye farver (dit valg): fire blå fra samme familie,
+  #E3F2FD (lyse flader), #90CAF9, #2196F3 (ikoner, valgte felter og
+  hovedknappen) og #0D47A1 (overskrifter, struktur og knapper). Afløser
+  navy og rav fra 2026-11-10. Hovedknappen er #2196F3 med mørk tekst,
+  fordi hvid tekst på #2196F3 er for svær at læse (WCAG). Den automatiske
+  tilgængelighedstest er stadig fejlfri.
 - 2026-11-10: Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
   med én varm accent), afløste colorhunt-paletten samme dag: hvid baggrund
   og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå

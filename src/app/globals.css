@@ -53,34 +53,37 @@
 }
 
 :root {
-  /* Brand palette (owner, 2026-11-10): "Modern & Human", trust blue with one
-     warm accent, by the 60-30-10 rule. White page and light blue surfaces
-     (60%), navy and blue for text, structure and icons (30%), amber only for
-     the main call to action on each page (10%). Replaces the colorhunt
-     indigo/periwinkle palette; cream stays as a warm surface. */
-  --brand: #1d5bd8;
-  --cream: #fbf7ee;
-  --cta: #ffb020;
-  --cta-foreground: #10213f;
+  /* Brand palette (owner, 2026-11-18): four blues from one family
+     (#E3F2FD, #90CAF9, #2196F3, #0D47A1), replacing the navy/amber palette
+     of 2026-11-10. White page and #E3F2FD surfaces (60%); #0D47A1 for
+     headings, structure and buttons, #2196F3 for icons, selected fields
+     and focus (30%); the main call to action is #2196F3 with dark text
+     (10%). White text on #2196F3 is only 3.1:1, so it is never used for
+     text; dark ink #0A1F44 on #2196F3 is 5.2:1 (WCAG AA). #BBDEFB is the
+     in-between tint of the same family, used for borders. */
+  --brand: #2196f3;
+  --cream: #e3f2fd;
+  --cta: #2196f3;
+  --cta-foreground: #0a1f44;
   --radius: 0.625rem;
   --background: #ffffff;
-  --foreground: #10213f;
+  --foreground: #0a1f44;
   --card: #ffffff;
-  --card-foreground: #10213f;
+  --card-foreground: #0a1f44;
   --popover: #ffffff;
-  --popover-foreground: #10213f;
-  --primary: #0b1f4f;
+  --popover-foreground: #0a1f44;
+  --primary: #0d47a1;
   --primary-foreground: #ffffff;
-  --secondary: #eaf1fc;
-  --secondary-foreground: #0b1f4f;
-  --muted: #f3f6fb;
-  --muted-foreground: #4a5874;
-  --accent: #e6efff;
-  --accent-foreground: #0b1f4f;
+  --secondary: #e3f2fd;
+  --secondary-foreground: #0d47a1;
+  --muted: #f1f8fe;
+  --muted-foreground: #3d5675;
+  --accent: #e3f2fd;
+  --accent-foreground: #0d47a1;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #dce4f0;
-  --input: #c6d2e4;
-  --ring: #1d5bd8;
+  --border: #bbdefb;
+  --input: #90caf9;
+  --ring: #2196f3;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
