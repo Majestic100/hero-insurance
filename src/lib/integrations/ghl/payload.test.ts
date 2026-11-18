@@ -51,7 +51,7 @@ describe("buildGhlContactPayload", () => {
       rki: "Nej",
       membership: "FDM",
       marketing_consent: false,
-      source: "nemforsikringstilbud",
+      source: "blivgodtsikret",
     });
     expect(payload.answers_summary).toContain("Bilforsikring");
     expect(payload.answers_summary).toContain("- Hvor meget kører bilen om året?: Under 10.000 km");
