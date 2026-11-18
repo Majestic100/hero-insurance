@@ -244,11 +244,11 @@ belongs there.
   are applied on dev (tested) and production (owner's OK, 2026-11-10).
 - **Production URL:** `https://hero-insurance-rho.vercel.app` is public; the
   team URLs (`*-sinan-heromediadks-projects.vercel.app`) are behind Vercel
-  Authentication. The brand is **Bliv Godt Sikret** (2026-11-18, replaces
-  Nemforsikringstilbud) on `blivgodtsikret.dk`, not connected to
+  Authentication. The brand is **Bliv Godt Forsikret** (2026-11-18, replaces
+  Nemforsikringstilbud) on `blivgodtforsikret.dk` (bought), not connected to
   Production yet (wait until launch). The old `nemforsikringstilbud.dk`
   (DNS at Simply.com) still carries the test address and the contact
-  e-mail until `kontakt@blivgodtsikret.dk` exists. The Vercel CLI is logged in locally and the folder is linked
+  e-mail until `kontakt@blivgodtforsikret.dk` exists. The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.

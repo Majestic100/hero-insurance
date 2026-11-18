@@ -3,11 +3,11 @@
  * legal pages. The legal pages only show the fields that are set.
  */
 export const SITE = {
-  name: "Bliv Godt Sikret",
-  domain: "blivgodtsikret.dk",
+  name: "Bliv Godt Forsikret",
+  domain: "blivgodtforsikret.dk",
   /**
    * General contact, also for data protection requests. Stays on the old
-   * domain until kontakt@blivgodtsikret.dk exists (docs/huskeliste.md);
+   * domain until kontakt@blivgodtforsikret.dk exists (docs/huskeliste.md);
    * when it changes, also change it in the consent texts in
    * src/config/forms/consents.ts and bump their versions.
    */
