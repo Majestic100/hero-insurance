@@ -16,7 +16,7 @@ export const consentFields: readonly FieldConfig[] = [
     name: "consentPartnerContact",
     label: "Samtykke til at blive kontaktet med tilbud",
     consentType: "partner_contact",
-    version: "2026-11-18.2",
+    version: "2026-11-18.3",
     // Market practice (Findforsikring, Forsikringsportalen, 2026-11-10):
     // named recipients via the partner list, "op til 3", phone, e-mail and
     // SMS, our own follow-up, and how to withdraw. MAX_PARTNERS_PER_LEAD in
@@ -27,7 +27,7 @@ export const consentFields: readonly FieldConfig[] = [
       "forsikringer, jeg har valgt, så de kan kontakte mig på telefon, e-mail " +
       "og SMS med et tilbud. Bliv Godt Forsikret må kontakte mig for at følge " +
       "op på min forespørgsel. Jeg kan til enhver tid trække samtykket tilbage " +
-      "ved at skrive til kontakt@nemforsikringstilbud.dk.",
+      "ved at skrive til kontakt@blivgodtforsikret.dk.",
     link: { href: "/partnere", label: "Se partnerlisten" },
     requiredMessage:
       "Du skal give samtykke, for at forsikringsselskaberne kan sende dig tilbud.",
@@ -51,12 +51,12 @@ export const consentFields: readonly FieldConfig[] = [
     name: "consentMembership",
     label: "Samtykke til at dele medlemskab",
     consentType: "membership",
-    version: "2026-11-10.1",
+    version: "2026-11-18.1",
     text:
       "Jeg giver udtrykkeligt samtykke til, at oplysningen om mit medlemskab " +
       "af en fagforening sendes til forsikringsselskaberne sammen med min " +
       "forespørgsel, så de kan give mig medlemsrabat. Samtykket er frivilligt, " +
-      "og jeg kan trække det tilbage ved at skrive til kontakt@nemforsikringstilbud.dk.",
+      "og jeg kan trække det tilbage ved at skrive til kontakt@blivgodtforsikret.dk.",
     requiredMessage:
       "Giv samtykke, eller vælg et andet svar ved medlemskab, hvis du ikke vil dele det.",
     showIf: { field: "membership", equals: UNION_VALUES },
