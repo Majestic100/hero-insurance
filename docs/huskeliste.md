@@ -413,13 +413,13 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
-- 2026-11-18: Nye farver (dit valg, endelig samme dag): #F9F7F7 (side),
-  #DBE2EF (flader i toppen og bunden), #3F72AF (blå: "Få tilbud" med hvid
-  tekst, ikoner og valgte felter) og #112D4E (navy: tekst, overskrifter og
-  knapper). Al tekst er let at læse (WCAG AA), og den automatiske
+- 2026-11-18: Nye farver (dit valg, endelig): #FAFAFA (side), #E8F1F5
+  (flader i toppen og bunden), #005691 (blå: "Få tilbud", ikoner, links og
+  valgte felter) og #004A7C (mørkeblå: overskrifter og knapper). Hvid
+  tekst på begge blå er let at læse (WCAG AA), og den automatiske
   tilgængelighedstest er fejlfri. Afløser navy og rav fra 2026-11-10.
-  Fravalgt samme dag: Material-blå, navy/petrol/mint,
-  rosa/lilla-blå/indigo og #FAFAFA/#E8F1F5/#005691/#004A7C.
+  Prøvet og fravalgt samme dag: Material-blå, navy/petrol/mint,
+  rosa/lilla-blå/indigo og #F9F7F7/#DBE2EF/#3F72AF/#112D4E.
 - 2026-11-10: Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
   med én varm accent), afløste colorhunt-paletten samme dag: hvid baggrund
   og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå

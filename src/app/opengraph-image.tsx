@@ -21,12 +21,12 @@ export default function Image() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#112d4e",
+          background: "#004a7c",
           color: "#ffffff",
         }}
       >
         <div style={{ fontSize: 84, fontWeight: 700, lineHeight: 1.1 }}>{SITE.name}</div>
-        <div style={{ marginTop: 32, fontSize: 40, lineHeight: 1.3, color: "#dbe2ef" }}>
+        <div style={{ marginTop: 32, fontSize: 40, lineHeight: 1.3, color: "#e8f1f5" }}>
           Udfyld én formular, og få tilbud fra op til 3 forsikringsselskaber og -formidlere.
         </div>
         <div
@@ -36,8 +36,8 @@ export default function Image() {
             alignSelf: "flex-start",
             padding: "18px 36px",
             borderRadius: 16,
-            background: "#3f72af",
-            color: "#ffffff",
+            background: "#e8f1f5",
+            color: "#004a7c",
             fontSize: 34,
             fontWeight: 700,
           }}
