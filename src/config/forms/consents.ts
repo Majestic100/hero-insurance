@@ -16,7 +16,7 @@ export const consentFields: readonly FieldConfig[] = [
     name: "consentPartnerContact",
     label: "Samtykke til at blive kontaktet med tilbud",
     consentType: "partner_contact",
-    version: "2026-11-10.1",
+    version: "2026-11-18.1",
     // Market practice (Findforsikring, Forsikringsportalen, 2026-11-10):
     // named recipients via the partner list, "op til 3", phone, e-mail and
     // SMS, our own follow-up, and how to withdraw. MAX_PARTNERS_PER_LEAD in
@@ -25,7 +25,7 @@ export const consentFields: readonly FieldConfig[] = [
       "Jeg giver samtykke til, at mine oplysninger fra denne formular sendes " +
       "til op til 3 forsikringsselskaber på partnerlisten, som tilbyder de " +
       "forsikringer, jeg har valgt, så de kan kontakte mig på telefon, e-mail " +
-      "og SMS med et tilbud. Nemforsikringstilbud må kontakte mig for at følge " +
+      "og SMS med et tilbud. Bliv Godt Sikret må kontakte mig for at følge " +
       "op på min forespørgsel. Jeg kan til enhver tid trække samtykket tilbage " +
       "ved at skrive til kontakt@nemforsikringstilbud.dk.",
     link: { href: "/partnere", label: "Se partnerlisten" },
