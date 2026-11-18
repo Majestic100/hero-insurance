@@ -3,12 +3,17 @@ import Link from "next/link";
 
 import { ContentPage } from "@/components/marketing/content-page";
 import { INSURANCE_TYPE_INFO } from "@/config/forms/insurance-types";
-import { PARTNERS } from "@/config/partners";
+import { PARTNERS, type PartnerConfig } from "@/config/partners";
+
+const PARTNER_KIND_LABEL: Record<PartnerConfig["kind"], string> = {
+  insurer: "Forsikringsselskab",
+  intermediary: "Forsikringsformidler",
+};
 
 export const metadata: Metadata = {
   title: "Partnere",
   description:
-    "De forsikringsselskaber, der kan modtage din forespørgsel, og hvilke forsikringer de tilbyder.",
+    "De forsikringsselskaber og forsikringsformidlere, der kan modtage din forespørgsel, og hvilke forsikringer de tilbyder.",
 };
 
 /**
@@ -23,14 +28,15 @@ export default function PartnersPage() {
       intro={
         <p>
           Når du giver samtykke, sender vi din forespørgsel til op til 3 af
-          selskaberne på listen, som tilbyder de forsikringer, du har valgt.
-          Kun dem.
+          forsikringsselskaberne og forsikringsformidlerne på listen, som
+          tilbyder de forsikringer, du har valgt. Kun dem.
         </p>
       }
     >
       {PARTNERS.length === 0 ? (
         <p className="rounded-lg border bg-cream p-4">
-          Vi er ved at indgå aftaler med forsikringsselskaber. Listen bliver
+          Vi er ved at indgå aftaler med forsikringsselskaber og
+          forsikringsformidlere. Listen bliver
           vist her, før vi sender oplysninger videre til nogen.
         </p>
       ) : (
@@ -38,7 +44,8 @@ export default function PartnersPage() {
           <table>
             <thead>
               <tr>
-                <th>Selskab</th>
+                <th>Partner</th>
+                <th>Type</th>
                 <th>Modtager forespørgsler på</th>
               </tr>
             </thead>
@@ -46,6 +53,7 @@ export default function PartnersPage() {
               {PARTNERS.map((partner) => (
                 <tr key={partner.id}>
                   <td className="font-medium">{partner.name}</td>
+                  <td>{PARTNER_KIND_LABEL[partner.kind]}</td>
                   <td>
                     {partner.insuranceTypes
                       .map((type) => INSURANCE_TYPE_INFO[type].shortLabel)
@@ -59,11 +67,15 @@ export default function PartnersPage() {
       )}
 
       <p>
-        Selskaberne er selv dataansvarlige for de oplysninger, de modtager. Læs
+        En forsikringsformidler (fx en forsikringsmægler eller -agent) er
+        registreret hos Finanstilsynet og kan give dig tilbud fra et eller
+        flere forsikringsselskaber. Partnerne er selv dataansvarlige for de
+        oplysninger, de modtager. Læs
         mere i vores <Link href="/privatlivspolitik">privatlivspolitik</Link>.
       </p>
       <p>
-        Er du et forsikringsselskab? <Link href="/bliv-partner">Bliv partner</Link>.
+        Er du et forsikringsselskab eller en forsikringsformidler?{" "}
+        <Link href="/bliv-partner">Bliv partner</Link>.
       </p>
     </ContentPage>
   );

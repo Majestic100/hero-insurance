@@ -27,7 +27,7 @@ export default function Image() {
       >
         <div style={{ fontSize: 84, fontWeight: 700, lineHeight: 1.1 }}>{SITE.name}</div>
         <div style={{ marginTop: 32, fontSize: 40, lineHeight: 1.3, color: "#eaf1fc" }}>
-          Udfyld én formular, og få tilbud fra op til 3 forsikringsselskaber.
+          Udfyld én formular, og få tilbud fra op til 3 forsikringsselskaber og -formidlere.
         </div>
         <div
           style={{

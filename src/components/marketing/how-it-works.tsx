@@ -14,7 +14,7 @@ const STEPS = [
   {
     icon: PhoneCallIcon,
     title: "Modtag tilbud",
-    text: "Forsikringsselskaberne kontakter dig med et tilbud. Du vælger selv, om du vil tage imod det.",
+    text: "Forsikringsselskaber og forsikringsformidlere kontakter dig med et tilbud. Du vælger selv, om du vil tage imod det.",
   },
 ];
 

@@ -24,8 +24,9 @@ export default function ContactPage() {
 
       <h2>Spørgsmål om dit tilbud</h2>
       <p>
-        Tilbuddene kommer fra forsikringsselskaberne. Har du spørgsmål til et
-        tilbud, en pris eller vilkår, så kontakt det selskab, der har givet dig
+        Tilbuddene kommer fra forsikringsselskaberne og forsikringsformidlerne.
+        Har du spørgsmål til et tilbud, en pris eller vilkår, så kontakt den,
+        der har givet dig
         tilbuddet.
       </p>
 
@@ -46,7 +47,7 @@ export default function ContactPage() {
         .
       </p>
 
-      <h2>Forsikringsselskaber</h2>
+      <h2>Forsikringsselskaber og formidlere</h2>
       <p>
         Vil I modtage forespørgsler fra os? Læs mere på{" "}
         <Link href="/bliv-partner">Bliv partner</Link>.

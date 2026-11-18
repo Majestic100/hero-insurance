@@ -89,7 +89,7 @@ export const formConfig = {
       // consent sits right under the phone and e-mail it is about.
       id: "kontakt",
       title: "Dine oplysninger",
-      description: "Så forsikringsselskaberne kan sende dig deres tilbud.",
+      description: "Så forsikringsselskaberne og -formidlerne kan sende dig deres tilbud.",
       fields: [...contactFields, ...consentFields],
     },
   ],

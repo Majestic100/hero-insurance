@@ -8,7 +8,9 @@ A Danish insurance comparison website. Users choose which insurances they
 want quotes on (12 types, listed in `src/config/forms/insurance-types.ts`:
 car, home contents, house, accident and health, travel, holiday home,
 MC/ATV/moped, boat, caravan, pet, life, change of ownership), fill out a
-multi-step form, and the lead is saved and passed on to insurance partners.
+multi-step form, and the lead is saved and passed on to insurance partners
+(insurers and insurance intermediaries, i.e. brokers and agents registered
+with Finanstilsynet, owner 2026-11-18).
 Only insurance: no pension, salary insurance or unemployment funds.
 
 The product is the lead: complete, valid, consented data delivered reliably.
@@ -330,7 +332,8 @@ identifiers it needs.
 
 7. **Stay a lead service, not an insurance distributor.** The model fits
    the exclusion in lov om forsikringsformidling § 1, stk. 3, nr. 3 (mere
-   provision of data on potential policyholders to insurers), so it needs
+   provision of data on potential policyholders to insurers or insurance
+   intermediaries), so it needs
    no licence from Finanstilsynet, only as long as we: give no advice or
    "you should" suggestions, show no prices, rankings or product
    comparisons, never call ourselves a comparison service

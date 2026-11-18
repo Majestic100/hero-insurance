@@ -26,14 +26,15 @@ export default function TermsPage() {
       <p>
         {SITE.name} drives af {COMPANY.name}. Vi hjælper dig med at få tilbud
         på forsikringer: du udfylder én formular, og med dit samtykke sender
-        vi din forespørgsel til forsikringsselskaber, som kontakter dig med
-        tilbud.
+        vi din forespørgsel til forsikringsselskaber og forsikringsformidlere,
+        som kontakter dig med tilbud.
       </p>
       <ul>
         <li>Tjenesten er gratis for dig.</li>
         <li>
           Du er ikke forpligtet til at tage imod et tilbud, og der indgås
-          ingen aftale, før du selv accepterer et tilbud fra et selskab.
+          ingen aftale, før du selv accepterer et tilbud fra et selskab eller
+          en formidler.
         </li>
         <li>
           Vi sælger ikke forsikringer og giver ikke rådgivning om, hvilken
@@ -41,15 +42,15 @@ export default function TermsPage() {
           selskaber eller produkter. Vi sender kun dine oplysninger videre.
         </li>
         <li>
-          Vi får betaling fra forsikringsselskaberne for at formidle
-          forespørgsler.
+          Vi får betaling fra forsikringsselskaberne og
+          forsikringsformidlerne for at sende forespørgsler videre.
         </li>
       </ul>
 
       <h2>Tilbuddene</h2>
       <p>
-        Tilbud, priser og vilkår kommer fra forsikringsselskaberne, og
-        selskaberne er selv ansvarlige for dem. Vi kan ikke garantere, at du
+        Tilbud, priser og vilkår kommer fra forsikringsselskaberne og
+        forsikringsformidlerne, og de er selv ansvarlige for dem. Vi kan ikke garantere, at du
         får et bestemt antal tilbud, et bestemt beløb i besparelse eller et
         tilbud overhovedet. Læs altid selskabets vilkår, før du siger ja.
       </p>
@@ -77,7 +78,8 @@ export default function TermsPage() {
         Indholdet på siden er generel information og ikke rådgivning. Vi
         bestræber os på, at siden virker og er korrekt, men kan ikke garantere,
         at den altid er tilgængelig eller fejlfri. Vi er ikke ansvarlige for
-        forsikringsselskabernes tilbud, vilkår, rådgivning eller behandling af
+        forsikringsselskabernes eller forsikringsformidlernes tilbud, vilkår,
+        rådgivning eller behandling af
         skader, eller for tab, der opstår, fordi du har brugt siden, i det
         omfang loven tillader det.
       </p>
