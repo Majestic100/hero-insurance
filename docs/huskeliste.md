@@ -194,7 +194,12 @@ rigtige leads.
   2026-11-18.1; kun e-mailadressen er ændret).
 - [x] **Instagram:** https://www.instagram.com/blivgodtforsikret/
   (2026-11-18), linket i bunden af siden og på kontaktsiden.
-- [ ] **Sikr navnet på Facebook**, fx facebook.com/blivgodtforsikret.
+- [x] **Facebook-siden er oprettet** (2026-11-18):
+  https://www.facebook.com/profile.php?id=61596918560784. Linket i bunden
+  af siden og på kontaktsiden. Giv den gerne et brugernavn
+  (facebook.com/blivgodtforsikret), så sender Claude det nye link med.
+  Tilknyt siden og Instagram til Meta Business Manager, så annoncerne
+  kører fra Bliv Godt Forsikret.
 - [ ] **Brug ikke "Nemforsikring..." som navn** (2026-11-18):
   nemforsikring.dk ejes af Gjensidige. nemforsikringstilbud.dk kan
   beholdes og sendes videre til blivgodtforsikret.dk, eller udløbe.
@@ -223,8 +228,12 @@ rigtige leads.
   `/livsforsikring`, `/ejerskifteforsikring`) skal også gennemgås.
   Teksterne er generelle fakta om forsikringerne; tjek især dem om
   lovkrav (ansvar for hunde, knallerter og både, ejerskifte).
-- [ ] **Trustpilot:** opret en profil. Undersøgelsen i modul 9 kan bede
-  tilfredse brugere om en anmeldelse, så vi senere kan vise rigtige tal.
+- [x] **Trustpilot er oprettet** (2026-11-18):
+  https://dk.trustpilot.com/review/blivgodtforsikret.dk. Linket i bunden
+  af siden og på kontaktsiden. Undersøgelsen i modul 9 (GoHighLevel) beder
+  tilfredse brugere om en anmeldelse; linket står i
+  `src/lib/integrations/ghl/README.md`. Vis først stjerner på siden, når
+  der er rigtige anmeldelser.
 - [ ] **Bliv partner** (`/bliv-partner`): gennemgå teksten. Henvendelser går
   til kontakt-e-mailen.
 - [ ] **Tekster** på forsiden og i formularen (overskrifter, hjælpetekster).
@@ -264,7 +273,7 @@ rigtige leads.
   kørt: ingen problemer.
 - [x] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
   Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel. Gjort (2026-11-18).
-- [ ] **Slå "BotID Deep Analysis" til** (Vercel er på Pro nu): Vercel >
+- [x] **"BotID Deep Analysis" er slået til** (2026-11-18): Vercel >
   projektet > Firewall > Rules. Basisversionen af BotID kører allerede og
   stopper almindelige bots; Deep Analysis stopper også de avancerede
   ($1 pr. 1.000 tjek).
@@ -336,7 +345,7 @@ lancering]** er løst.
    blivgodtforsikret.dk med dine egne oplysninger. Tjek, at takkesiden vises,
    at Lead kommer i Events Manager, at partneren får leadet, og at det
    kommer i GoHighLevel (hvis sat op).
-9. [ ] **Slå "BotID Deep Analysis" til** (Vercel > Firewall).
+9. [x] **"BotID Deep Analysis" er slået til** (2026-11-18).
 10. [ ] **Start annoncerne.**
 
 ## Besluttet

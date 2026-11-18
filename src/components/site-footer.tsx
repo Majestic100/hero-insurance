@@ -99,16 +99,20 @@ export function SiteFooter() {
           {COMPANY.address && <> · {COMPANY.address}</>} ·{" "}
           <a href={`mailto:${SITE.email}`} className="underline-offset-4 hover:underline">
             {SITE.email}
-          </a>{" "}
-          ·{" "}
-          <a
-            href={SITE.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-offset-4 hover:underline"
-          >
-            Instagram
           </a>
+          {SITE.profiles.map((profile) => (
+            <span key={profile.href}>
+              {" · "}
+              <a
+                href={profile.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline-offset-4 hover:underline"
+              >
+                {profile.label}
+              </a>
+            </span>
+          ))}
         </p>
       </div>
     </footer>

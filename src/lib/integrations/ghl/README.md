@@ -48,6 +48,8 @@ Our side is two small pieces, both off until their env var is set:
    - Action: Webhook (POST) to `/api/ghl/feedback?key=...` with custom data
      `lead_id`, `contacted`, `quoted`, `satisfaction`. Generate a secret of
      at least 32 characters for `GHL_FEEDBACK_SECRET` in Vercel.
-   - If satisfaction is 4 or 5: send the Trustpilot invitation.
+   - If satisfaction is 4 or 5: send the Trustpilot invitation (profile:
+     https://dk.trustpilot.com/review/blivgodtforsikret.dk; review link:
+     https://dk.trustpilot.com/evaluate/blivgodtforsikret.dk).
    - If contacted is "Nej": create a task "Ring til kunden".
 5. Only contacts with `marketing_consent` true may get newsletters.
