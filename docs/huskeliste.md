@@ -59,6 +59,12 @@ rigtige leads.
   døgn. Beskrivelsen til partnerne står i `src/lib/delivery/README.md`.
   Kan de tage imod det, eller kræver nogen e-mail eller fil? Svarene sendes
   som koder (fx `annual`, `europe`); vil de hellere have teksterne?
+- [ ] **Første partner: forsikringsformidler hos Tryg (aftale indgået,
+  2026-11-18).** Claude mangler for at sætte dem op: det navn, der skal stå
+  på partnerlisten, deres registrering hos Finanstilsynet, hvilke af de 12
+  forsikringstyper de vil have, og hvordan de vil modtage leads. Vi har
+  bygget levering som signeret JSON til en HTTPS-adresse; kan de ikke tage
+  imod det, skal vi vælge e-mail eller GoHighLevel (skal bygges).
 - [x] **Fordeling (markedspraksis, 2026-11-10):** op til 3 partnere pr. lead,
   ligesom Findforsikring og Forsikringsportalen. Partnerne prioriteres i
   den rækkefølge, de står i `src/config/partners.ts`; først så hver valgt
@@ -210,12 +216,10 @@ rigtige leads.
   være firmaets adresse fra CVR-registret. Tages til sidst, før
   lancering. Kode: `COMPANY` i `src/config/site.ts`.
 - [x] **E-mailen kontakt@nemforsikringstilbud.dk er oprettet** (2026-11-10).
-- [ ] **[Blokerer lancering] Dokumentation for "Spar op til 3.300 kr. om
-  året":** du har den og sender den, når den er klar. Teksten står
-  allerede tydeligt øverst på forsiden og siderne pr. forsikringstype.
-  Når dokumentationen kommer, tjekker vi, at ordlyden passer: er 3.300 kr.
-  et gennemsnit ("i gennemsnit") eller det højeste ("op til")? Kode:
-  `SAVINGS_CLAIM` i `src/config/site.ts`.
+- [x] **Dokumentation for "Spar op til 3.300 kr. om året"** (2026-11-18):
+  I har den, og den ligger hos jer. Ordlyden på siden skal passe til
+  dokumentationen ("op til" = det højeste, "i gennemsnit" = gennemsnittet).
+  Kode: `SAVINGS_CLAIM` i `src/config/site.ts`.
 - [ ] **Forsiden og siderne pr. forsikringstype** (`/bilforsikring`,
   `/indboforsikring`, `/husforsikring`, `/ulykkesforsikring`): gennemgå
   overskrifter, tekster og spørgsmål og svar. Kode: `src/app/page.tsx` og
