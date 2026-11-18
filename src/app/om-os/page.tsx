@@ -17,7 +17,8 @@ export default function AboutPage() {
       intro={
         <p>
           Vi gør det nemt at få tilbud på dine forsikringer. Du udfylder én
-          formular, og forsikringsselskaberne kontakter dig med et bud.
+          formular, og forsikringsselskaber og forsikringsformidlere kontakter
+          dig med et bud.
         </p>
       }
     >
@@ -54,7 +55,8 @@ export default function AboutPage() {
       </p>
       <CompanyDetails />
       <p>
-        Er du et forsikringsselskab? <Link href="/bliv-partner">Bliv partner</Link>.
+        Er du et forsikringsselskab eller en forsikringsformidler?{" "}
+        <Link href="/bliv-partner">Bliv partner</Link>.
       </p>
     </ContentPage>
   );

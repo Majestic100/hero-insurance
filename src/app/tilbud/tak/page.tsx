@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 const NEXT_STEPS = [
   {
     title: "Vi sender din forespørgsel",
-    text: "Til de forsikringsselskaber, der tilbyder de forsikringer, du har valgt.",
+    text: "Til op til 3 forsikringsselskaber og forsikringsformidlere, der tilbyder de forsikringer, du har valgt.",
   },
   {
     title: "Selskaberne kontakter dig",

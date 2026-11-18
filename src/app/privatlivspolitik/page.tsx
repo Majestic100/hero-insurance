@@ -84,7 +84,8 @@ export default function PrivacyPolicyPage() {
       <h2>Hvorfor vi behandler oplysningerne</h2>
       <ol>
         <li>
-          <strong>For at sende din forespørgsel til forsikringsselskaberne</strong>
+          <strong>For at sende din forespørgsel til forsikringsselskaber og
+          forsikringsformidlere</strong>
           , så de kan kontakte dig med tilbud. Det sker på grundlag af dit
           samtykke (databeskyttelsesforordningens artikel 6, stk. 1, litra a).
         </li>
@@ -105,7 +106,7 @@ export default function PrivacyPolicyPage() {
         </li>
         <li>
           <strong>For at forbedre kvaliteten af vores formidling.</strong>{" "}
-          Forsikringsselskaberne fortæller os, hvordan det gik med din
+          Vores partnere fortæller os, hvordan det gik med din
           forespørgsel (fx om de fik kontakt med dig, eller om du fik et
           tilbud). Det sker på grundlag af vores legitime interesse i at
           forbedre tjenesten (artikel 6, stk. 1, litra f).
@@ -125,11 +126,12 @@ export default function PrivacyPolicyPage() {
       </ol>
 
       <h2>Hvem vi deler oplysningerne med</h2>
-      <h3>Forsikringsselskaber</h3>
+      <h3>Forsikringsselskaber og forsikringsformidlere</h3>
       <p>
-        Med dit samtykke sender vi din forespørgsel til de forsikringsselskaber
-        på vores <Link href="/partnere">partnerliste</Link>, som tilbyder de
-        forsikringer, du har valgt. Selskaberne er selv dataansvarlige for de
+        Med dit samtykke sender vi din forespørgsel til op til 3 af de
+        forsikringsselskaber og forsikringsformidlere (fx forsikringsmæglere og
+        -agenter) på vores <Link href="/partnere">partnerliste</Link>, som
+        tilbyder de forsikringer, du har valgt. De er selv dataansvarlige for de
         oplysninger, de modtager, og behandler dem efter deres egen
         privatlivspolitik.
       </p>
@@ -224,8 +226,8 @@ export default function PrivacyPolicyPage() {
       <p>
         Skriv til <a href={`mailto:${SITE.email}`}>{SITE.email}</a>, så svarer
         vi hurtigst muligt og senest inden for en måned. Vil du trække dit
-        samtykke til forsikringsselskaberne tilbage, giver vi også selskaberne
-        besked. Dit samtykke til cookies kan du ændre under
+        samtykke til vores partnere tilbage, giver vi også selskaberne og
+        formidlerne besked. Dit samtykke til cookies kan du ændre under
         &quot;Cookieindstillinger&quot; nederst på siden.
       </p>
 
