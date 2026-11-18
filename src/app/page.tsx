@@ -22,7 +22,7 @@ const FAQ: FaqItem[] = [
   {
     question: "Hvem kontakter mig?",
     answer:
-      "De forsikringsselskaber, du giver samtykke til, kontakter dig på telefon eller e-mail med et tilbud. Vi sender ikke din forespørgsel til andre selskaber.",
+      "De forsikringsselskaber og forsikringsformidlere, du giver samtykke til, kontakter dig på telefon eller e-mail med et tilbud. Vi sender ikke din forespørgsel til andre.",
   },
   {
     question: "Hvilke oplysninger skal jeg give?",

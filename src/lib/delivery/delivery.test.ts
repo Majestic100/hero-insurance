@@ -7,8 +7,8 @@ import { signDelivery, verifyDeliverySignature } from "./signature";
 
 describe("routeLead", () => {
   const partners = [
-    { id: "alpha", name: "Alpha", insuranceTypes: ["car", "house"] as const },
-    { id: "beta", name: "Beta", insuranceTypes: ["life"] as const },
+    { id: "alpha", name: "Alpha", kind: "insurer" as const, insuranceTypes: ["car", "house"] as const },
+    { id: "beta", name: "Beta", kind: "insurer" as const, insuranceTypes: ["life"] as const },
   ];
 
   it("gives each partner only the selected types it covers", () => {
@@ -24,11 +24,11 @@ describe("routeLead", () => {
 
   it("sends to at most three partners, covering every type first", () => {
     const many = [
-      { id: "p1", name: "P1", insuranceTypes: ["car"] as const },
-      { id: "p2", name: "P2", insuranceTypes: ["car"] as const },
-      { id: "p3", name: "P3", insuranceTypes: ["car"] as const },
-      { id: "p4", name: "P4", insuranceTypes: ["boat"] as const },
-      { id: "p5", name: "P5", insuranceTypes: ["car", "boat"] as const },
+      { id: "p1", name: "P1", kind: "insurer" as const, insuranceTypes: ["car"] as const },
+      { id: "p2", name: "P2", kind: "insurer" as const, insuranceTypes: ["car"] as const },
+      { id: "p3", name: "P3", kind: "insurer" as const, insuranceTypes: ["car"] as const },
+      { id: "p4", name: "P4", kind: "insurer" as const, insuranceTypes: ["boat"] as const },
+      { id: "p5", name: "P5", kind: "insurer" as const, insuranceTypes: ["car", "boat"] as const },
     ];
     // Car only: the first three by priority.
     expect(routeLead(many, ["car"]).map((d) => d.partner_id)).toEqual(["p1", "p2", "p3"]);

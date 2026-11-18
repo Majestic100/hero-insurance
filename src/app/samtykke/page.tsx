@@ -42,7 +42,7 @@ export default function ConsentPage() {
 
       <h2>Hvem modtager mine oplysninger?</h2>
       <p>
-        De forsikringsselskaber på vores{" "}
+        Op til 3 af de forsikringsselskaber og forsikringsformidlere på vores{" "}
         <Link href="/partnere">partnerliste</Link>, som tilbyder de
         forsikringer, du har valgt.
       </p>
@@ -51,7 +51,7 @@ export default function ConsentPage() {
       <p>
         Skriv til <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Så holder
         vi op med at behandle dine oplysninger til det formål og giver
-        forsikringsselskaberne besked. Nyhedsbreve kan du også afmelde via
+        selskaberne og formidlerne besked. Nyhedsbreve kan du også afmelde via
         linket i hver e-mail. Læs mere i vores{" "}
         <Link href="/privatlivspolitik">privatlivspolitik</Link>.
       </p>

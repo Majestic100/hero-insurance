@@ -93,6 +93,21 @@ rigtige leads.
     Vercel og Meta?
   - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
     rådgiver. Passer det med svaret om Finanstilsynet nedenfor? Godkendt af advokaten (2026-11-18).
+- [ ] **[Blokerer lancering] Advokaten skal se ændringen med
+  forsikringsformidlere (2026-11-18):** I samarbejder også med
+  forsikringsformidlere (mæglere og agenter), så samtykket, partnerlisten,
+  privatlivspolitikken, betingelserne og samtykkesiden siger nu
+  "forsikringsselskaber og forsikringsformidlere". Samtykket til
+  partnerne har version 2026-11-18.4, samtykket om medlemskab
+  2026-11-18.2. Advokaten godkendte teksterne med kun forsikringsselskaber,
+  så den nye modtagerkategori skal godkendes. Efter Claudes læsning dækker
+  undtagelsen i lov om forsikringsformidling § 1, stk. 3, nr. 3 også
+  levering til formidlere; bed advokaten bekræfte det.
+- [ ] **Brug kun formidlere, der er registreret hos Finanstilsynet:** tjek
+  hver formidler i Finanstilsynets virksomhedsregister, før de kommer på
+  partnerlisten, og skriv det ind i partneraftalen. Partnerlisten viser,
+  om en partner er selskab eller formidler (`kind` i
+  `src/config/partners.ts`).
 - [ ] **Privatlivspolitikken så kort som muligt (dit ønske, 2026-11-10; tages
   til sidst sammen med advokaten).** Den er indtil videre skrevet udførligt
   og ændres ikke mere nu. Til sidst kortes den ned, fx med kategorier
@@ -117,7 +132,7 @@ rigtige leads.
   - **Loven har en undtagelse, der passer på os:** lov om
     forsikringsformidling § 1, stk. 3, nr. 3: "levering af data og
     oplysninger om potentielle forsikringstagere" til forsikringsselskaber
-    er ikke omfattet, så længe vi ikke gør mere for at hjælpe aftalen på
+    eller forsikringsformidlere er ikke omfattet, så længe vi ikke gør mere for at hjælpe aftalen på
     plads.
   - **Vi bliver kun ved med at være undtaget, hvis vi:** ikke rådgiver,
     ikke viser priser, rangeringer eller sammenligninger, ikke kalder os

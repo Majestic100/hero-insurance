@@ -1,8 +1,9 @@
 import type { InsuranceType } from "./forms/insurance-types";
 
 /**
- * The insurance partners that receive leads, and which insurance types each
- * one gets. A lead is routed when it is submitted: every partner here that
+ * The partners that receive leads, and which insurance types each one gets.
+ * Partners are insurers or insurance intermediaries (brokers and agents,
+ * who must be registered with Finanstilsynet). A lead is routed when it is submitted: every partner here that
  * covers at least one of the selected types gets one delivery with those
  * types (table `lead_deliveries`).
  *
@@ -28,6 +29,8 @@ export type PartnerConfig = {
   id: string;
   /** Display name, e.g. in the privacy policy. */
   name: string;
+  /** Shown on /partnere, so the user sees who will contact them. */
+  kind: "insurer" | "intermediary";
   insuranceTypes: readonly InsuranceType[];
 };
 
