@@ -78,7 +78,7 @@ rigtige leads.
 
 ## Juridisk (advokat eller GDPR-rådgiver)
 
-- [ ] **[Blokerer lancering] Gennemgå de juridiske sider (skrevet
+- [x] **[Blokerer lancering] Gennemgå de juridiske sider (skrevet
   2026-11-10):** `/privatlivspolitik`, `/samtykke`, `/cookiepolitik`,
   `/betingelser`, `/om-os`, `/kontakt` og `/partnere` (kan ses på
   test.nemforsikringstilbud.dk). Skrevet ud fra, hvad siden faktisk gør i
@@ -92,7 +92,7 @@ rigtige leads.
     (som skrevet), og dækker EU-US Data Privacy Framework overførslen til
     Vercel og Meta?
   - **Betingelserne** siger, at vi ikke sælger forsikringer og ikke
-    rådgiver. Passer det med svaret om Finanstilsynet nedenfor?
+    rådgiver. Passer det med svaret om Finanstilsynet nedenfor? Godkendt af advokaten (2026-11-18).
 - [ ] **Privatlivspolitikken så kort som muligt (dit ønske, 2026-11-10; tages
   til sidst sammen med advokaten).** Den er indtil videre skrevet udførligt
   og ændres ikke mere nu. Til sidst kortes den ned, fx med kategorier
@@ -100,16 +100,16 @@ rigtige leads.
   kræver dog stadig: dataansvarlig, formål og retsgrundlag, modtagere,
   overførsel uden for EU, opbevaringstid, rettigheder og klage til
   Datatilsynet. Kode: `src/app/privatlivspolitik/page.tsx`.
-- [ ] **[Blokerer lancering] Samtykketeksten** er skrevet om efter
+- [x] **[Blokerer lancering] Samtykketeksten** er skrevet om efter
   markedspraksis (2026-11-10): op til 3 selskaber fra partnerlisten (med
   link til `/partnere`), telefon, e-mail og SMS, vores egen opfølgning, og
   tilbagetrækning via kontakt@nemforsikringstilbud.dk. Findforsikring
   navngiver 51 mulige modtagere; Forsikringsportalen nævner ingen navne
   ("op til 3 udbydere"). Advokaten skal godkende. Kode:
-  `src/config/forms/consents.ts`.
-- [ ] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
-  skal overholde markedsføringslovens § 10. Kode: samme fil.
-- [ ] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
+  `src/config/forms/consents.ts`. Godkendt af advokaten (2026-11-18).
+- [x] **[Blokerer lancering] Samtykke til markedsføring** (nyhedsbrev mv.)
+  skal overholde markedsføringslovens § 10. Kode: samme fil. Godkendt af advokaten (2026-11-18).
+- [x] **[Blokerer lancering] Kræver det registrering hos Finanstilsynet?**
   Research (2026-11-10, ikke juridisk rådgivning):
   - **Hverken Findforsikring eller Forsikringsportalen er registreret** i
     Finanstilsynets register. Samlino er registreret, men de viser priser
@@ -129,31 +129,31 @@ rigtige leads.
   - **Partnerne vil spørge** (de må kun bruge formidlere med tilladelse,
     § 3, stk. 7). **Anbefaling:** bed Finanstilsynet om en skriftlig
     bekræftelse af, at modellen ikke kræver tilladelse, eller få advokaten
-    til at skrive et kort notat. Det kan vises til partnerne.
-- [ ] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
+    til at skrive et kort notat. Det kan vises til partnerne. Godkendt af advokaten (2026-11-18).
+- [x] **Opbevaringstid (bygget 2026-11-10):** hver dag slettes forespørgslen
   12 måneder efter (svar, adresse, fødselsår, RKI, Meta-id'er), og efter 5
   år slettes også navn, e-mail, telefon og samtykker. Bekræft fristerne med
   advokaten. Ændres de, er det én linje: `src/config/retention.ts`
-  (privatlivspolitikken følger med automatisk).
+  (privatlivspolitikken følger med automatisk). Godkendt af advokaten (2026-11-18).
 - [ ] **Databehandleraftaler** med Supabase, Vercel og GoHighLevel, og
   aftaler med partnerne om, hvem der er dataansvarlig for hvad.
-- [ ] **Hele leadet i GoHighLevel (2026-11-10, dit valg):** GHL får alle
+- [x] **Hele leadet i GoHighLevel (2026-11-10, dit valg):** GHL får alle
   data på leadet (også adresse, fødselsår, RKI og svarene), så du kan
   hjælpe kunden, når du ringer. GHL er amerikansk. Er det i orden efter
   GDPR's princip om dataminimering, og skal GHL slette efter de samme
   frister som os (12 måneder / 5 år)? Privatlivspolitikken siger nu, at
-  GHL får hele forespørgslen.
-- [ ] **Opfølgning på e-mail, SMS og telefon (modul 9):** vi kontakter
+  GHL får hele forespørgslen. Godkendt af advokaten (2026-11-18).
+- [x] **Opfølgning på e-mail, SMS og telefon (modul 9):** vi kontakter
   brugeren efter et par dage for at høre, om selskaberne har ringet, på
   grundlag af legitim interesse (ikke markedsføring). Privatlivspolitikken
-  siger det nu. Er det nok, eller skal det stå i samtykket?
-- [ ] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
+  siger det nu. Er det nok, eller skal det stå i samtykket? Godkendt af advokaten (2026-11-18).
+- [x] **Bevis for samtykke:** vi gemmer tidspunkt, den præcise tekst og
   versionen. Er det nok, eller skal IP-adresse også gemmes? (Ingen af
-  konkurrenterne skriver, at de gemmer IP-adresse.)
-- [ ] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
+  konkurrenterne skriver, at de gemmer IP-adresse.) Godkendt af advokaten (2026-11-18).
+- [x] **[Blokerer lancering] Cookie-banner og tracking-samtykke:** teksten
   skal gennemgås, også fordi vi med samtykke sender hashede kontaktdata
   (e-mail, telefon, navn, postnummer og by) til Meta for at måle og optimere
-  annoncer. Aldrig forsikringssvarene. Kode: `src/components/consent-banner.tsx`.
+  annoncer. Aldrig forsikringssvarene. Kode: `src/components/consent-banner.tsx`. Godkendt af advokaten (2026-11-18).
 
 ## Dig (forretning og indhold)
 
@@ -245,9 +245,9 @@ rigtige leads.
   produktion, ingen automatisk pause. Dev ligger i samme organisation og
   koster ca. $10/md; det er fint. Sikkerhedsgennemgang af begge projekter
   kørt: ingen problemer.
-- [ ] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
-  Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel.
-- [ ] **Slå "BotID Deep Analysis" til**, når Vercel er på Pro: Vercel >
+- [x] **[Blokerer lancering] Opgrader Vercel til Pro** (ca. $20 om måneden).
+  Hobby-planen må kun bruges ikke-kommercielt, og siden er kommerciel. Gjort (2026-11-18).
+- [ ] **Slå "BotID Deep Analysis" til** (Vercel er på Pro nu): Vercel >
   projektet > Firewall > Rules. Basisversionen af BotID kører allerede og
   stopper almindelige bots; Deep Analysis stopper også de avancerede
   ($1 pr. 1.000 tjek).
@@ -279,9 +279,9 @@ rigtige leads.
   Tabellerne til levering og resultater findes nu på både dev og produktion.
 - [x] **`CRON_SECRET` i Vercel (Production)** er sat (2026-11-03) og
   testet: den daglige kørsel, der prøver fejlede leveringer igen, virker.
-- [ ] **Hyppigere genforsøg efter Vercel Pro:** på Hobby må cron kun køre én
+- [x] **Hyppigere genforsøg efter Vercel Pro:** på Hobby må cron kun køre én
   gang i døgnet, så et lead, der fejler, kan vente op til et døgn. Med Pro
-  ændres `vercel.json` til hvert 5. minut.
+  ændres `vercel.json` til hvert 5. minut. Gjort (2026-11-18): genforsøg, resultater til Meta, GoHighLevel og sletning kører nu hvert 5. minut.
 - [ ] **Besked ved fejlede leveringer:** i dag står de kun i Vercels log og i
   databasen (`lead_deliveries` med status `failed`). Før lancering bør vi få
   en advarsel, fx en alarm i Vercel eller en e-mail. Hvad foretrækker du?
@@ -291,6 +291,36 @@ rigtige leads.
   `LeadQuoted`, fordi den kommer hurtigt og siger noget om kvaliteten).
 - [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
   end Meta?
+
+## Lanceringsdagen (tjekliste)
+
+Gå punkterne igennem i rækkefølge, når alle punkter med **[Blokerer
+lancering]** er løst.
+
+1. [ ] **Mindst én partner er sat op:** leveringsadresse, hemmelig nøgle og
+   API-nøgle ligger i Vercel (kun Production), og partneren har modtaget et
+   testlead.
+2. [ ] **kontakt@blivgodtforsikret.dk virker,** og Claude har skiftet
+   adressen på siden og i samtykketeksterne.
+3. [ ] **Kobl blivgodtforsikret.dk og www.blivgodtforsikret.dk på Vercel
+   Production** og sæt DNS-posterne (se "Konti og adgang").
+4. [ ] **Åbn https://blivgodtforsikret.dk/api/health**: både `supabase` og
+   `database` skal sige `ok`.
+5. [ ] **Søgemaskiner:** åbn https://blivgodtforsikret.dk/robots.txt (skal
+   sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
+   https://blivgodtforsikret.dk/sitemap.xml. Test-adressen holdes uden for
+   Google automatisk.
+6. [ ] **Meta:** verificer domænet i Business Manager (Brand Safety >
+   Domains), og tjek i Events Manager, at Pixel og Conversions API sender
+   fra det nye domæne.
+7. [ ] **Delingsbillede:** indsæt adressen i Facebooks Sharing Debugger
+   (developers.facebook.com/tools/debug) og tryk "Scrape Again".
+8. [ ] **Et rigtigt testlead fra mobilen:** udfyld formularen på
+   blivgodtforsikret.dk med dine egne oplysninger. Tjek, at takkesiden vises,
+   at Lead kommer i Events Manager, at partneren får leadet, og at det
+   kommer i GoHighLevel (hvis sat op).
+9. [ ] **Slå "BotID Deep Analysis" til** (Vercel > Firewall).
+10. [ ] **Start annoncerne.**
 
 ## Besluttet
 

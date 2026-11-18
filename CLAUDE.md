@@ -54,6 +54,9 @@ src/
   instrumentation-client.ts   Vercel BotID: routes protected against bots
   app/                        routes (App Router)
     page.tsx                  homepage
+    not-found.tsx, error.tsx  404 and error pages
+    robots.ts, sitemap.ts     search engines: only Vercel Production is indexed
+    opengraph-image.tsx       share image for Facebook, Messenger, LinkedIn
     tilbud/page.tsx           the quote form (/tilbud?trin=<step id>)
     tilbud/quote-form.tsx     wizard + sending the lead to /api/leads
     tilbud/tak/               thank-you page after a successful submit
@@ -149,7 +152,7 @@ belongs there.
   production branch.
 - **Vercel only builds `main` and `preview`.** `vercel.json` disables
   deployments for `claude/**` branches (owner, 2026-11-10), because builds
-  queue one at a time on Hobby. GitHub Actions still runs every check on
+  each deployment costs build time. GitHub Actions still runs every check on
   pull requests.
 - **End with a summary:** what was built, and what the owner must do
   themselves (keys, dashboards, manual steps).
@@ -210,9 +213,9 @@ belongs there.
   - Retention (`20261110150000_lead_retention.sql`: `leads.answers_purged_at`
     and `purge_old_leads`) is applied on dev (tested) and on production
     (owner's OK, 2026-11-10, through the connector; only `service_role`
-    may run it). The daily cron calls it; on an error it logs
+    may run it). The cron calls it on every run; on an error it logs
     `retention_failed` and goes on.
-- **Vercel:** project connected to the repo, functions in `fra1`. Builds
+- **Vercel:** Pro plan (2026-11-18). Project connected to the repo, functions in `fra1`. Builds
   `main` (Production) and `preview` (test.nemforsikringstilbud.dk) only.
   `SUPABASE_URL` and `SUPABASE_SECRET_KEY` are set separately for
   Production (production project) and Preview (dev project). The Supabase
@@ -236,8 +239,7 @@ belongs there.
   `_WEBHOOK_SECRET` and `_API_KEY`, set for Production only, so Preview
   never sends to a partner. `CRON_SECRET` (Production only, set
   2026-11-03) protects the cron endpoint. The
-  cron runs once a day while Vercel is on Hobby (more often fails to
-  deploy); make it every 5 minutes after the Pro upgrade.
+  cron runs every 5 minutes (Vercel Pro since 2026-11-18).
 - **GoHighLevel** (module 9): `GHL_INBOUND_WEBHOOK_URL` and
   `GHL_FEEDBACK_SECRET`, not set yet. Migrations
   `20261110170000_lead_feedback_ghl.sql` and `20261110200000_membership.sql`
@@ -269,7 +271,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
 | 9  | Survey                        | foundation done (leads to GoHighLevel, answers back to `lead_feedback`); GHL workflows and keys to set up |
-| 10 | Testing and launch            |        |
+| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md) |
 
 Update the status column when a module is finished.
 
