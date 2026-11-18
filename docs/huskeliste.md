@@ -413,6 +413,12 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
+- 2026-11-18: Nye farver (dit valg): fire blå fra samme familie,
+  #E3F2FD (lyse flader), #90CAF9, #2196F3 (ikoner, valgte felter og
+  hovedknappen) og #0D47A1 (overskrifter, struktur og knapper). Afløser
+  navy og rav fra 2026-11-10. Hovedknappen er #2196F3 med mørk tekst,
+  fordi hvid tekst på #2196F3 er for svær at læse (WCAG). Den automatiske
+  tilgængelighedstest er stadig fejlfri.
 - 2026-11-10: Farver efter 60-30-10-reglen ("Modern & Human": tillidsblå
   med én varm accent), afløste colorhunt-paletten samme dag: hvid baggrund
   og lyseblå flader #EAF1FC (60%), navy #0B1F4F (tekst, struktur) og blå
