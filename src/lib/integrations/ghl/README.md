@@ -8,7 +8,7 @@ Trustpilot review, and users nobody contacted become a call task.
 Our side is two small pieces, both off until their env var is set:
 
 - **Leads to GHL** (`sync.ts`): right after a lead is saved, and again from
-  the daily cron for leads that did not make it (up to 7 days old), we POST
+  the cron (every 5 minutes) for leads that did not make it (up to 7 days old), we POST
   the contact to the GHL **Inbound Webhook** of the follow-up workflow.
   Env: `GHL_INBOUND_WEBHOOK_URL`. Payload (`payload.ts`):
 
