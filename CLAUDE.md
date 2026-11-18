@@ -57,7 +57,7 @@ src/
   app/                        routes (App Router)
     page.tsx                  homepage
     not-found.tsx, error.tsx  404 and error pages
-    robots.ts, sitemap.ts     search engines: only Vercel Production is indexed
+    robots.ts, sitemap.ts     search engines: only Production on the brand domain is indexed
     opengraph-image.tsx       share image for Facebook, Messenger, LinkedIn
     tilbud/page.tsx           the quote form (/tilbud?trin=<step id>)
     tilbud/quote-form.tsx     wizard + sending the lead to /api/leads

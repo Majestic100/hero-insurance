@@ -336,8 +336,9 @@ lancering]** er løst.
    Production** og sæt DNS-posterne (se "Konti og adgang").
 4. [ ] **Åbn https://blivgodtforsikret.dk/api/health**: både `supabase` og
    `database` skal sige `ok`.
-5. [ ] **Søgemaskiner:** åbn https://blivgodtforsikret.dk/robots.txt (skal
-   sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
+5. [ ] **Søgemaskiner:** Google holdes ude, indtil produktionen kører på
+   blivgodtforsikret.dk. Lav en **Redeploy** i Vercel efter punkt 3, og åbn
+   så https://blivgodtforsikret.dk/robots.txt (skal sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
    https://blivgodtforsikret.dk/sitemap.xml. Test-adressen holdes uden for
    Google automatisk.
 6. [ ] **Meta:** verificer domænet i Business Manager (Brand Safety >
