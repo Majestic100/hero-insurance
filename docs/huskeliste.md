@@ -157,10 +157,30 @@ rigtige leads.
 
 ## Dig (forretning og indhold)
 
-- [ ] **Brand:** navnet er Nemforsikringstilbud, og domænet
-  nemforsikringstilbud.dk er købt. Farverne er valgt. Mangler: logo (du
-  laver det; indtil da står navnet med et skjold-ikon), og at domænet
-  kobles på Vercel (se "Konti og adgang").
+- [ ] **Brand:** navnet er Bliv Godt Forsikret (2026-11-18), og
+  blivgodtforsikret.dk er købt. Farverne er valgt. Mangler: logo (du laver
+  det; indtil da står navnet med et skjold-ikon), og at domænet kobles på
+  Vercel (se "Konti og adgang"). godtforsikret.dk er registreret med DNS
+  hos Simply.com, men uden side: tjek, om det er dit, så kan det sendes
+  videre til blivgodtforsikret.dk.
+- [ ] **[Blokerer lancering] Varemærketjek og advokat på "Bliv Godt
+  Forsikret":** søg på [dkpto.dk](https://www.dkpto.dk) og
+  [TMview](https://www.tmdn.org/tmview), også efter lignende navne inden
+  for forsikring. Claudes forbehold (2026-11-18): navnet kan lyde som et
+  forsikringsselskabs slogan, "bliv godt forsikret" kan læses som et løfte
+  om kundens dækning (regel 7: ingen rådgivning), og en almindelig sætning
+  er svær at beskytte som varemærke. Derfor skal siden og annoncerne altid
+  sige, at forsikringen og tilbuddene kommer fra selskaberne, fx med
+  undertitlen "vi sender din forespørgsel til 3 forsikringsselskaber".
+  Bed advokaten se på navnet sammen med de juridiske sider.
+- [ ] **Opret kontakt@blivgodtforsikret.dk.** Indtil da viser siden og
+  samtykketeksterne stadig kontakt@nemforsikringstilbud.dk, som virker.
+  Sig til, når den nye adresse virker: så skifter Claude adressen i
+  `src/config/site.ts` og i samtykketeksterne (med ny version).
+- [ ] **Sikr navnet på Instagram og Facebook**, fx @blivgodtforsikret.
+- [ ] **Brug ikke "Nemforsikring..." som navn** (2026-11-18):
+  nemforsikring.dk ejes af Gjensidige. nemforsikringstilbud.dk kan
+  beholdes og sendes videre til blivgodtforsikret.dk, eller udløbe.
 - [ ] **[Blokerer lancering] Firmaoplysninger:** siderne skriver kun "Hero
   Media" (dit valg indtil videre, 2026-11-10). E-handelsloven § 7 kræver
   det fulde firmanavn (fx "Hero Media ApS"), CVR-nummer og adresse, og
@@ -211,11 +231,11 @@ rigtige leads.
   (2026-11-10) og viser altid det nyeste, vi arbejder på (branchen
   `preview`). Kræver login på Vercel. Til folk uden Vercel-konto (partnere,
   advokat): brug "Share" på en deployment i Vercel.
-- [ ] **Kobl nemforsikringstilbud.dk på Production ved lanceringen** (ikke
-  før samtykketekst, privatlivspolitik og første partner er på plads; DNS
-  ligger hos Simply.com). Vercel > projektet >
-  Settings > Domains > Add, tilføj både `nemforsikringstilbud.dk` og
-  `www.nemforsikringstilbud.dk` (lad www viderestille til uden www, eller
+- [ ] **Kobl blivgodtforsikret.dk på Production ved lanceringen** (ikke
+  før samtykketekst, privatlivspolitik og første partner er på plads).
+  Vercel > projektet >
+  Settings > Domains > Add, tilføj både `blivgodtforsikret.dk` og
+  `www.blivgodtforsikret.dk` (lad www viderestille til uden www, eller
   omvendt). Sæt derefter de DNS-poster, Vercel viser, hos den udbyder, hvor
   domænet er købt. Kobles kun på Production. Meta: tilføj og verificer
   domænet i Business Manager (Brand Safety > Domains), så Pixel-hændelser
@@ -336,6 +356,13 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   valgt for læsbarhed og tydelige æ, ø og å. Afløser Source Serif 4 og
   Geist. Bricolage Grotesque og Figtree blev prøvet og fravalgt (for
   svære at læse).
+- 2026-11-18: Siden hedder **Bliv Godt Forsikret** på blivgodtforsikret.dk
+  (afløser Nemforsikringstilbud), valgt af dig efter en lang navnesøgning.
+  Fravalgt undervejs: Nemforsikringstilbud (for tæt på Gjensidiges
+  nemforsikring.dk), Forsiro (for tæt på Forsia Forsikring), Klova og
+  Bliv Godt Sikret. Samtykketeksten til partnerne bruger nu det nye navn
+  (version 2026-11-18.2). Test-adressen er stadig
+  test.nemforsikringstilbud.dk.
 - 2026-11-10: Siden hedder Nemforsikringstilbud (rettet fra
   Nemforsikringstjek, som stod her ved en fejl), på domænet
   nemforsikringstilbud.dk. "Hero Insurance" er kun det interne navn.
