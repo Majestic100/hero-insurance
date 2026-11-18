@@ -14,6 +14,15 @@ export const SITE = {
   email: "kontakt@nemforsikringstilbud.dk",
 } as const;
 
+/** Canonical origin, used for metadata, the sitemap and robots.txt. */
+export const SITE_URL = `https://${SITE.domain}`;
+
+/**
+ * Only Vercel Production may be indexed by search engines. Preview (the
+ * test address) and local builds answer "noindex" and disallow crawling.
+ */
+export const IS_INDEXABLE = process.env.VERCEL_ENV === "production";
+
 /**
  * The company behind the site (data controller). E-handelsloven § 7
  * requires name, address, e-mail and CVR to be easy to find.

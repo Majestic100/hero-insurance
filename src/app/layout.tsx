@@ -3,7 +3,7 @@ import { Geist_Mono, IBM_Plex_Sans } from "next/font/google";
 import { ConsentBanner } from "@/components/consent-banner";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { SITE } from "@/config/site";
+import { IS_INDEXABLE, SITE, SITE_URL } from "@/config/site";
 import { ConsentProvider } from "@/lib/tracking/consent-context";
 import { MetaPixel } from "@/lib/tracking/meta-pixel";
 import "./globals.css";
@@ -22,12 +22,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${SITE.name}: få tilbud på dine forsikringer`,
     template: `%s | ${SITE.name}`,
   },
   description:
     "Få tilbud på bil-, indbo-, hus- og andre forsikringer. Udfyld én formular, gratis og uforpligtende.",
+  openGraph: {
+    type: "website",
+    locale: "da_DK",
+    siteName: SITE.name,
+  },
+  ...(IS_INDEXABLE ? {} : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

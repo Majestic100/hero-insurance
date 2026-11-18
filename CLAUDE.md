@@ -54,6 +54,9 @@ src/
   instrumentation-client.ts   Vercel BotID: routes protected against bots
   app/                        routes (App Router)
     page.tsx                  homepage
+    not-found.tsx, error.tsx  404 and error pages
+    robots.ts, sitemap.ts     search engines: only Vercel Production is indexed
+    opengraph-image.tsx       share image for Facebook, Messenger, LinkedIn
     tilbud/page.tsx           the quote form (/tilbud?trin=<step id>)
     tilbud/quote-form.tsx     wizard + sending the lead to /api/leads
     tilbud/tak/               thank-you page after a successful submit
@@ -268,7 +271,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
 | 9  | Survey                        | foundation done (leads to GoHighLevel, answers back to `lead_feedback`); GHL workflows and keys to set up |
-| 10 | Testing and launch            |        |
+| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md) |
 
 Update the status column when a module is finished.
 
