@@ -249,8 +249,9 @@ belongs there.
   Authentication. The brand is **Bliv Godt Forsikret** (2026-11-18, replaces
   Nemforsikringstilbud) on `blivgodtforsikret.dk` (bought), not connected to
   Production yet (wait until launch). The old `nemforsikringstilbud.dk`
-  (DNS at Simply.com) still carries the test address and the contact
-  e-mail until `kontakt@blivgodtforsikret.dk` exists. The Vercel CLI is logged in locally and the folder is linked
+  (DNS at Simply.com) still carries the test address. Contact e-mail
+  `kontakt@blivgodtforsikret.dk` (Simply.com, 2026-11-18); Instagram
+  `instagram.com/blivgodtforsikret`. The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
@@ -271,7 +272,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
 | 9  | Survey                        | foundation done (leads to GoHighLevel, answers back to `lead_feedback`); GHL workflows and keys to set up |
-| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md) |
+| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md; axe WCAG 2.1 AA and 375px overflow audit clean on 2026-11-18) |
 
 Update the status column when a module is finished.
 
