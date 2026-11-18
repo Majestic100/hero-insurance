@@ -61,7 +61,7 @@ export type GhlContactPayload = {
   answers_json: string;
   /** Only "true" may receive newsletters (markedsføringsloven § 10). */
   marketing_consent: boolean;
-  source: "blivgodtsikret";
+  source: "blivgodtforsikret";
 };
 
 export function buildGhlContactPayload(lead: GhlLeadInput): GhlContactPayload {
@@ -89,7 +89,7 @@ export function buildGhlContactPayload(lead: GhlLeadInput): GhlContactPayload {
       Object.fromEntries(lead.insurances.map((row) => [row.insurance_type, row.answers])),
     ),
     marketing_consent: lead.marketing_consent,
-    source: "blivgodtsikret",
+    source: "blivgodtforsikret",
   };
 }
 
