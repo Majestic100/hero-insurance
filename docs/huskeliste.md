@@ -326,6 +326,13 @@ lancering]** er løst.
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
 
+- 2026-11-18: Gennemgang før lancering (modul 10): ingen fejl i en
+  automatisk tilgængelighedstest (WCAG 2.1 AA) af forsiden, formularen,
+  en forsikringsside, kontakt, privatlivspolitik, takkesiden og fejlsiden,
+  på mobil og computer. Ingen af de 24 sider kan scrolles vandret på en
+  375 px skærm. Kun Production kan findes i Google; test-adressen holdes
+  ude.
+
 - 2026-11-10: Vi forklarer ikke på forsiden og "Om os", hvordan vi tjener
   penge. I stedet står vores mission: kunden har ret til at kende sine
   muligheder og fortjener forsikringer, der passer. Vi skriver aldrig, at

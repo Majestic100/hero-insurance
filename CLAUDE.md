@@ -271,7 +271,7 @@ We build one module at a time. Do not start work belonging to a later module.
 | 7  | Tracking                      | done (Meta Pixel + Conversions API live) |
 | 8  | Delivery                      | foundation done (outbox, webhook, retries, outcomes to Meta); no partners yet |
 | 9  | Survey                        | foundation done (leads to GoHighLevel, answers back to `lead_feedback`); GHL workflows and keys to set up |
-| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md) |
+| 10 | Testing and launch            | in progress (404 and error pages, robots, sitemap, share image, launch-day checklist in docs/huskeliste.md; axe WCAG 2.1 AA and 375px overflow audit clean on 2026-11-18) |
 
 Update the status column when a module is finished.
 
