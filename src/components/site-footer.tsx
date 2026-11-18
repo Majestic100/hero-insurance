@@ -99,6 +99,15 @@ export function SiteFooter() {
           {COMPANY.address && <> · {COMPANY.address}</>} ·{" "}
           <a href={`mailto:${SITE.email}`} className="underline-offset-4 hover:underline">
             {SITE.email}
+          </a>{" "}
+          ·{" "}
+          <a
+            href={SITE.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline-offset-4 hover:underline"
+          >
+            Instagram
           </a>
         </p>
       </div>

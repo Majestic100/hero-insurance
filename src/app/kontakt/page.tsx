@@ -37,6 +37,15 @@ export default function ContactPage() {
         <Link href="/privatlivspolitik">privatlivspolitik</Link>.
       </p>
 
+      <h2>Følg os</h2>
+      <p>
+        Vi er på{" "}
+        <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
+          Instagram
+        </a>
+        .
+      </p>
+
       <h2>Forsikringsselskaber</h2>
       <p>
         Vil I modtage forespørgsler fra os? Læs mere på{" "}

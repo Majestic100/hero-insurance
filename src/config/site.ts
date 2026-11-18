@@ -6,12 +6,13 @@ export const SITE = {
   name: "Bliv Godt Forsikret",
   domain: "blivgodtforsikret.dk",
   /**
-   * General contact, also for data protection requests. Stays on the old
-   * domain until kontakt@blivgodtforsikret.dk exists (docs/huskeliste.md);
-   * when it changes, also change it in the consent texts in
-   * src/config/forms/consents.ts and bump their versions.
+   * General contact, also for data protection requests. If it changes,
+   * also change it in the consent texts in src/config/forms/consents.ts
+   * and bump their versions.
    */
-  email: "kontakt@nemforsikringstilbud.dk",
+  email: "kontakt@blivgodtforsikret.dk",
+  /** Social profiles, linked in the footer and on the contact page. */
+  instagram: "https://www.instagram.com/blivgodtforsikret/",
 } as const;
 
 /** Canonical origin, used for metadata, the sitemap and robots.txt. */

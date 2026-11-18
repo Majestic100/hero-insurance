@@ -103,7 +103,7 @@ rigtige leads.
 - [x] **[Blokerer lancering] Samtykketeksten** er skrevet om efter
   markedspraksis (2026-11-10): op til 3 selskaber fra partnerlisten (med
   link til `/partnere`), telefon, e-mail og SMS, vores egen opfølgning, og
-  tilbagetrækning via kontakt@nemforsikringstilbud.dk. Findforsikring
+  tilbagetrækning via kontakt@blivgodtforsikret.dk. Findforsikring
   navngiver 51 mulige modtagere; Forsikringsportalen nævner ingen navne
   ("op til 3 udbydere"). Advokaten skal godkende. Kode:
   `src/config/forms/consents.ts`. Godkendt af advokaten (2026-11-18).
@@ -173,11 +173,13 @@ rigtige leads.
   sige, at forsikringen og tilbuddene kommer fra selskaberne, fx med
   undertitlen "vi sender din forespørgsel til 3 forsikringsselskaber".
   Bed advokaten se på navnet sammen med de juridiske sider.
-- [ ] **Opret kontakt@blivgodtforsikret.dk.** Indtil da viser siden og
-  samtykketeksterne stadig kontakt@nemforsikringstilbud.dk, som virker.
-  Sig til, når den nye adresse virker: så skifter Claude adressen i
-  `src/config/site.ts` og i samtykketeksterne (med ny version).
-- [ ] **Sikr navnet på Instagram og Facebook**, fx @blivgodtforsikret.
+- [x] **kontakt@blivgodtforsikret.dk er oprettet** (2026-11-18, hos
+  Simply.com). Siden og samtykketeksterne bruger den nu (samtykket til
+  partnerne har version 2026-11-18.3, samtykket om medlemskab
+  2026-11-18.1; kun e-mailadressen er ændret).
+- [x] **Instagram:** https://www.instagram.com/blivgodtforsikret/
+  (2026-11-18), linket i bunden af siden og på kontaktsiden.
+- [ ] **Sikr navnet på Facebook**, fx facebook.com/blivgodtforsikret.
 - [ ] **Brug ikke "Nemforsikring..." som navn** (2026-11-18):
   nemforsikring.dk ejes af Gjensidige. nemforsikringstilbud.dk kan
   beholdes og sendes videre til blivgodtforsikret.dk, eller udløbe.
@@ -300,8 +302,8 @@ lancering]** er løst.
 1. [ ] **Mindst én partner er sat op:** leveringsadresse, hemmelig nøgle og
    API-nøgle ligger i Vercel (kun Production), og partneren har modtaget et
    testlead.
-2. [ ] **kontakt@blivgodtforsikret.dk virker,** og Claude har skiftet
-   adressen på siden og i samtykketeksterne.
+2. [x] **kontakt@blivgodtforsikret.dk virker,** og siden og
+   samtykketeksterne bruger den (2026-11-18).
 3. [ ] **Kobl blivgodtforsikret.dk og www.blivgodtforsikret.dk på Vercel
    Production** og sæt DNS-posterne (se "Konti og adgang").
 4. [ ] **Åbn https://blivgodtforsikret.dk/api/health**: både `supabase` og

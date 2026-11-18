@@ -249,8 +249,9 @@ belongs there.
   Authentication. The brand is **Bliv Godt Forsikret** (2026-11-18, replaces
   Nemforsikringstilbud) on `blivgodtforsikret.dk` (bought), not connected to
   Production yet (wait until launch). The old `nemforsikringstilbud.dk`
-  (DNS at Simply.com) still carries the test address and the contact
-  e-mail until `kontakt@blivgodtforsikret.dk` exists. The Vercel CLI is logged in locally and the folder is linked
+  (DNS at Simply.com) still carries the test address. Contact e-mail
+  `kontakt@blivgodtforsikret.dk` (Simply.com, 2026-11-18); Instagram
+  `instagram.com/blivgodtforsikret`. The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
