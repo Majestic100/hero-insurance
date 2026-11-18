@@ -53,35 +53,35 @@
 }
 
 :root {
-  /* Brand palette (owner, 2026-11-18, second try): #293681 (navy),
-     #4274D9 (blue), #95CCDD (teal), #D0E7E6 (mint). White page and mint
-     surfaces (60%); navy for headings, buttons and the main call to
-     action (white text, 10.8:1); blue for icons, selected fields and focus
-     (30%). White text on #4274D9 is 4.4:1, just under WCAG AA for normal
-     text, so blue is not used behind text. Teal for borders and inputs. */
-  --brand: #4274d9;
-  --cream: #d0e7e6;
-  --cta: #293681;
+  /* Brand palette (owner, 2026-11-18, third try): #FFF2F2 (blush),
+     #A9B5DF (light periwinkle), #7886C7 (periwinkle), #2D336B (indigo).
+     White page and blush surfaces (60%); indigo for headings, buttons and
+     the main call to action (white text, 11.7:1); periwinkle for icons,
+     selected fields and focus (30%, 3.5:1 against white, never behind
+     text); light periwinkle for inputs. */
+  --brand: #7886c7;
+  --cream: #fff2f2;
+  --cta: #2d336b;
   --cta-foreground: #ffffff;
   --radius: 0.625rem;
   --background: #ffffff;
-  --foreground: #141b44;
+  --foreground: #1b1f45;
   --card: #ffffff;
-  --card-foreground: #141b44;
+  --card-foreground: #1b1f45;
   --popover: #ffffff;
-  --popover-foreground: #141b44;
-  --primary: #293681;
+  --popover-foreground: #1b1f45;
+  --primary: #2d336b;
   --primary-foreground: #ffffff;
-  --secondary: #d0e7e6;
-  --secondary-foreground: #293681;
-  --muted: #eef6f6;
-  --muted-foreground: #3d4868;
-  --accent: #e3f1f1;
-  --accent-foreground: #293681;
+  --secondary: #fff2f2;
+  --secondary-foreground: #2d336b;
+  --muted: #f6f7fc;
+  --muted-foreground: #4a4f75;
+  --accent: #eef0fa;
+  --accent-foreground: #2d336b;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #c2dfe4;
-  --input: #95ccdd;
-  --ring: #4274d9;
+  --border: #d8ddf1;
+  --input: #a9b5df;
+  --ring: #7886c7;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
