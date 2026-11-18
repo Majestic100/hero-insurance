@@ -38,14 +38,16 @@ export default function ContactPage() {
         <Link href="/privatlivspolitik">privatlivspolitik</Link>.
       </p>
 
-      <h2>Følg os</h2>
-      <p>
-        Vi er på{" "}
-        <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
-          Instagram
-        </a>
-        .
-      </p>
+      <h2>Følg os, og fortæl os, hvordan det gik</h2>
+      <ul>
+        {SITE.profiles.map((profile) => (
+          <li key={profile.href}>
+            <a href={profile.href} target="_blank" rel="noopener noreferrer">
+              {profile.label}
+            </a>
+          </li>
+        ))}
+      </ul>
 
       <h2>Forsikringsselskaber og formidlere</h2>
       <p>

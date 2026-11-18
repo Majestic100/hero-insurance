@@ -11,8 +11,12 @@ export const SITE = {
    * and bump their versions.
    */
   email: "kontakt@blivgodtforsikret.dk",
-  /** Social profiles, linked in the footer and on the contact page. */
-  instagram: "https://www.instagram.com/blivgodtforsikret/",
+  /** Profiles elsewhere, linked in the footer and on the contact page. */
+  profiles: [
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61596918560784" },
+    { label: "Instagram", href: "https://www.instagram.com/blivgodtforsikret/" },
+    { label: "Trustpilot", href: "https://dk.trustpilot.com/review/blivgodtforsikret.dk" },
+  ],
 } as const;
 
 /** Canonical origin, used for metadata, the sitemap and robots.txt. */
