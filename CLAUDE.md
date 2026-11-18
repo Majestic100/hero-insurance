@@ -252,8 +252,9 @@ belongs there.
   Nemforsikringstilbud) on `blivgodtforsikret.dk` (bought), not connected to
   Production yet (wait until launch). The old `nemforsikringstilbud.dk`
   (DNS at Simply.com) still carries the test address. Contact e-mail
-  `kontakt@blivgodtforsikret.dk` (Simply.com, 2026-11-18); Instagram
-  `instagram.com/blivgodtforsikret`. The Vercel CLI is logged in locally and the folder is linked
+  `kontakt@blivgodtforsikret.dk` (Simply.com, 2026-11-18); profiles on
+  Facebook, Instagram and Trustpilot (`SITE.profiles`). BotID Deep
+  Analysis is on (2026-11-18). The Vercel CLI is logged in locally and the folder is linked
   (`.vercel/`, gitignored).
 - `/api/health` returned `"supabase":"ok"` locally and on Vercel at the end
   of module 0.
