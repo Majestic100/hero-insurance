@@ -292,9 +292,46 @@ rigtige leads.
 - [ ] **Andre tracking-værktøjer (modul 7):** skal vi bruge GA4 eller andet
   end Meta?
 
+## Lanceringsdagen (tjekliste)
+
+Gå punkterne igennem i rækkefølge, når alle punkter med **[Blokerer
+lancering]** er løst.
+
+1. [ ] **Mindst én partner er sat op:** leveringsadresse, hemmelig nøgle og
+   API-nøgle ligger i Vercel (kun Production), og partneren har modtaget et
+   testlead.
+2. [ ] **kontakt@blivgodtforsikret.dk virker,** og Claude har skiftet
+   adressen på siden og i samtykketeksterne.
+3. [ ] **Kobl blivgodtforsikret.dk og www.blivgodtforsikret.dk på Vercel
+   Production** og sæt DNS-posterne (se "Konti og adgang").
+4. [ ] **Åbn https://blivgodtforsikret.dk/api/health**: både `supabase` og
+   `database` skal sige `ok`.
+5. [ ] **Søgemaskiner:** åbn https://blivgodtforsikret.dk/robots.txt (skal
+   sige `Allow: /`). Tilføj domænet i Google Search Console og indsend
+   https://blivgodtforsikret.dk/sitemap.xml. Test-adressen holdes uden for
+   Google automatisk.
+6. [ ] **Meta:** verificer domænet i Business Manager (Brand Safety >
+   Domains), og tjek i Events Manager, at Pixel og Conversions API sender
+   fra det nye domæne.
+7. [ ] **Delingsbillede:** indsæt adressen i Facebooks Sharing Debugger
+   (developers.facebook.com/tools/debug) og tryk "Scrape Again".
+8. [ ] **Et rigtigt testlead fra mobilen:** udfyld formularen på
+   blivgodtforsikret.dk med dine egne oplysninger. Tjek, at takkesiden vises,
+   at Lead kommer i Events Manager, at partneren får leadet, og at det
+   kommer i GoHighLevel (hvis sat op).
+9. [ ] **Slå "BotID Deep Analysis" til** (Vercel > Firewall).
+10. [ ] **Start annoncerne.**
+
 ## Besluttet
 
 Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
+
+- 2026-11-18: Gennemgang før lancering (modul 10): ingen fejl i en
+  automatisk tilgængelighedstest (WCAG 2.1 AA) af forsiden, formularen,
+  en forsikringsside, kontakt, privatlivspolitik, takkesiden og fejlsiden,
+  på mobil og computer. Ingen af de 24 sider kan scrolles vandret på en
+  375 px skærm. Kun Production kan findes i Google; test-adressen holdes
+  ude.
 
 - 2026-11-10: Vi forklarer ikke på forsiden og "Om os", hvordan vi tjener
   penge. I stedet står vores mission: kunden har ret til at kende sine
