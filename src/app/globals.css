@@ -53,35 +53,37 @@
 }
 
 :root {
-  /* Brand palette (owner, 2026-11-13): navy #0f1b3d as the background and
-     white #ffffff as the text, on every page. Cards, fields and sections are
-     slightly lighter navy; light blue for icons, links and selected cards;
-     amber (navy text) only for the main call to action on each page. All
-     text pairs meet WCAG AA, most AAA. */
-  color-scheme: dark;
-  --brand: #7cb3ff;
-  --cream: #15244b;
-  --cta: #ffb020;
-  --cta-foreground: #0f1b3d;
+  /* Brand palette (owner, 2026-11-18): four blues from one family
+     (#E3F2FD, #90CAF9, #2196F3, #0D47A1), replacing the navy/amber palette
+     of 2026-11-10. White page and #E3F2FD surfaces (60%); #0D47A1 for
+     headings, structure and buttons, #2196F3 for icons, selected fields
+     and focus (30%); the main call to action is #2196F3 with dark text
+     (10%). White text on #2196F3 is only 3.1:1, so it is never used for
+     text; dark ink #0A1F44 on #2196F3 is 5.2:1 (WCAG AA). #BBDEFB is the
+     in-between tint of the same family, used for borders. */
+  --brand: #2196f3;
+  --cream: #e3f2fd;
+  --cta: #2196f3;
+  --cta-foreground: #0a1f44;
   --radius: 0.625rem;
-  --background: #0f1b3d;
-  --foreground: #ffffff;
-  --card: #16264f;
-  --card-foreground: #ffffff;
-  --popover: #16264f;
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
-  --primary-foreground: #0f1b3d;
-  --secondary: #1b2d5c;
-  --secondary-foreground: #ffffff;
-  --muted: #16264f;
-  --muted-foreground: #c3cde3;
-  --accent: #1f3466;
-  --accent-foreground: #ffffff;
-  --destructive: #ff7b72;
-  --border: #2f4273;
-  --input: #6a7cae;
-  --ring: #7cb3ff;
+  --background: #ffffff;
+  --foreground: #0a1f44;
+  --card: #ffffff;
+  --card-foreground: #0a1f44;
+  --popover: #ffffff;
+  --popover-foreground: #0a1f44;
+  --primary: #0d47a1;
+  --primary-foreground: #ffffff;
+  --secondary: #e3f2fd;
+  --secondary-foreground: #0d47a1;
+  --muted: #f1f8fe;
+  --muted-foreground: #3d5675;
+  --accent: #e3f2fd;
+  --accent-foreground: #0d47a1;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #bbdefb;
+  --input: #90caf9;
+  --ring: #2196f3;
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
