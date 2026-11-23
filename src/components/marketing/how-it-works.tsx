@@ -20,7 +20,7 @@ const STEPS = [
 
 export function HowItWorks() {
   return (
-    <section className="mx-auto w-full max-w-5xl px-4 py-12 sm:py-16">
+    <section id="saadan-virker-det" className="mx-auto w-full max-w-5xl scroll-mt-20 px-4 py-12 sm:py-16">
       <h2 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
         Sådan virker det
       </h2>
