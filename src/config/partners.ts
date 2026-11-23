@@ -8,9 +8,10 @@ import type { InsuranceType } from "./forms/insurance-types";
  * types (table `lead_deliveries`).
  *
  * Secrets are not here but in env vars, per partner and environment (see
- * `getPartnerWebhookEnv` in src/lib/env/server.ts):
- *   PARTNER_<ID>_WEBHOOK_URL     where we POST the lead (https)
- *   PARTNER_<ID>_WEBHOOK_SECRET  signs each delivery (HMAC-SHA256)
+ * src/lib/env/server.ts):
+ *   PARTNER_<ID>_WEBHOOK_URL     where we POST the lead (https), delivery "webhook"
+ *   PARTNER_<ID>_WEBHOOK_SECRET  signs each delivery (HMAC-SHA256), delivery "webhook"
+ *   PARTNER_<ID>_EMAIL           where the lead is e-mailed, delivery "email"
  *   PARTNER_<ID>_API_KEY         the partner's key for reporting outcomes
  * Set them for Production only (or point Preview at the partner's test
  * endpoint), so test leads never reach a partner.
@@ -31,6 +32,12 @@ export type PartnerConfig = {
   name: string;
   /** Shown on /partnere, so the user sees who will contact them. */
   kind: "insurer" | "intermediary";
+  /**
+   * How leads reach the partner: a signed JSON POST to their system
+   * ("webhook", the default), or a readable e-mail ("email", for partners
+   * without a system that can receive it, e.g. a small intermediary).
+   */
+  delivery?: "webhook" | "email";
   insuranceTypes: readonly InsuranceType[];
 };
 

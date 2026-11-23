@@ -3,7 +3,9 @@ import "server-only";
 import { PARTNERS } from "@/config/partners";
 import { getSupabaseServerClient } from "@/lib/db/server";
 import type { Database } from "@/lib/db/types";
-import { getPartnerWebhookEnv } from "@/lib/env/server";
+import { sendEmail } from "@/lib/email/send";
+import { getAlertEmail, getPartnerEmail, getPartnerWebhookEnv } from "@/lib/env/server";
+import { buildLeadEmail } from "./email";
 import { buildDeliveryPayload, type StoredLead } from "./payload";
 import { nextRetryAt } from "./retry";
 import { postToWebhook, type WebhookResult } from "./webhook";
@@ -130,30 +132,63 @@ async function deliverOne(
     return "retrying";
   }
   console.error("[delivery] gave up:", delivery.id, delivery.partner_id, attempt.error);
+  await alertGaveUp(delivery, attempt.error);
   return "failed";
+}
+
+/**
+ * Tells a person that a lead did not reach a partner after all retries.
+ * Only ids and the error code, never personal data. Best effort: a failed
+ * alert is logged and changes nothing else.
+ */
+async function alertGaveUp(delivery: DeliveryRow, error: string): Promise<void> {
+  const to = getAlertEmail();
+  if (!to) return;
+  const result = await sendEmail({
+    to,
+    subject: `Lead ikke leveret til ${delivery.partner_id}`,
+    text: [
+      `Et lead kunne ikke leveres til partneren ${delivery.partner_id} efter ${delivery.attempts + 1} forsøg, og vi har stoppet med at prøve.`,
+      "",
+      `Leverings-id: ${delivery.id}`,
+      `Lead-id: ${delivery.lead_id}`,
+      `Fejl: ${error}`,
+      "",
+      "Se src/lib/delivery/README.md (Failed deliveries) for, hvordan leveringen prøves igen.",
+    ].join("\n"),
+  });
+  if (!result.ok) {
+    console.error("[delivery] alert failed:", delivery.id, result.error);
+  }
 }
 
 async function attemptDelivery(
   delivery: DeliveryRow,
   lead: StoredLead | undefined,
 ): Promise<WebhookResult> {
-  if (!PARTNERS.some((partner) => partner.id === delivery.partner_id)) {
+  const partner = PARTNERS.find((candidate) => candidate.id === delivery.partner_id);
+  if (!partner) {
     return { ok: false, error: "unknown_partner" };
   }
-  const webhook = getPartnerWebhookEnv(delivery.partner_id);
-  if (!webhook) {
+  const byEmail = partner.delivery === "email";
+  const webhook = byEmail ? undefined : getPartnerWebhookEnv(partner.id);
+  const email = byEmail ? getPartnerEmail(partner.id) : undefined;
+  if (!webhook && !email) {
     return { ok: false, error: "not_configured" };
   }
   if (!lead) {
     return { ok: false, error: "lead_not_found" };
   }
-  let body: string;
+  let payload: ReturnType<typeof buildDeliveryPayload>;
   try {
-    body = JSON.stringify(
-      buildDeliveryPayload(delivery.id, delivery.insurance_types, lead),
-    );
+    payload = buildDeliveryPayload(delivery.id, delivery.insurance_types, lead);
   } catch {
     return { ok: false, error: "no_partner_consent" };
   }
-  return postToWebhook(webhook, delivery.id, body);
+  if (email) {
+    const message = buildLeadEmail(payload);
+    const sent = await sendEmail({ to: email, replyTo: payload.contact.email, ...message });
+    return sent.ok ? { ok: true } : sent;
+  }
+  return postToWebhook(webhook!, delivery.id, JSON.stringify(payload));
 }

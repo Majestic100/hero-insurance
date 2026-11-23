@@ -11,12 +11,16 @@ Gets every lead to the partners reliably, and their outcomes back to Meta.
    recipients are fixed when the user consents.
 2. **Sending.** Right after the response (`after()` in `/api/leads`),
    `deliver.ts` claims the lead's deliveries (`claim_lead_deliveries`,
-   atomic with `skip locked`) and POSTs each one to the partner's webhook
-   (`webhook.ts`), signed with `signature.ts`.
+   atomic with `skip locked`) and sends each one the partner's way
+   (`delivery` in `src/config/partners.ts`): a signed JSON POST to their
+   webhook (`webhook.ts`, `signature.ts`), or a readable e-mail
+   (`email.ts`, sent over SMTP by `src/lib/email/send.ts` with TLS
+   required). An e-mail accepted by the SMTP server counts as delivered.
 3. **Retries.** A failed attempt is retried by the cron job
    (`/api/cron/deliver-leads`, schedule in `vercel.json`) with growing delays
    (`retry.ts`: 1 min up to 24 h, 9 attempts, about two days). Then the
-   status becomes `failed` and a person must look at it (see below).
+   status becomes `failed`, an alert (ids and error code only) is e-mailed
+   to `ALERT_EMAIL`, and a person must look at it (see below).
 4. **Outcomes.** Partners report on `POST /api/partners/outcomes`
    (`record-outcomes.ts`). Good outcomes are sent to Meta as custom events
    for the same lead (`outcome-meta.ts`), with tracking consent and within
@@ -30,10 +34,24 @@ Logs contain ids, partner ids and error codes only, never personal data.
 1. The partner consent text (`src/config/forms/consents.ts`) names the
    partner or a clear category. Bump its version.
 2. Add the partner to `PARTNERS` in `src/config/partners.ts`.
-3. In Vercel, **Production only**: `PARTNER_<ID>_WEBHOOK_URL`,
-   `PARTNER_<ID>_WEBHOOK_SECRET` (32+ random characters, e.g.
-   `openssl rand -hex 32`) and `PARTNER_<ID>_API_KEY` (same). Give the
-   partner the secret and the key over a safe channel.
+3. In Vercel, **Production only**:
+   - Webhook partners: `PARTNER_<ID>_WEBHOOK_URL` and
+     `PARTNER_<ID>_WEBHOOK_SECRET` (32+ random characters, e.g.
+     `openssl rand -hex 32`).
+   - E-mail partners (`delivery: "email"`): `PARTNER_<ID>_EMAIL`, plus the
+     shared SMTP settings below.
+   - Both: `PARTNER_<ID>_API_KEY` (32+ characters) if they report outcomes.
+   Give the partner the secret and the key over a safe channel.
+
+## E-mail (SMTP)
+
+Set in Vercel (Production; Preview only with a test address): `SMTP_USER`
+(the mailbox, e.g. `leads@blivgodtforsikret.dk`) and `SMTP_PASSWORD`.
+Optional: `SMTP_HOST` (default `smtp.simply.com`), `SMTP_PORT` (default
+587, STARTTLS required; 465 for implicit TLS), `MAIL_FROM` (default
+`Bliv Godt Forsikret <SMTP_USER>`) and `ALERT_EMAIL` (where alerts about
+failed deliveries go). Without SMTP, e-mail deliveries wait as
+`not_configured` and alerts are only logged.
 
 A partner without env vars in an environment gets nothing there: its
 deliveries wait (`last_error: not_configured`) and are retried.
