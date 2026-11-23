@@ -59,6 +59,17 @@ rigtige leads.
   døgn. Beskrivelsen til partnerne står i `src/lib/delivery/README.md`.
   Kan de tage imod det, eller kræver nogen e-mail eller fil? Svarene sendes
   som koder (fx `annual`, `europe`); vil de hellere have teksterne?
+- [ ] **E-mail fra siden (bygget 2026-11-23):** leads kan nu sendes til en
+  partner på e-mail (en læsbar e-mail med kontaktoplysninger, svar og
+  samtykke), og du får en e-mail, hvis et lead ikke kan leveres. Det
+  sender via jeres e-mail hos Simply.com. Det skal du gøre i Vercel
+  (Settings > Environment Variables, kun **Production**):
+  `SMTP_USER` = afsenderadressen (anbefaling: opret
+  leads@blivgodtforsikret.dk hos Simply, så kunde-e-mails ikke blandes med
+  leads), `SMTP_PASSWORD` = dens kodeord, og `ALERT_EMAIL` =
+  kontakt@blivgodtforsikret.dk. Partnerens adresse sættes som
+  `PARTNER_<ID>_EMAIL`, når Claude har sat partneren op. Send ikke
+  kodeordet til Claude.
 - [ ] **Første partner: forsikringsformidler hos Tryg (aftale indgået,
   2026-11-18).** Claude mangler for at sætte dem op: det navn, der skal stå
   på partnerlisten, deres registrering hos Finanstilsynet, hvilke af de 12
@@ -109,6 +120,9 @@ rigtige leads.
   så den nye modtagerkategori skal godkendes. Efter Claudes læsning dækker
   undtagelsen i lov om forsikringsformidling § 1, stk. 3, nr. 3 også
   levering til formidlere; bed advokaten bekræfte det.
+- [ ] **Privatlivspolitikken nævner nu Simply.com** (2026-11-23) som
+  leverandør af e-mail, fordi leads kan sendes til partnere på e-mail.
+  Vis advokaten ændringen sammen med ændringen om formidlere.
 - [ ] **Brug kun formidlere, der er registreret hos Finanstilsynet:** tjek
   hver formidler i Finanstilsynets virksomhedsregister, før de kommer på
   partnerlisten, og skriv det ind i partneraftalen. Partnerlisten viser,
@@ -312,9 +326,9 @@ rigtige leads.
 - [x] **Hyppigere genforsøg efter Vercel Pro:** på Hobby må cron kun køre én
   gang i døgnet, så et lead, der fejler, kan vente op til et døgn. Med Pro
   ændres `vercel.json` til hvert 5. minut. Gjort (2026-11-18): genforsøg, resultater til Meta, GoHighLevel og sletning kører nu hvert 5. minut.
-- [ ] **Besked ved fejlede leveringer:** i dag står de kun i Vercels log og i
-  databasen (`lead_deliveries` med status `failed`). Før lancering bør vi få
-  en advarsel, fx en alarm i Vercel eller en e-mail. Hvad foretrækker du?
+- [x] **Besked ved fejlede leveringer** (bygget 2026-11-23): en e-mail til
+  `ALERT_EMAIL`, når et lead ikke kan leveres efter alle forsøg (kun
+  id'er og fejlkode, ingen persondata). Kræver SMTP-opsætningen ovenfor.
 - [ ] **Hvilken Meta-hændelse skal kampagnerne optimere efter?** Gode leads
   sendes som `LeadContacted`, `LeadQuoted` og `LeadSold`. I Events Manager
   laves en tilpasset konvertering på den, vi vælger (anbefaling:

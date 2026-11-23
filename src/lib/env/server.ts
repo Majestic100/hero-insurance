@@ -174,3 +174,46 @@ export function getGhlFeedbackSecret(): string | undefined {
   const secret = process.env.GHL_FEEDBACK_SECRET;
   return secret && secret.length >= 32 ? secret : undefined;
 }
+
+/**
+ * Outgoing e-mail over SMTP (Simply.com by default): leads to partners that
+ * receive by e-mail, and alerts when a delivery gives up. Optional: without
+ * SMTP_USER and SMTP_PASSWORD no e-mail is sent, e-mail deliveries wait as
+ * not_configured, and alerts are only logged.
+ */
+const smtpEnvSchema = z.object({
+  host: z.string().min(1),
+  port: z.coerce.number().int().positive(),
+  user: z.email(),
+  password: z.string().min(1),
+  from: z.string().min(3),
+});
+
+export type SmtpEnv = z.infer<typeof smtpEnvSchema>;
+
+export function getSmtpEnv(): SmtpEnv | undefined {
+  const user = process.env.SMTP_USER || undefined;
+  const result = smtpEnvSchema.safeParse({
+    host: process.env.SMTP_HOST || "smtp.simply.com",
+    port: process.env.SMTP_PORT || "587",
+    user,
+    password: process.env.SMTP_PASSWORD || undefined,
+    from: process.env.MAIL_FROM || (user ? `Bliv Godt Forsikret <${user}>` : undefined),
+  });
+  return result.success ? result.data : undefined;
+}
+
+/**
+ * The address a partner that receives leads by e-mail gets them on
+ * (PARTNER_<ID>_EMAIL), or undefined when it is not set in this environment.
+ */
+export function getPartnerEmail(partnerId: string): string | undefined {
+  const result = z.email().safeParse(partnerVar(partnerId, "EMAIL"));
+  return result.success ? result.data : undefined;
+}
+
+/** Where alerts about failed deliveries go (ALERT_EMAIL), if set. */
+export function getAlertEmail(): string | undefined {
+  const result = z.email().safeParse(process.env.ALERT_EMAIL || undefined);
+  return result.success ? result.data : undefined;
+}

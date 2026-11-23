@@ -96,7 +96,8 @@ src/
     env/server.ts             zod-validated server env vars (server-only)
     form/                     step sequence, draft and autofill (no React)
     leads/                    server-side submit: validate, map, create_lead RPC
-    delivery/                 leads to partners (outbox, webhook, retries) and
+    email/                    SMTP sender (server-only), used by delivery
+    delivery/                 leads to partners (outbox, webhook or e-mail, retries) and
                               partner outcomes to Meta (see its README)
     schemas/                  zod schemas generated from the form config
     integrations/
@@ -242,6 +243,10 @@ belongs there.
   never sends to a partner. `CRON_SECRET` (Production only, set
   2026-11-03) protects the cron endpoint. The
   cron runs every 5 minutes (Vercel Pro since 2026-11-18).
+- **E-mail (SMTP)**: `SMTP_USER`, `SMTP_PASSWORD` (Simply.com), optional
+  `SMTP_HOST`, `SMTP_PORT`, `MAIL_FROM`, `ALERT_EMAIL`; per e-mail partner
+  `PARTNER_<ID>_EMAIL`. Not set yet. Used for partners with
+  `delivery: "email"` and for alerts when a delivery gives up.
 - **GoHighLevel** (module 9): `GHL_INBOUND_WEBHOOK_URL` and
   `GHL_FEEDBACK_SECRET`, not set yet. Migrations
   `20261110170000_lead_feedback_ghl.sql` and `20261110200000_membership.sql`
