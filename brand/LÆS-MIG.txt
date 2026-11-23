@@ -1,0 +1,20 @@
+BLIV GODT FORSIKRET: LOGOPAKKE
+===============================
+
+Start med brandguiden: bliv-godt-forsikret-brandguide.pdf (2 sider).
+
+Hvilken fil skal jeg bruge?
+- Hjemmeside, mail, dokument:  svg/...logo-vandret-farve.svg  (eller png/...logo-vandret-farve-800px.png)
+- På mørkeblå eller mørkt billede:  ...-hvid
+- Sort/hvid print:  ...-sort
+- Smal plads, mobil, annonce:  ...logo-to-linjer-...
+- Kvadratisk flade, plakat:  ...logo-stablet-...
+- Kun huset (profilbillede, ikon):  ...ikon-...
+- App/genvejsikon (blå firkant):  ...app-ikon-...
+- Sociale medier, færdige billeder:  sociale-medier/
+
+SVG = skarp i alle størrelser (web, print, Canva). PNG = gennemsigtig baggrund,
+vælg bredden lige over det, du skal bruge (400, 800 eller 1600 px; ikoner 64 til 1024 px).
+
+Farver: Dybblå #004A7C, Blå #005691, Lyseblå #E8F1F5, Baggrund #FAFAFA, Tekst #0F2233
+Skrift: IBM Plex Sans (gratis, Google Fonts og Canva). SemiBold til overskrifter.

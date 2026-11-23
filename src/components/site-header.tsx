@@ -1,11 +1,12 @@
 "use client";
 
-import { ArrowRightIcon, MenuIcon, ShieldCheckIcon } from "lucide-react";
+import { ArrowRightIcon, MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 import { INSURANCE_ICONS } from "@/components/insurance-icons";
+import { LogoMark } from "@/components/logo-mark";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -45,13 +46,12 @@ const INSURANCES = LANDING_PAGE_LIST.map((page) => ({
 }));
 
 function Wordmark() {
-  // Placeholder wordmark until the logo is ready.
   return (
     <Link
       href="/"
-      className="flex min-h-11 shrink-0 items-center gap-2 font-heading text-lg font-semibold text-primary"
+      className="flex min-h-11 shrink-0 items-center gap-2.5 font-heading text-lg font-semibold tracking-tight text-primary"
     >
-      <ShieldCheckIcon aria-hidden className="size-6 text-brand" />
+      <LogoMark />
       {SITE.name}
     </Link>
   );

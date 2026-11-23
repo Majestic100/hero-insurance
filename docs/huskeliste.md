@@ -193,9 +193,8 @@ rigtige leads.
 ## Dig (forretning og indhold)
 
 - [ ] **Brand:** navnet er Bliv Godt Forsikret (2026-11-18), og
-  blivgodtforsikret.dk er købt. Farverne er valgt. Mangler: logo (du laver
-  det; indtil da står navnet med et skjold-ikon), og at domænet kobles på
-  Vercel (se "Konti og adgang"). godtforsikret.dk er registreret med DNS
+  blivgodtforsikret.dk er købt. Farverne er valgt. Logoet er huset med flueben (2026-11-23, se "Besluttet"). Mangler: at domænet
+  kobles på Vercel (se "Konti og adgang"). godtforsikret.dk er registreret med DNS
   hos Simply.com, men uden side: tjek, om det er dit, så kan det sendes
   videre til blivgodtforsikret.dk.
 - [ ] **[Blokerer lancering] Varemærketjek og advokat på "Bliv Godt
@@ -427,6 +426,15 @@ Beslutninger, vi har truffet, så vi ikke diskuterer dem igen.
   (båd), branche (liv). Ikke kopieret: upload af tilstandsrapport, flere
   dyr eller personer i samme forespørgsel.
 
+- 2026-11-23: **Logo: huset med udhæng og flueben** (dit valg, nr. 7 i
+  finalerunden): et hus, hvor taget stikker ud over væggene, med en cirkel
+  og et flueben i midten. Taget og cirklen i mørkeblå (#004A7C), væggene i
+  lyseblå (#005691 med 40 %), så taget træder frem. Navnet står ved siden
+  af i IBM Plex Sans SemiBold. Hvidt hus på mørkeblå i ikonet til
+  browserfanen, telefonen og delingsbilledet. Valgt efter mange runder
+  (skjolde, paraplyen, dækket ind, ringen, huse). Filerne:
+  `src/components/logo-mark.tsx`, `src/app/icon.svg`,
+  `src/app/apple-icon.tsx`.
 - 2026-11-18: Nye farver (dit valg, endelig): #FAFAFA (side), #E8F1F5
   (flader i toppen og bunden), #005691 (blå: "Få tilbud", ikoner, links og
   valgte felter) og #004A7C (mørkeblå: overskrifter og knapper). Hvid
