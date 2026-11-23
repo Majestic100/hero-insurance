@@ -49,7 +49,7 @@ function Wordmark() {
   return (
     <Link
       href="/"
-      className="flex min-h-11 shrink-0 items-center gap-2 font-heading text-lg font-semibold text-primary"
+      className="flex min-h-11 shrink-0 items-center gap-2.5 font-heading text-lg font-semibold tracking-tight text-primary"
     >
       <LogoMark />
       {SITE.name}
