@@ -25,7 +25,20 @@ export default function Image() {
           color: "#ffffff",
         }}
       >
-        <div style={{ fontSize: 84, fontWeight: 700, lineHeight: 1.1 }}>{SITE.name}</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 28 }}>
+          <svg width="104" height="104" viewBox="0 0 100 100">
+            <path d="M14 52 A36 36 0 0 1 86 52 Z" fill="#ffffff" />
+            <path
+              d="M50 52 V75 A8 8 0 0 1 34 75"
+              fill="none"
+              stroke="#ffffff"
+              strokeOpacity="0.7"
+              strokeWidth="9"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div style={{ fontSize: 84, fontWeight: 700, lineHeight: 1.1 }}>{SITE.name}</div>
+        </div>
         <div style={{ marginTop: 32, fontSize: 40, lineHeight: 1.3, color: "#e8f1f5" }}>
           Udfyld én formular, og få tilbud fra op til 3 forsikringsselskaber og -formidlere.
         </div>
