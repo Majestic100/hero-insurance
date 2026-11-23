@@ -166,6 +166,11 @@ export default function PrivacyPolicyPage() {
           behandler din forespørgsel, står i EU (Frankfurt).
         </li>
         <li>
+          <strong>Simply.com</strong>: vores e-mail. Bruges, når vi sender din
+          forespørgsel til en partner på e-mail, og når du skriver til os.
+          Serverne står i Danmark.
+        </li>
+        <li>
           <strong>MotorAPI</strong>: opslag af nummerplader. MotorAPI ser kun
           nummerpladen, ikke hvem du er.
         </li>
